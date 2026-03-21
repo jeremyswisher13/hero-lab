@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HERO Lab | Human Enhancement Recovery Optimization</title>
+  <meta name="description" content="The HERO Lab is a UCLA + UCSF research collaboration advancing the science of sleep, recovery, and athletic performance through wearable technology and clinical trials.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="2"/>
+            <path d="M22.5 8L13 22h6.5L17.5 32 27 18h-6.5L22.5 8z" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="logo-text">HERO Lab</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#team">Team</a>
+        <a href="#publications">Publications</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-badge">UCLA + UCSF Research Collaboration</div>
+      <h1>
+        <span class="hero-acronym">H</span>uman
+        <span class="hero-acronym">E</span>nhancement
+        <span class="hero-acronym">R</span>ecovery
+        <span class="hero-acronym">O</span>ptimization
+      </h1>
+      <p class="hero-subtitle">Advancing the science of sleep, recovery, and athletic performance through rigorous clinical research and wearable technology.</p>
+      <div class="hero-actions">
+        <a href="#research" class="btn btn-primary">Our Research</a>
+        <a href="#contact" class="btn btn-secondary">Get Involved</a>
+      </div>
+      <div class="hero-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+            </svg>
+          </div>
+          <span>Sleep</span>
+        </div>
+        <div class="pillar-divider"></div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <span>Recovery</span>
+        </div>
+        <div class="pillar-divider"></div>
+        <div class="pillar">
+          <div class="pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <span>Performance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">About Us</span>
+        <h2>Where Sports Medicine Meets Data Science</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>The HERO Lab &mdash; <strong>Human Enhancement Recovery Optimization</strong> &mdash; is a research collaboration between UCLA and UCSF dedicated to advancing the science of human performance and recovery.</p>
+          <p>In partnership with WHOOP, we combine wearable biometric data with rigorous clinical trial methodology to answer the questions that matter most to athletes: How do I sleep better? How do I recover faster? How do I perform at my peak?</p>
+          <p>Our research moves beyond one-size-fits-all approaches. By integrating continuous physiological monitoring with objective performance testing, we identify individualized strategies for sleep optimization, targeted supplementation, and recovery protocols.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">NCAA Athletes Studied</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Active Clinical Trials</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2</div>
+            <div class="stat-label">University Partners</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Wearable Monitoring</div>
+          </div>
+        </div>
+      </div>
+      <div class="partner-logos">
+        <div class="partner">
+          <div class="partner-name">UCLA</div>
+          <div class="partner-dept">David Geffen School of Medicine</div>
+        </div>
+        <div class="partner-divider"></div>
+        <div class="partner">
+          <div class="partner-name">UCSF</div>
+          <div class="partner-dept">School of Medicine</div>
+        </div>
+        <div class="partner-divider"></div>
+        <div class="partner">
+          <div class="partner-name">WHOOP</div>
+          <div class="partner-dept">Wearable Technology Partner</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Section -->
+  <section class="section section-alt" id="research">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Research</span>
+        <h2>Current Studies</h2>
+        <p class="section-description">Our clinical trials use randomized, placebo-controlled designs combined with continuous wearable monitoring to generate high-quality evidence.</p>
+      </div>
+
+      <!-- Featured Study -->
+      <div class="study-featured">
+        <div class="study-badge">Currently Enrolling</div>
+        <div class="study-featured-content">
+          <div class="study-featured-text">
+            <h3>Magnesium L-Threonate on Sleep, Recovery, and Athletic Performance</h3>
+            <p class="study-id">NCT07015047 &middot; Randomized Placebo-Controlled Trial</p>
+            <p>Investigating whether brain-targeted magnesium supplementation (MgT) can enhance sleep architecture, autonomic recovery, and physical performance in NCAA Division I athletes.</p>
+            <div class="study-details-grid">
+              <div class="study-detail">
+                <span class="detail-label">Participants</span>
+                <span class="detail-value">100 UCLA Varsity Athletes</span>
+              </div>
+              <div class="study-detail">
+                <span class="detail-label">Duration</span>
+                <span class="detail-value">4-Week Intervention</span>
+              </div>
+              <div class="study-detail">
+                <span class="detail-label">Design</span>
+                <span class="detail-value">Double-Blind, 1:1 Randomization</span>
+              </div>
+              <div class="study-detail">
+                <span class="detail-label">Monitoring</span>
+                <span class="detail-value">Continuous WHOOP Biometrics</span>
+              </div>
+            </div>
+            <div class="study-outcomes">
+              <h4>Primary Outcomes</h4>
+              <ul>
+                <li>Objective changes in deep sleep and REM sleep stages</li>
+                <li>Heart rate variability (HRV) and autonomic recovery</li>
+              </ul>
+              <h4>Secondary Outcomes</h4>
+              <ul>
+                <li>Countermovement jump height and handgrip strength</li>
+                <li>Light-based reaction time performance</li>
+                <li>Subjective sleep quality and recovery scores</li>
+              </ul>
+            </div>
+            <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener" class="btn btn-primary">View on ClinicalTrials.gov</a>
+          </div>
+          <div class="study-featured-visual">
+            <div class="study-visual-card">
+              <div class="visual-header">Study Protocol</div>
+              <div class="visual-timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <strong>Baseline</strong>
+                    <span>Performance testing, WHOOP calibration</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot active"></div>
+                  <div class="timeline-content">
+                    <strong>Weeks 1&ndash;4</strong>
+                    <span>Nightly MgT or placebo, continuous monitoring</span>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-content">
+                    <strong>Post-Intervention</strong>
+                    <span>Repeat performance testing, data analysis</span>
+                  </div>
+                </div>
+              </div>
+              <div class="visual-metrics">
+                <div class="metric">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+                  </svg>
+                  <span>Sleep Stages</span>
+                </div>
+                <div class="metric">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                  </svg>
+                  <span>HRV</span>
+                </div>
+                <div class="metric">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                  <span>Reaction Time</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Research Areas -->
+      <div class="research-areas">
+        <h3 class="research-areas-title">Research Focus Areas</h3>
+        <div class="areas-grid">
+          <div class="area-card">
+            <div class="area-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+              </svg>
+            </div>
+            <h4>Sleep Architecture</h4>
+            <p>Investigating how targeted interventions affect deep sleep, REM sleep, and sleep consistency in athletes using continuous wearable monitoring.</p>
+          </div>
+          <div class="area-card">
+            <div class="area-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <h4>Recovery Science</h4>
+            <p>Studying cold-water immersion, supplementation, and other recovery modalities to develop personalized protocols based on individual physiological responses.</p>
+          </div>
+          <div class="area-card">
+            <div class="area-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+              </svg>
+            </div>
+            <h4>Wearable Biometrics</h4>
+            <p>Leveraging WHOOP data&mdash;HRV, resting heart rate, respiratory rate&mdash;to identify individual responders and predict recovery trajectories.</p>
+          </div>
+          <div class="area-card">
+            <div class="area-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+            </div>
+            <h4>Cognitive Performance</h4>
+            <p>Measuring reaction time, skill execution under cognitive load, and decision-making to understand the brain-body connection in athletic performance.</p>
+          </div>
+          <div class="area-card">
+            <div class="area-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2a10 10 0 0110 10c0 5.52-4.48 10-10 10S2 17.52 2 12"/>
+                <path d="M12 2c2.76 0 5 4.48 5 10s-2.24 10-5 10S7 17.52 7 12 9.24 2 12 2z"/>
+                <path d="M2 12h20"/>
+              </svg>
+            </div>
+            <h4>Sports Supplementation</h4>
+            <p>Rigorous, placebo-controlled testing of supplements including magnesium L-threonate and creatine to establish evidence-based recommendations for athletes.</p>
+          </div>
+          <div class="area-card">
+            <div class="area-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+            <h4>Athlete Monitoring</h4>
+            <p>Developing frameworks for using biometric data to guide training load, inform return-to-play decisions, and reduce injury risk across collegiate sports.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Our Team</span>
+        <h2>Meet the Team</h2>
+        <p class="section-description">Our team combines clinical sports medicine expertise with research methodology across two leading academic medical centers.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">JS</div>
+          </div>
+          <h3>Jeremy Swisher, MD</h3>
+          <p class="team-role">Principal Investigator</p>
+          <p class="team-affiliation">UCLA &middot; David Geffen School of Medicine</p>
+          <p class="team-title">HS Assistant Clinical Professor, Department of Orthopaedic Surgery</p>
+          <p class="team-bio">Team physician for UCLA Women's Volleyball and Swim &amp; Dive. Research focuses on concussion, wearable physiological monitoring, recovery science, and injury prevention. Previously provided medical coverage for the LA Lakers, LA Dodgers, and LA Sparks.</p>
+          <div class="team-links">
+            <a href="https://www.uclahealth.org/providers/jeremy-swisher" target="_blank" rel="noopener">UCLA Health</a>
+            <a href="https://uclabruins.com/staff-directory/dr-jeremy-swisher/7201" target="_blank" rel="noopener">UCLA Athletics</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">JG</div>
+          </div>
+          <h3>Joshua Goldman, MD, MBA</h3>
+          <p class="team-role">Co-Investigator</p>
+          <p class="team-affiliation">UCLA &middot; David Geffen School of Medicine</p>
+          <p class="team-title">Associate Clinical Professor, Departments of Family Medicine &amp; Orthopaedic Surgery</p>
+          <p class="team-bio">Team physician for the Los Angeles Chargers (NFL) and UCLA Beach Volleyball. Associate Director of the UCLA Steve Tisch BrainSPORT Program. Program Director for the UCLA Primary Care Sports Medicine Fellowship. Research spans sleep and athletic performance, youth sports, and concussion.</p>
+          <div class="team-links">
+            <a href="https://www.uclahealth.org/providers/joshua-goldman" target="_blank" rel="noopener">UCLA Health</a>
+            <a href="https://uclabruins.com/staff-directory/dr-joshua-goldman/86" target="_blank" rel="noopener">UCLA Athletics</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">KB</div>
+          </div>
+          <h3>Kimberly Burbank, MD</h3>
+          <p class="team-role">Sports Medicine Fellow</p>
+          <p class="team-affiliation">UCLA &middot; David Geffen School of Medicine</p>
+          <p class="team-title">Primary Care Sports Medicine Fellow, Department of Family Medicine</p>
+          <p class="team-bio">Sports medicine fellow and team physician for UCLA Women's Golf, Women's Tennis, Men's Volleyball, and Softball. Research interests include concussion, athletic performance, and sleep in elite athletes.</p>
+          <div class="team-links">
+            <a href="https://uclabruins.com/staff-directory/dr-kimberly-burbank/7314" target="_blank" rel="noopener">UCLA Athletics</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">BD</div>
+          </div>
+          <h3>Brian Donohoe, MD</h3>
+          <p class="team-role">Co-Investigator</p>
+          <p class="team-affiliation">UCLA &middot; David Geffen School of Medicine</p>
+          <p class="team-title">HS Assistant Clinical Professor, Department of Family Medicine</p>
+          <p class="team-bio">Primary care sports medicine physician specializing in musculoskeletal ultrasound. Graduate of the David Geffen School of Medicine and UCLA Sports Medicine Fellowship. Former NCAA water polo athlete at UC San Diego.</p>
+          <div class="team-links">
+            <a href="https://www.uclahealth.org/providers/brian-donohoe" target="_blank" rel="noopener">UCLA Health</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">CD</div>
+          </div>
+          <h3>Calvin Duffaut, MD</h3>
+          <p class="team-role">Co-Investigator</p>
+          <p class="team-affiliation">UCLA &middot; David Geffen School of Medicine</p>
+          <p class="team-title">Associate Clinical Professor, Departments of Family Medicine &amp; Orthopaedic Surgery</p>
+          <p class="team-bio">Team physician for UCLA Men's Basketball and Football, the LA Sparks, and USA Basketball. Dual-trained in Internal Medicine and Pediatrics with research focused on sleep and athletic performance, and mental health in collegiate athletes.</p>
+          <div class="team-links">
+            <a href="https://www.uclahealth.org/providers/calvin-duffaut" target="_blank" rel="noopener">UCLA Health</a>
+            <a href="https://uclabruins.com/staff-directory/dr-cj-duffaut/2656" target="_blank" rel="noopener">UCLA Athletics</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">NB</div>
+          </div>
+          <h3>Nelson Boland, MD</h3>
+          <p class="team-role">Co-Investigator</p>
+          <p class="team-affiliation">UCLA Health</p>
+          <p class="team-title">Sports Medicine &amp; Family Medicine Physician</p>
+          <p class="team-bio">Sports medicine physician at UCLA Health Malibu. Graduate of Baylor College of Medicine and the UCLA Sports Medicine Fellowship. Specializes in non-surgical orthopedic conditions and musculoskeletal ultrasound.</p>
+          <div class="team-links">
+            <a href="https://www.uclahealth.org/providers/nelson-boland" target="_blank" rel="noopener">UCLA Health</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">NH</div>
+          </div>
+          <h3>Nicolas Hatamiya, DO</h3>
+          <p class="team-role">Collaborating Investigator</p>
+          <p class="team-affiliation">UCSF &middot; Department of Orthopaedic Surgery</p>
+          <p class="team-title">Assistant Professor, Primary Care Sports Medicine; Fellowship Program Director</p>
+          <p class="team-bio">UCSF faculty and fellowship program director in primary care sports medicine. UCLA Sports Medicine Fellowship graduate with research interests in digital health technologies and wearable-based athlete monitoring.</p>
+          <div class="team-links">
+            <a href="https://www.ucsfhealth.org/providers/nicolas-hatamiya" target="_blank" rel="noopener">UCSF Health</a>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">JV</div>
+          </div>
+          <h3>Jeremy Vail, PT, ATC</h3>
+          <p class="team-role">Director of Rehabilitation</p>
+          <p class="team-affiliation">UCLA Athletics</p>
+          <p class="team-title">Physical Therapist &amp; Certified Athletic Trainer</p>
+          <p class="team-bio">Director of Rehabilitation for UCLA Athletics. Board certified sports and orthopedic clinical specialist supporting performance testing, injury prevention, and return-to-play protocols across multiple UCLA sports programs.</p>
+          <div class="team-links">
+            <a href="https://uclabruins.com/staff-directory/jeremy-vail/72" target="_blank" rel="noopener">UCLA Athletics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications Section -->
+  <section class="section section-alt" id="publications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Publications &amp; Presentations</span>
+        <h2>Sharing Our Findings</h2>
+      </div>
+      <div class="publications-grid">
+        <div class="pub-card">
+          <div class="pub-type">Peer-Reviewed Publication</div>
+          <h4>Baseline Sleep Characteristics in NCAA Division I Collegiate Athletes</h4>
+          <p class="pub-venue">Clinical Journal of Sport Medicine, 2024</p>
+          <p class="pub-description">Characterized sleep patterns across UCLA varsity athletes using WHOOP wearable data, finding average sleep consistency of 61.6% and identifying key differences across sports, sex, and training phases.</p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/38174994/" target="_blank" rel="noopener" class="pub-link">View on PubMed</a>
+        </div>
+        <div class="pub-card">
+          <div class="pub-type">Conference Presentation</div>
+          <h4>Magnesium L-Threonate &amp; College Athletes: Results from a 4-Week Pilot Study</h4>
+          <p class="pub-venue">AMSSM Annual Meeting, 2026</p>
+          <p class="pub-description">Pilot data from a randomized, placebo-controlled trial in UCLA varsity athletes showing improvements in reaction time, WHOOP sleep and recovery scores, and subjective readiness.</p>
+        </div>
+        <div class="pub-card">
+          <div class="pub-type">Ongoing Research</div>
+          <h4>Effects of Magnesium L-Threonate on Sleep, Recovery, and Athletic Performance</h4>
+          <p class="pub-venue">NCT07015047 &middot; In Progress</p>
+          <p class="pub-description">Full-scale randomized, placebo-controlled trial in 100 UCLA varsity athletes investigating brain-targeted magnesium supplementation with continuous WHOOP biometric monitoring.</p>
+          <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener" class="pub-link">View on ClinicalTrials.gov</a>
+        </div>
+      </div>
+      <div class="social-cta">
+        <h3>Follow Our Latest Updates</h3>
+        <p>We share study results, infographics, and research updates on social media.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener" class="social-btn instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            @herolabsportsmedicine
+          </a>
+          <a href="https://www.linkedin.com/company/the-human-enhancement-recovery-optimization-hero-lab/" target="_blank" rel="noopener" class="social-btn linkedin">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Contact</span>
+        <h2>Get In Touch</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>For Researchers</h3>
+          <p>Interested in collaborating or learning more about our methodology? We welcome inquiries from researchers in sports medicine, sleep science, and exercise physiology.</p>
+          <a href="mailto:jswisher@mednet.ucla.edu" class="btn btn-primary">Email Us</a>
+        </div>
+        <div class="contact-card">
+          <h3>For Athletes</h3>
+          <p>UCLA varsity athletes interested in participating in our current or upcoming studies can reach out to learn about eligibility and enrollment.</p>
+          <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener" class="btn btn-secondary">View Current Studies</a>
+        </div>
+        <div class="contact-card">
+          <h3>For Industry Partners</h3>
+          <p>We partner with companies committed to evidence-based product development. If your organization is interested in research collaborations, we'd like to hear from you.</p>
+          <a href="mailto:jswisher@mednet.ucla.edu" class="btn btn-secondary">Partner With Us</a>
+        </div>
+      </div>
+      <div class="location-info">
+        <div class="location">
+          <h4>UCLA</h4>
+          <p>David Geffen School of Medicine<br>Department of Orthopaedic Surgery<br>Los Angeles, CA</p>
+        </div>
+        <div class="location">
+          <h4>UCSF</h4>
+          <p>School of Medicine<br>Human Performance Center<br>San Francisco, CA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="logo-icon">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="2"/>
+                <path d="M22.5 8L13 22h6.5L17.5 32 27 18h-6.5L22.5 8z" fill="currentColor"/>
+              </svg>
+            </div>
+            <span class="logo-text">HERO Lab</span>
+          </div>
+          <p>Human Enhancement Recovery Optimization</p>
+          <p>A UCLA + UCSF Research Collaboration</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Research</h4>
+            <a href="#research">Current Studies</a>
+            <a href="#publications">Publications</a>
+            <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-human-enhancement-recovery-optimization-hero-lab/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:jswisher@mednet.ucla.edu">Email</a>
+          </div>
+          <div class="footer-col">
+            <h4>Team</h4>
+            <a href="https://www.uclahealth.org/providers/jeremy-swisher" target="_blank" rel="noopener">Dr. Swisher</a>
+            <a href="https://www.uclahealth.org/providers/joshua-goldman" target="_blank" rel="noopener">Dr. Goldman</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 HERO Lab. All rights reserved.</p>
+        <p class="footer-disclaimer">This website is for informational purposes only and does not constitute medical advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

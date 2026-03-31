@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     '.about-text', '.about-stats', '.partner-logos',
     '.study-featured', '.area-card', '.team-card',
     '.pub-card', '.social-cta', '.contact-card',
-    '.location-info'
+    '.location-info', '.evidence-card'
   ];
 
   animateSelectors.forEach(selector => {

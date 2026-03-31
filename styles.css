@@ -1146,6 +1146,93 @@ ul { list-style: none; }
 }
 
 /* ========================================
+   Why We Study This (Evidence Section)
+   ======================================== */
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.evidence-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 32px 24px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.evidence-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.evidence-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.evidence-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--color-primary);
+}
+
+.evidence-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 12px;
+}
+
+.evidence-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.evidence-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.evidence-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.evidence-arrow {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  transition: transform var(--transition);
+}
+
+.evidence-card:hover .evidence-arrow {
+  transform: translateX(4px);
+}
+
+/* ========================================
    Animations
    ======================================== */
 .fade-in {
@@ -1177,6 +1264,10 @@ ul { list-style: none; }
   }
 
   .areas-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .evidence-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -1240,6 +1331,10 @@ ul { list-style: none; }
   }
 
   .areas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence-grid {
     grid-template-columns: 1fr;
   }
 

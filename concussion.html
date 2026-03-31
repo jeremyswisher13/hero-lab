@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concussion &amp; Objective Biomarkers | HERO Lab Evidence</title>
+  <meta name="description" content="Evidence review of blood-based biomarkers for sport-related concussion. Research on GFAP, UCH-L1, NfL, and tau from the NCAA-DoD CARE Consortium and related studies.">
+  <meta name="keywords" content="concussion biomarkers, blood biomarkers concussion, GFAP, UCH-L1, NfL, tau, CARE Consortium, sport-related concussion, HERO Lab, UCLA sports medicine">
+  <link rel="canonical" href="https://herolabsportsmedicine.com/concussion.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/herolab-icon.png">
+  <meta property="og:title" content="Concussion & Objective Biomarkers | HERO Lab Evidence">
+  <meta property="og:description" content="Evidence review of blood-based biomarkers for sport-related concussion diagnosis and recovery monitoring.">
+  <meta property="og:image" content="https://herolabsportsmedicine.com/images/herolab-logo.png">
+  <meta property="og:url" content="https://herolabsportsmedicine.com/concussion.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HERO Lab Sports Medicine">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Concussion & Objective Biomarkers | HERO Lab Evidence">
+  <meta name="twitter:description" content="Evidence review of blood-based biomarkers for sport-related concussion diagnosis and recovery monitoring.">
+  <meta name="twitter:image" content="https://herolabsportsmedicine.com/images/herolab-logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .evidence-hero {
+      position: relative;
+      padding: 140px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .evidence-hero .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-dark) 0%, #0c3547 40%, var(--color-primary-dark) 100%);
+      z-index: 0;
+    }
+    .evidence-hero .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(12, 124, 158, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(240, 165, 0, 0.08) 0%, transparent 50%);
+    }
+    .evidence-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .evidence-hero .section-label {
+      color: var(--color-accent);
+    }
+    .evidence-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .evidence-hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .evidence-section {
+      padding: 80px 0;
+    }
+    .why-it-matters {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 48px;
+    }
+    .why-it-matters h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      margin-bottom: 16px;
+    }
+    .why-it-matters p {
+      font-size: 1rem;
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+    .article-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      transition: all var(--transition);
+    }
+    .article-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .article-year {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 4px;
+    }
+    .article-journal {
+      font-size: 0.85rem;
+      color: var(--color-primary);
+      font-weight: 500;
+      font-style: italic;
+    }
+    .article-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .article-citation {
+      font-size: 0.88rem;
+      color: var(--color-text-light);
+      margin-bottom: 12px;
+    }
+    .article-summary {
+      font-size: 0.95rem;
+      color: var(--color-text);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .article-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      transition: color var(--transition);
+    }
+    .article-link:hover {
+      color: var(--color-primary-dark);
+    }
+    .article-link svg {
+      width: 16px;
+      height: 16px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-top: 32px;
+      transition: color var(--transition);
+    }
+    .back-link:hover {
+      color: var(--color-primary-dark);
+    }
+    .back-link svg {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img">
+        <span class="logo-text">HERO Lab</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html#about">About</a>
+        <a href="index.html#research">Research</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#publications">Publications</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="evidence-hero">
+    <div class="hero-bg"></div>
+    <div class="evidence-hero-content">
+      <span class="section-label">Evidence Review</span>
+      <h1>Concussion &amp; Objective Biomarkers</h1>
+      <p>What does the research say about blood-based biomarkers for concussion diagnosis and recovery?</p>
+    </div>
+  </section>
+
+  <!-- Evidence Section -->
+  <section class="evidence-section">
+    <div class="container">
+
+      <div class="why-it-matters">
+        <h2>Why We Study This</h2>
+        <p>Concussion diagnosis and return-to-play decisions currently rely heavily on subjective symptom reporting, creating a critical need for objective biomarkers. Dr. Goldman's work with the NCAA-DoD CARE Consortium has helped establish blood-based biomarkers as promising tools for understanding concussion pathophysiology. Our current study builds on this foundation by combining continuous wearable HRV monitoring via WHOOP with EyeSync oculomotor testing to develop data-driven return-to-play protocols.</p>
+      </div>
+
+      <!-- Article 1 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2020</span>
+          <span class="article-journal">JAMA Network Open</span>
+        </div>
+        <h3>Association of Blood Biomarkers With Acute Sport-Related Concussion in Collegiate Athletes</h3>
+        <p class="article-citation">McCrea MA, Shah A, Duma S, Rowson S, Goldman JT, et al.</p>
+        <p class="article-summary">CARE Consortium study of 504 collegiate athletes measuring GFAP, UCH-L1, NfL, and tau following sport-related concussion. Blood biomarkers demonstrated the ability to inform concussion pathophysiology and showed promise for future clinical applications in concussion identification and management.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/31977061/" target="_blank" rel="noopener" class="article-link">
+          View on PubMed
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2021</span>
+          <span class="article-journal">JAMA Network Open</span>
+        </div>
+        <h3>Assessment of Blood Biomarker Profile After Acute Concussion During Combative Training Among US Military Cadets</h3>
+        <p class="article-citation">Goldman JT, McCrea MA, Shah A, et al.</p>
+        <p class="article-summary">Extended blood biomarker findings from collegiate athletes to military populations. GFAP, UCH-L1, NfL, and tau were assessed in US military cadets following acute concussion during combative training. Results supported the use of blood biomarkers as research tools for concussion identification and recovery monitoring.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33616662/" target="_blank" rel="noopener" class="article-link">
+          View on PubMed
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2023</span>
+          <span class="article-journal">Neurology</span>
+        </div>
+        <h3>Longitudinal Associations Between Blood Biomarkers and White-Matter MRI in Sport-Related Concussion</h3>
+        <p class="article-citation">Goldman JT, McCrea MA, Broglio SP, et al.</p>
+        <p class="article-summary">Connected blood biomarkers to brain imaging changes over time. Total tau showed the strongest association with white-matter microstructural changes in the early phase of sport-related concussion, providing a critical link between peripheral biomarkers and central nervous system injury.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/37328299/" target="_blank" rel="noopener" class="article-link">
+          View on PubMed
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <a href="index.html#evidence" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+        Back to Why We Study This
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img">
+            <span class="logo-text">HERO Lab</span>
+          </div>
+          <p>Human Enhancement Recovery Optimization</p>
+          <p>A UCLA + UCSF Research Collaboration</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Research</h4>
+            <a href="index.html#research">Current Studies</a>
+            <a href="index.html#publications">Publications</a>
+            <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-human-enhancement-recovery-optimization-hero-lab/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:jswisher@mednet.ucla.edu">Email</a>
+          </div>
+          <div class="footer-col">
+            <h4>Team</h4>
+            <a href="https://www.uclahealth.org/providers/jeremy-swisher" target="_blank" rel="noopener">Dr. Swisher</a>
+            <a href="https://www.uclahealth.org/providers/joshua-goldman" target="_blank" rel="noopener">Dr. Goldman</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025&ndash;2026 HERO Lab. All rights reserved.</p>
+        <p class="footer-disclaimer">This website is for informational purposes only and does not constitute medical advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

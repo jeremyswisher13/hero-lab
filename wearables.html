@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wearable Technology | HERO Lab Evidence</title>
+  <meta name="description" content="Evidence review of wearable technology for athlete monitoring. Validation studies and research on WHOOP, heart rate variability, sleep tracking, and biometric monitoring in sport.">
+  <meta name="keywords" content="wearable technology athletes, WHOOP validation, sleep tracking accuracy, HRV monitoring, athlete biometrics, HERO Lab, UCLA sports medicine">
+  <link rel="canonical" href="https://herolabsportsmedicine.com/wearables.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/herolab-icon.png">
+  <meta property="og:title" content="Wearable Technology | HERO Lab Evidence">
+  <meta property="og:description" content="Evidence review of wearable technology validation and athlete monitoring research.">
+  <meta property="og:image" content="https://herolabsportsmedicine.com/images/herolab-logo.png">
+  <meta property="og:url" content="https://herolabsportsmedicine.com/wearables.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HERO Lab Sports Medicine">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wearable Technology | HERO Lab Evidence">
+  <meta name="twitter:description" content="Evidence review of wearable technology validation and athlete monitoring research.">
+  <meta name="twitter:image" content="https://herolabsportsmedicine.com/images/herolab-logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .evidence-hero {
+      position: relative;
+      padding: 140px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .evidence-hero .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-dark) 0%, #0c3547 40%, var(--color-primary-dark) 100%);
+      z-index: 0;
+    }
+    .evidence-hero .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(12, 124, 158, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(240, 165, 0, 0.08) 0%, transparent 50%);
+    }
+    .evidence-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .evidence-hero .section-label {
+      color: var(--color-accent);
+    }
+    .evidence-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .evidence-hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .evidence-section {
+      padding: 80px 0;
+    }
+    .why-it-matters {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 48px;
+    }
+    .why-it-matters h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      margin-bottom: 16px;
+    }
+    .why-it-matters p {
+      font-size: 1rem;
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+    .article-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      transition: all var(--transition);
+    }
+    .article-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .article-year {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 4px;
+    }
+    .article-journal {
+      font-size: 0.85rem;
+      color: var(--color-primary);
+      font-weight: 500;
+      font-style: italic;
+    }
+    .article-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .article-citation {
+      font-size: 0.88rem;
+      color: var(--color-text-light);
+      margin-bottom: 12px;
+    }
+    .article-summary {
+      font-size: 0.95rem;
+      color: var(--color-text);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .article-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      transition: color var(--transition);
+    }
+    .article-link:hover {
+      color: var(--color-primary-dark);
+    }
+    .article-link svg {
+      width: 16px;
+      height: 16px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-top: 32px;
+      transition: color var(--transition);
+    }
+    .back-link:hover {
+      color: var(--color-primary-dark);
+    }
+    .back-link svg {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img">
+        <span class="logo-text">HERO Lab</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html#about">About</a>
+        <a href="index.html#research">Research</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#publications">Publications</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="evidence-hero">
+    <div class="hero-bg"></div>
+    <div class="evidence-hero-content">
+      <span class="section-label">Evidence Review</span>
+      <h1>Wearable Technology</h1>
+      <p>What does the research say about wearable devices for athlete monitoring and health tracking?</p>
+    </div>
+  </section>
+
+  <!-- Evidence Section -->
+  <section class="evidence-section">
+    <div class="container">
+
+      <div class="why-it-matters">
+        <h2>Why We Study This</h2>
+        <p>Wearable technology has transformed how we monitor athlete health and performance, but the accuracy and clinical utility of these devices requires rigorous validation. WHOOP has demonstrated acceptable accuracy for heart rate, HRV, and sleep detection compared to gold-standard measures. Our research leverages WHOOP's continuous monitoring capabilities to generate insights that traditional snapshot assessments cannot capture &mdash; tracking recovery trajectories, identifying individual response patterns, and informing evidence-based training decisions.</p>
+      </div>
+
+      <!-- Article 1 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2020</span>
+          <span class="article-journal">Journal of Sleep Research</span>
+        </div>
+        <h3>A Validation Study of the WHOOP Strap Against Polysomnography to Assess Sleep</h3>
+        <p class="article-citation">Miller DJ, Lastella M, Scanlan AT, et al.</p>
+        <p class="article-summary">A laboratory validation study with 12 adults over a 10-day protocol comparing WHOOP against polysomnography (the gold standard for sleep measurement). WHOOP showed 89% agreement for 2-stage sleep classification, establishing it as a reasonable method for estimating sleep in field settings where PSG is impractical.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/32713257/" target="_blank" rel="noopener" class="article-link">
+          View on PubMed
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2024</span>
+          <span class="article-journal">Clinical Journal of Sport Medicine</span>
+        </div>
+        <h3>Baseline Sleep Characteristics in NCAA Division I Collegiate Athletes</h3>
+        <p class="article-citation">Goldman JT, Swisher JA, Carvajal DN, et al.</p>
+        <p class="article-summary">Used WHOOP 4.0 to characterize sleep patterns across UCLA varsity athletes. Average total sleep time was 409.2 minutes with sleep architecture comprising 25.6% REM sleep, 19.9% slow-wave sleep, and 54.4% light sleep. This foundational dataset establishes normative sleep data for collegiate athlete research.</p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/38174994/" target="_blank" rel="noopener" class="article-link">
+          View on PubMed
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2024</span>
+          <span class="article-journal">International Journal of Sports Science &amp; Coaching</span>
+        </div>
+        <h3>Wearable Technology Metrics Are Associated with Energy Deficiency and Psychological Stress in Elite Swimmers</h3>
+        <p class="article-citation">Lundstrom EA, Souter FC, Tenforde AS, et al.</p>
+        <p class="article-summary">WHOOP-derived heart rate variability correlates with metabolic status and psychological stress in collegiate swimmers. This was the first study to explore associations between WHOOP-measured variables and metabolic compensation, demonstrating the potential for wearables to detect early signs of relative energy deficiency in sport.</p>
+        <a href="https://journals.sagepub.com/doi/10.1177/17479541231206424" target="_blank" rel="noopener" class="article-link">
+          View on Publisher Site
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <!-- Article 4 -->
+      <div class="article-card">
+        <div class="article-meta">
+          <span class="article-year">2024</span>
+          <span class="article-journal">Sports Medicine</span>
+        </div>
+        <h3>Keeping Pace with Wearables: A Living Umbrella Review of Systematic Reviews</h3>
+        <p class="article-citation">Doherty C, Yingzhi G, Guo YZ, et al.</p>
+        <p class="article-summary">A comprehensive umbrella review evaluating the accuracy of consumer wearable devices for heart rate, sleep, and activity measurement across multiple systematic reviews. Provides a big-picture validation context for the use of wearable technology in research and clinical applications.</p>
+        <a href="https://link.springer.com/article/10.1007/s40279-024-02077-2" target="_blank" rel="noopener" class="article-link">
+          View on Publisher Site
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <a href="index.html#evidence" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+        Back to Why We Study This
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img">
+            <span class="logo-text">HERO Lab</span>
+          </div>
+          <p>Human Enhancement Recovery Optimization</p>
+          <p>A UCLA + UCSF Research Collaboration</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Research</h4>
+            <a href="index.html#research">Current Studies</a>
+            <a href="index.html#publications">Publications</a>
+            <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-human-enhancement-recovery-optimization-hero-lab/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:jswisher@mednet.ucla.edu">Email</a>
+          </div>
+          <div class="footer-col">
+            <h4>Team</h4>
+            <a href="https://www.uclahealth.org/providers/jeremy-swisher" target="_blank" rel="noopener">Dr. Swisher</a>
+            <a href="https://www.uclahealth.org/providers/joshua-goldman" target="_blank" rel="noopener">Dr. Goldman</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025&ndash;2026 HERO Lab. All rights reserved.</p>
+        <p class="footer-disclaimer">This website is for informational purposes only and does not constitute medical advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

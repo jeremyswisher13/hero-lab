@@ -101,6 +101,13 @@ ul { list-style: none; }
   color: var(--color-primary);
 }
 
+.logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .logo-text {
   color: var(--color-dark);
   letter-spacing: -0.02em;
@@ -239,6 +246,22 @@ ul { list-style: none; }
     radial-gradient(1px 1px at 50% 30%, rgba(255,255,255,0.04) 50%, transparent 50%),
     radial-gradient(1px 1px at 70% 70%, rgba(255,255,255,0.06) 50%, transparent 50%),
     radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.08) 50%, transparent 50%);
+}
+
+.hero-watermark {
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.06;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-watermark img {
+  width: 500px;
+  height: 500px;
+  filter: brightness(0) invert(1);
 }
 
 .hero-content {

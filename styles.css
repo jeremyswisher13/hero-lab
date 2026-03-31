@@ -931,7 +931,34 @@ ul { list-style: none; }
 
 .social-cta > p {
   color: var(--color-text-light);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
+}
+
+.instagram-feed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+  justify-items: center;
+}
+
+.instagram-feed .instagram-media {
+  margin: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (max-width: 1024px) {
+  .instagram-feed {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .instagram-feed {
+    grid-template-columns: 1fr;
+  }
 }
 
 .social-links {

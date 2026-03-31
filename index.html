@@ -657,6 +657,46 @@
     </div>
   </footer>
 
+  <!-- Chatbot -->
+  <div class="chatbot-container" id="chatbot">
+    <div class="chatbot-window" id="chatbotWindow">
+      <div class="chatbot-header">
+        <div class="chatbot-header-info">
+          <img src="images/herolab-icon.png" alt="HERO Lab" class="chatbot-avatar">
+          <div>
+            <div class="chatbot-header-title">HERO Lab Assistant</div>
+            <div class="chatbot-header-status">Ask us anything</div>
+          </div>
+        </div>
+        <button class="chatbot-close" id="chatbotClose" aria-label="Close chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages">
+        <div class="chat-message bot">
+          <div class="chat-bubble">Hi! I'm the HERO Lab assistant. I can help you learn about our research, team, and how to get involved. What would you like to know?</div>
+        </div>
+        <div class="chat-suggestions" id="chatSuggestions">
+          <button class="chat-suggestion-btn" data-query="What does the HERO Lab study?">What do you study?</button>
+          <button class="chat-suggestion-btn" data-query="Who is on the team?">Meet the team</button>
+          <button class="chat-suggestion-btn" data-query="How can I participate in a study?">How to participate</button>
+          <button class="chat-suggestion-btn" data-query="What is the magnesium study?">Current studies</button>
+        </div>
+      </div>
+      <div class="chatbot-input-area">
+        <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Type your question..." autocomplete="off">
+        <button class="chatbot-send" id="chatbotSend" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open chat">
+      <img src="images/herolab-icon.png" alt="" class="chatbot-toggle-icon">
+      <div class="chatbot-toggle-pulse"></div>
+    </button>
+  </div>
+
   <script src="script.js"></script>
+  <script src="chatbot.js"></script>
 </body>
 </html>

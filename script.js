@@ -84,4 +84,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', highlightNav, { passive: true });
   highlightNav();
+
+  // Lazy-load Instagram embeds only when scrolled near
+  const igFeed = document.getElementById('instagramFeed');
+  if (igFeed) {
+    const loadInstagram = () => {
+      const posts = JSON.parse(igFeed.getAttribute('data-ig-posts') || '[]');
+      igFeed.innerHTML = posts.map(url =>
+        `<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="${url}" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:12px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 0; max-width:540px; min-width:326px; padding:0; width:calc(100% - 2px);"></blockquote>`
+      ).join('');
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.instagram.com/embed.js';
+      document.body.appendChild(s);
+    };
+    const igObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadInstagram();
+          igObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    igObserver.observe(igFeed);
+  }
 });

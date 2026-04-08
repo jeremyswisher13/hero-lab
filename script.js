@@ -3,6 +3,26 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
+  // News banner dismiss (persists via localStorage)
+  const newsBanner = document.getElementById('newsBanner');
+  const newsBannerClose = document.getElementById('newsBannerClose');
+  const BANNER_KEY = 'herolab-news-banner-dismissed-amssm2026';
+  if (newsBanner) {
+    if (localStorage.getItem(BANNER_KEY) === 'true') {
+      newsBanner.remove();
+    } else {
+      document.body.classList.add('has-news-banner');
+      if (newsBannerClose) {
+        newsBannerClose.addEventListener('click', () => {
+          newsBanner.classList.add('dismissed');
+          document.body.classList.remove('has-news-banner');
+          localStorage.setItem(BANNER_KEY, 'true');
+          setTimeout(() => newsBanner.remove(), 300);
+        });
+      }
+    }
+  }
+
   // Mobile navigation toggle
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');

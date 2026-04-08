@@ -1058,6 +1058,41 @@ body.has-news-banner {
   max-width: 100% !important;
 }
 
+.ig-fallback-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  aspect-ratio: 1 / 1;
+  padding: 32px 20px;
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  color: #fff;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.ig-fallback-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.ig-fallback-icon svg {
+  display: block;
+}
+
+.ig-fallback-label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.ig-fallback-sub {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
 
 @media (max-width: 1024px) {
   .instagram-feed {

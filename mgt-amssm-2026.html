@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MgT &amp; College Athletes: AMSSM 2026 Poster | HERO Lab</title>
+  <meta name="description" content="Magnesium L-Threonate &amp; College Athletes: Results from a 4-Week Pilot Study. Poster presented at the 2026 AMSSM Annual Meeting in Seattle, WA. Study details, inclusion/exclusion criteria, and trial design.">
+  <meta name="keywords" content="magnesium L-threonate, college athletes, AMSSM 2026, poster presentation, sleep recovery, WHOOP, UCLA sports medicine, HERO Lab, NCT07015047">
+  <link rel="canonical" href="https://herolabsportsmedicine.com/mgt-amssm-2026.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/herolab-icon.png">
+  <meta property="og:title" content="MgT & College Athletes: AMSSM 2026 Poster | HERO Lab">
+  <meta property="og:description" content="Poster presentation at the 2026 AMSSM Annual Meeting. Magnesium L-Threonate pilot study results in UCLA varsity athletes.">
+  <meta property="og:image" content="https://herolabsportsmedicine.com/images/herolab-logo.png">
+  <meta property="og:url" content="https://herolabsportsmedicine.com/mgt-amssm-2026.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HERO Lab Sports Medicine">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MgT & College Athletes: AMSSM 2026 Poster | HERO Lab">
+  <meta name="twitter:description" content="Poster presentation at the 2026 AMSSM Annual Meeting. Magnesium L-Threonate pilot study results in UCLA varsity athletes.">
+  <meta name="twitter:image" content="https://herolabsportsmedicine.com/images/herolab-logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .evidence-hero {
+      position: relative;
+      padding: 140px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .evidence-hero .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-dark) 0%, #0c3547 40%, var(--color-primary-dark) 100%);
+      z-index: 0;
+    }
+    .evidence-hero .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(12, 124, 158, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(240, 165, 0, 0.08) 0%, transparent 50%);
+    }
+    .evidence-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .evidence-hero .section-label {
+      color: var(--color-accent);
+    }
+    .evidence-hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .evidence-hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .evidence-hero .conference-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 24px;
+      padding: 8px 20px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+    .evidence-hero .conference-badge svg {
+      width: 16px;
+      height: 16px;
+    }
+    .study-detail-section {
+      padding: 80px 0;
+    }
+    .study-overview {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 48px;
+    }
+    .study-overview h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      margin-bottom: 16px;
+    }
+    .study-overview p {
+      font-size: 1rem;
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 768px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .detail-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+    }
+    .detail-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .detail-card h3 svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+    .detail-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .detail-card ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+    .detail-card ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+    .detail-card.inclusion li::before {
+      background: #22c55e;
+    }
+    .detail-card.exclusion li::before {
+      background: #ef4444;
+    }
+    .outcomes-section {
+      margin-bottom: 48px;
+    }
+    .outcomes-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 24px;
+    }
+    .outcome-group {
+      margin-bottom: 32px;
+    }
+    .outcome-group h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+    .outcome-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 16px 20px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+    }
+    .outcome-item:hover {
+      border-color: var(--color-primary);
+    }
+    .outcome-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-dark);
+    }
+    .outcome-detail {
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      margin-top: 4px;
+    }
+    .outcome-timeframe {
+      font-size: 0.8rem;
+      color: var(--color-primary);
+      font-weight: 500;
+      white-space: nowrap;
+      margin-left: 16px;
+      flex-shrink: 0;
+    }
+    .study-design-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 768px) {
+      .study-design-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .design-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+    }
+    .design-item .design-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-light);
+      margin-bottom: 8px;
+    }
+    .design-item .design-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-dark);
+    }
+    .investigators-section {
+      margin-bottom: 48px;
+    }
+    .investigators-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 24px;
+    }
+    .investigator-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .investigator-item {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .investigator-item .inv-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-dark);
+    }
+    .investigator-item .inv-role {
+      font-size: 0.8rem;
+      color: var(--color-primary);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .investigator-item .inv-affil {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-top: 4px;
+    }
+    .cta-card {
+      background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .cta-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .cta-card p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-card .cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-accent);
+      color: var(--color-dark);
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all var(--transition);
+    }
+    .cta-card .cta-link:hover {
+      background: #d4940a;
+      transform: translateY(-2px);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-top: 32px;
+      transition: color var(--transition);
+    }
+    .back-link:hover {
+      color: var(--color-primary-dark);
+    }
+    .back-link svg {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img">
+        <span class="logo-text">HERO Lab</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html#about">About</a>
+        <a href="index.html#research">Research</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#publications">Publications</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="evidence-hero">
+    <div class="hero-bg"></div>
+    <div class="evidence-hero-content">
+      <span class="section-label">Poster Presentation</span>
+      <h1>Magnesium L-Threonate &amp; College Athletes</h1>
+      <p>Results from a 4-Week Randomized, Placebo-Controlled Pilot Study in UCLA Varsity Athletes</p>
+      <div class="conference-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+        AMSSM 36th Annual Meeting &middot; Seattle, WA &middot; April 24&ndash;29, 2026
+      </div>
+    </div>
+  </section>
+
+  <!-- Study Details -->
+  <section class="study-detail-section">
+    <div class="container">
+
+      <!-- Overview -->
+      <div class="study-overview">
+        <h2>Study Overview</h2>
+        <p>This study investigated whether magnesium L-threonate (MgT) &mdash; a form of magnesium uniquely capable of crossing the blood-brain barrier &mdash; can improve sleep quality, recovery, and physical performance in collegiate athletes. Healthy UCLA varsity athletes were randomly assigned to take either MgT or a placebo nightly for 4 weeks while wearing WHOOP straps to continuously monitor sleep, heart rate variability, and recovery metrics. Performance testing was completed at baseline and after the 4-week intervention.</p>
+      </div>
+
+      <!-- Study Design Quick Stats -->
+      <div class="study-design-grid">
+        <div class="design-item">
+          <div class="design-label">Design</div>
+          <div class="design-value">Randomized Controlled Trial</div>
+        </div>
+        <div class="design-item">
+          <div class="design-label">Masking</div>
+          <div class="design-value">Single-Blind (Participant)</div>
+        </div>
+        <div class="design-item">
+          <div class="design-label">Enrollment</div>
+          <div class="design-value">100 Athletes (est.)</div>
+        </div>
+        <div class="design-item">
+          <div class="design-label">Duration</div>
+          <div class="design-value">4 Weeks</div>
+        </div>
+      </div>
+
+      <!-- Inclusion / Exclusion -->
+      <div class="detail-grid">
+        <div class="detail-card inclusion">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Inclusion Criteria
+          </h3>
+          <ul>
+            <li>Age 18&ndash;35 years</li>
+            <li>Current UCLA varsity athlete (any sport)</li>
+            <li>Actively training or competing during the study period</li>
+            <li>Willing to wear a WHOOP strap continuously for 4 weeks</li>
+            <li>Willing to ingest a nightly capsule for 4 weeks</li>
+            <li>Able to provide informed consent and comply with study procedures</li>
+          </ul>
+        </div>
+        <div class="detail-card exclusion">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+            Exclusion Criteria
+          </h3>
+          <ul>
+            <li>Current use of magnesium supplements or investigational drugs</li>
+            <li>Use of prescription or over-the-counter sleep medications</li>
+            <li>Diagnosed sleep disorder (e.g., insomnia, sleep apnea)</li>
+            <li>Major medical condition limiting training or participation</li>
+            <li>Pregnancy or breastfeeding</li>
+            <li>Known history of chronic kidney or liver disease</li>
+            <li>Allergy or intolerance to magnesium</li>
+            <li>Inability to comply with study procedures</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Outcome Measures -->
+      <div class="outcomes-section">
+        <h2>Outcome Measures</h2>
+
+        <div class="outcome-group">
+          <h4>Primary Outcomes</h4>
+          <div class="outcome-item">
+            <div>
+              <div class="outcome-name">Deep Sleep Duration</div>
+              <div class="outcome-detail">Slow-wave sleep measured nightly via WHOOP; weekly averages compared</div>
+            </div>
+            <div class="outcome-timeframe">Baseline &rarr; Week 4</div>
+          </div>
+          <div class="outcome-item">
+            <div>
+              <div class="outcome-name">Heart Rate Variability (HRV)</div>
+              <div class="outcome-detail">Nightly HRV (ms) via WHOOP; weekly averages for autonomic recovery</div>
+            </div>
+            <div class="outcome-timeframe">Baseline &rarr; Week 4</div>
+          </div>
+        </div>
+
+        <div class="outcome-group">
+          <h4>Secondary Outcomes</h4>
+          <div class="outcome-item">
+            <div>
+              <div class="outcome-name">Countermovement Jump Height</div>
+              <div class="outcome-detail">Jump height assessed using force plate technology</div>
+            </div>
+            <div class="outcome-timeframe">Baseline &amp; Week 4</div>
+          </div>
+          <div class="outcome-item">
+            <div>
+              <div class="outcome-name">Reaction Time</div>
+              <div class="outcome-detail">Standardized light-based test (BlazePod)</div>
+            </div>
+            <div class="outcome-timeframe">Baseline &amp; Week 4</div>
+          </div>
+          <div class="outcome-item">
+            <div>
+              <div class="outcome-name">Handgrip Strength</div>
+              <div class="outcome-detail">Calibrated dynamometer; average of 3 trials on dominant hand</div>
+            </div>
+            <div class="outcome-timeframe">Baseline &amp; Week 4</div>
+          </div>
+          <div class="outcome-item">
+            <div>
+              <div class="outcome-name">Subjective Sleep Quality</div>
+              <div class="outcome-detail">Single-Item Sleep Quality Scale (0&ndash;10) daily via REDCap</div>
+            </div>
+            <div class="outcome-timeframe">Daily for 4 weeks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Investigators -->
+      <div class="investigators-section">
+        <h2>Investigators</h2>
+        <div class="investigator-list">
+          <div class="investigator-item">
+            <div class="inv-name">Jeremy Swisher, MD</div>
+            <div class="inv-role">Principal Investigator</div>
+            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Joshua Goldman, MD, MBA</div>
+            <div class="inv-role">Principal Investigator</div>
+            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Kimberly Burbank, MD</div>
+            <div class="inv-role">Co-Investigator</div>
+            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Brian Donohoe, MD</div>
+            <div class="inv-role">Co-Investigator</div>
+            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Calvin Duffaut, MD</div>
+            <div class="inv-role">Co-Investigator</div>
+            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Nelson Boland, MD</div>
+            <div class="inv-role">Co-Investigator</div>
+            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Nicolas Hatamiya, DO</div>
+            <div class="inv-role">Collaborating Investigator</div>
+            <div class="inv-affil">UCSF &middot; School of Medicine</div>
+          </div>
+          <div class="investigator-item">
+            <div class="inv-name">Jeremy Vail, PT, ATC</div>
+            <div class="inv-role">Co-Investigator</div>
+            <div class="inv-affil">UCLA Athletics</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-card">
+        <h2>View on ClinicalTrials.gov</h2>
+        <p>Access the full study record, protocol details, and enrollment status.</p>
+        <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener" class="cta-link">
+          NCT07015047
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </a>
+      </div>
+
+      <a href="index.html#publications" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+        Back to Publications
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img">
+            <span class="logo-text">HERO Lab</span>
+          </div>
+          <p>Human Enhancement Recovery Optimization</p>
+          <p>A UCLA + UCSF Research Collaboration</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Research</h4>
+            <a href="index.html#research">Current Studies</a>
+            <a href="index.html#publications">Publications</a>
+            <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-human-enhancement-recovery-optimization-hero-lab/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:jswisher@mednet.ucla.edu">Email</a>
+          </div>
+          <div class="footer-col">
+            <h4>Team</h4>
+            <a href="https://www.uclahealth.org/providers/jeremy-swisher" target="_blank" rel="noopener">Dr. Swisher</a>
+            <a href="https://www.uclahealth.org/providers/joshua-goldman" target="_blank" rel="noopener">Dr. Goldman</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025&ndash;2026 HERO Lab. All rights reserved.</p>
+        <p class="footer-disclaimer">This website is for informational purposes only and does not constitute medical advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

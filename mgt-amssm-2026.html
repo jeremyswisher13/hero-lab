@@ -337,6 +337,82 @@
       width: 18px;
       height: 18px;
     }
+    .references-section {
+      margin-bottom: 48px;
+    }
+    .references-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 8px;
+    }
+    .references-section .ref-intro {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .reference-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: ref-counter;
+    }
+    .reference-list li {
+      position: relative;
+      padding: 18px 20px 18px 56px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--color-text);
+      line-height: 1.6;
+      counter-increment: ref-counter;
+    }
+    .reference-list li::before {
+      content: counter(ref-counter);
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reference-list .ref-title {
+      display: block;
+      font-weight: 600;
+      color: var(--color-dark);
+      margin-bottom: 4px;
+    }
+    .reference-list .ref-citation {
+      display: block;
+      color: var(--color-text-light);
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+    .reference-list .ref-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+    .reference-list .ref-link:hover {
+      color: var(--color-primary-dark);
+    }
+    .reference-list .ref-link svg {
+      width: 13px;
+      height: 13px;
+    }
   </style>
 </head>
 <body>
@@ -540,6 +616,70 @@
             <div class="inv-affil">UCLA Athletics</div>
           </div>
         </div>
+      </div>
+
+      <!-- References -->
+      <div class="references-section">
+        <h2>References</h2>
+        <p class="ref-intro">Key peer-reviewed literature supporting the rationale and design of this pilot study.</p>
+        <ol class="reference-list">
+          <li>
+            <span class="ref-title">The Role of Magnesium in Sleep Health: A Systematic Review of Available Literature</span>
+            <span class="ref-citation">Arab A, Rafie N, Amani R, Shirani F. <em>Biological Trace Element Research.</em> 2023;201(1):121&ndash;128.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/35184264/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 35184264
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="ref-title">A Randomized, Placebo-Controlled Trial of Magnesium-L-Threonate to Improve Sleep Quality and Daytime Functioning in Adults</span>
+            <span class="ref-citation">Hausenblas HA, Hooper S, Engelen MPKJ. <em>Sleep Medicine: X.</em> 2024;8:100121.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/39252819/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 39252819
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="ref-title">Effects of Magnesium L-Threonate (Magtein) on Cognitive Performance, Sleep Quality, and Mood in Healthy Adults</span>
+            <span class="ref-citation">Lopresti AL, Smith SJ. <em>Frontiers in Nutrition.</em> 2026.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/41601871/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 41601871
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="ref-title">Magnesium Bisglycinate Supplementation in Healthy Adults Reporting Poor Sleep: A Randomized, Double-Blind, Placebo-Controlled Trial</span>
+            <span class="ref-citation">Schuster J, et al. 2025.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/40918053/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 40918053
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="ref-title">Magnesium-L-threonate Enhances Learning and Memory by Elevating Brain Magnesium</span>
+            <span class="ref-citation">Slutsky I, Abumaria N, Wu LJ, et al. <em>Neuron.</em> 2010;65(2):165&ndash;177.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/20152124/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 20152124
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="ref-title">Sleep and Athletic Performance: The Effects of Sleep Loss on Exercise Performance, and Physiological and Cognitive Responses to Exercise</span>
+            <span class="ref-citation">Fullagar HHK, Skorski S, Duffield R, et al. <em>Sports Medicine.</em> 2015;45(2):161&ndash;186.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/25315456/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 25315456
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+          <li>
+            <span class="ref-title">Validity of the WHOOP Strap to Assess Sleep Stages and Heart Rate Variability</span>
+            <span class="ref-citation">Miller DJ, Sargent C, Roach GD. <em>Sensors.</em> 2022;22(16):6317.</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/36016076/" target="_blank" rel="noopener" class="ref-link">
+              PMID: 36016076
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+            </a>
+          </li>
+        </ol>
       </div>
 
       <!-- CTA -->

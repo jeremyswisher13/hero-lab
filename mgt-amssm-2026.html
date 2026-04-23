@@ -413,6 +413,162 @@
       width: 13px;
       height: 13px;
     }
+    .findings-section {
+      margin-bottom: 48px;
+    }
+    .findings-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 8px;
+    }
+    .findings-section .findings-intro {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .findings-primary {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin-bottom: 24px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .findings-primary::before {
+      content: 'Primary Finding';
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.6);
+    }
+    .findings-primary .stat-big {
+      font-size: clamp(2.6rem, 6vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .findings-primary .stat-label {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .findings-primary .stat-detail {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .finding-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+    .finding-card .finding-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+    .finding-card .finding-stat {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--color-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .finding-card .finding-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-dark);
+      margin-bottom: 4px;
+    }
+    .finding-card .finding-pval {
+      font-size: 0.82rem;
+      color: var(--color-text-light);
+      font-style: italic;
+    }
+    .takeaway-card {
+      background: var(--color-primary-light);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+    }
+    .takeaway-card h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+    .takeaway-card p {
+      font-size: 0.95rem;
+      color: var(--color-text);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .poster-download {
+      background: var(--color-bg);
+      border: 2px dashed var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .poster-download-text h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 4px;
+    }
+    .poster-download-text p {
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      margin: 0;
+    }
+    .poster-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-primary);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: var(--radius-full);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+    .poster-download-btn:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+    }
+    .poster-download-btn svg {
+      width: 16px;
+      height: 16px;
+    }
   </style>
 </head>
 <body>
@@ -470,7 +626,7 @@
         </div>
         <div class="design-item">
           <div class="design-label">Masking</div>
-          <div class="design-value">Single-Blind (Participant)</div>
+          <div class="design-value">Double-Blind, Placebo-Controlled</div>
         </div>
         <div class="design-item">
           <div class="design-label">Enrollment</div>
@@ -480,6 +636,74 @@
           <div class="design-label">Duration</div>
           <div class="design-value">4 Weeks</div>
         </div>
+      </div>
+
+      <!-- Key Findings -->
+      <div class="findings-section">
+        <h2>Key Findings</h2>
+        <p class="findings-intro">Preliminary results from the 4-week pilot (n = 107; MgT = 53, placebo = 54) presented at AMSSM 2026.</p>
+
+        <div class="findings-primary">
+          <div class="stat-big">&minus;52.3 ms</div>
+          <div class="stat-label">Faster Cognitive Reaction Time</div>
+          <div class="stat-detail">MgT vs. placebo &middot; p = 0.001</div>
+        </div>
+
+        <div class="findings-grid">
+          <div class="finding-card">
+            <div class="finding-cat">Sleep Quantity</div>
+            <div class="finding-stat">+54.6 min</div>
+            <div class="finding-name">Total Sleep Time (Week 2)</div>
+            <div class="finding-pval">p = 0.002</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-cat">Sleep Quantity</div>
+            <div class="finding-stat">+45.5 min</div>
+            <div class="finding-name">Total Sleep Time (Week 4)</div>
+            <div class="finding-pval">p = 0.006</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-cat">Sleep Quality</div>
+            <div class="finding-stat">+6.27 pts</div>
+            <div class="finding-name">WHOOP Sleep Score (Week 2)</div>
+            <div class="finding-pval">p = 0.010</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-cat">Endurance Subgroup</div>
+            <div class="finding-stat">+0.83 pts</div>
+            <div class="finding-name">Subjective Sleep Quality (Week 3)</div>
+            <div class="finding-pval">p = 0.030</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-cat">Endurance Subgroup</div>
+            <div class="finding-stat">&minus;1.15 pts</div>
+            <div class="finding-name">DOMS / Muscle Soreness (Week 4)</div>
+            <div class="finding-pval">p = 0.041</div>
+          </div>
+          <div class="finding-card">
+            <div class="finding-cat">High Adherence (&ge;90%)</div>
+            <div class="finding-stat">&minus;1.44 pts</div>
+            <div class="finding-name">Greater Soreness Reduction</div>
+            <div class="finding-pval">p = 0.029</div>
+          </div>
+        </div>
+
+        <div class="takeaway-card">
+          <h4>Takeaway</h4>
+          <p>28 days of nightly Magnesium L-Threonate (1 g) was associated with better sleep quantity and quality, and faster cognitive reaction time in NCAA Division I athletes. Benefits appeared within 2&ndash;3 weeks and were supported by both wearable (WHOOP) and subjective measures. No pooled between-group benefit was observed for grip strength.</p>
+        </div>
+      </div>
+
+      <!-- Poster Download -->
+      <div class="poster-download">
+        <div class="poster-download-text">
+          <h4>Download the AMSSM 2026 Poster</h4>
+          <p>PowerPoint (.pptx) &middot; 5.3 MB &middot; Presented April 2026, Seattle, WA</p>
+        </div>
+        <a href="posters/HERO-Lab-AMSSM-2026-Magnesium-Poster.pptx" class="poster-download-btn" download>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+          Download Poster
+        </a>
       </div>
 
       <!-- Inclusion / Exclusion -->
@@ -575,6 +799,11 @@
       <div class="investigators-section">
         <h2>Investigators</h2>
         <div class="investigator-list">
+          <div class="investigator-item" style="border-color: var(--color-primary); background: var(--color-primary-light);">
+            <div class="inv-name">Kimberly Burbank, MD</div>
+            <div class="inv-role">Presenting Author &middot; AMSSM 2026</div>
+            <div class="inv-affil">UCLA &middot; Primary Care Sports Medicine Fellow</div>
+          </div>
           <div class="investigator-item">
             <div class="inv-name">Jeremy Swisher, MD</div>
             <div class="inv-role">Principal Investigator</div>
@@ -583,11 +812,6 @@
           <div class="investigator-item">
             <div class="inv-name">Joshua Goldman, MD, MBA</div>
             <div class="inv-role">Principal Investigator</div>
-            <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
-          </div>
-          <div class="investigator-item">
-            <div class="inv-name">Kimberly Burbank, MD</div>
-            <div class="inv-role">Co-Investigator</div>
             <div class="inv-affil">UCLA &middot; David Geffen School of Medicine</div>
           </div>
           <div class="investigator-item">
@@ -611,7 +835,7 @@
             <div class="inv-affil">UCSF &middot; Department of Orthopaedic Surgery</div>
           </div>
           <div class="investigator-item">
-            <div class="inv-name">Jeremy Vail, PT, ATC</div>
+            <div class="inv-name">Jeremy Vail, PT, SCS, OCS</div>
             <div class="inv-role">Co-Investigator</div>
             <div class="inv-affil">UCLA Athletics</div>
           </div>

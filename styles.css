@@ -1770,3 +1770,110 @@ body.has-news-banner {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============ AMSSM 2026 Photo Gallery ============ */
+.amssm-gallery-section {
+  margin: 64px 0 48px;
+}
+
+.amssm-gallery-section h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.amssm-gallery-section .gallery-intro {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  max-width: 720px;
+}
+
+.amssm-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.amssm-gallery figure {
+  margin: 0;
+  border-radius: var(--radius-lg, 16px);
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.amssm-gallery figure:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+}
+
+.amssm-gallery img {
+  display: block;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.amssm-gallery figcaption {
+  background: #fff;
+  padding: 14px 18px;
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.5;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.amssm-gallery figcaption strong {
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .amssm-gallery {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .amssm-gallery img {
+    height: 320px;
+  }
+}
+
+/* ============ News Card Photo ============ */
+.news-card-photo {
+  margin: -28px -28px 20px;
+  overflow: hidden;
+  border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
+  position: relative;
+}
+
+.news-card-photo img {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.news-card-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 60%, rgba(15, 23, 42, 0.35) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .news-card-photo {
+    margin: -20px -20px 16px;
+  }
+
+  .news-card-photo img {
+    height: 220px;
+  }
+}

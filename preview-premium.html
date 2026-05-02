@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Preview · HERO Lab</title>
+  <meta name="robots" content="noindex,nofollow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" href="images/herolab-icon.png">
+
+  <style>
+    /* ============================================================
+       PREMIUM PREVIEW — Editorial / Research-Journal Direction
+       Scoped to this file. Does not touch styles.css.
+       ============================================================ */
+
+    :root {
+      /* Refined palette — slightly desaturated, editorial */
+      --ink:        #0c1825;     /* near-black, slightly cool */
+      --ink-soft:   #2a3645;
+      --ink-muted:  #5c6b7c;
+      --paper:      #fbfaf6;     /* warm off-white, magazine paper */
+      --paper-alt:  #f4f1ea;
+      --line:       #e6e1d5;     /* warm border */
+      --line-soft:  #efece4;
+      --teal:       #155865;     /* deeper, more editorial than #1a7a8a */
+      --teal-deep:  #0e3f48;
+      --gold:       #b88a2a;     /* tighter, more refined than #d4a017 */
+      --serif:      'Fraunces', Georgia, 'Times New Roman', serif;
+      --sans:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      /* Strict spacing scale */
+      --s-1: 4px;
+      --s-2: 8px;
+      --s-3: 16px;
+      --s-4: 24px;
+      --s-5: 40px;
+      --s-6: 64px;
+      --s-7: 96px;
+      --s-8: 144px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink-soft);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.005em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--s-4);
+    }
+    .container-narrow {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 var(--s-4);
+    }
+
+    /* ============ Preview banner ============ */
+    .preview-banner {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px var(--s-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-4);
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .preview-banner-tag {
+      background: var(--gold);
+      color: var(--ink);
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+    }
+    .preview-banner-link {
+      color: var(--paper);
+      opacity: 0.7;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      transition: opacity 0.2s;
+    }
+    .preview-banner-link:hover { opacity: 1; }
+
+    /* ============ Nav ============ */
+    .nav {
+      padding: var(--s-4) 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .nav-brand img { width: 28px; height: 28px; }
+    .nav-links {
+      display: flex;
+      gap: var(--s-5);
+      font-size: 15px;
+      color: var(--ink-muted);
+    }
+    .nav-links a {
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ============ HERO — Editorial ============ */
+    .hero {
+      padding: var(--s-7) 0 var(--s-7);
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: var(--s-4);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-2);
+    }
+    .hero-eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: var(--teal);
+      display: inline-block;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(40px, 6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      max-width: 18ch;
+      margin-bottom: var(--s-5);
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--teal);
+    }
+    .hero-lede {
+      font-size: 21px;
+      line-height: 1.55;
+      max-width: 56ch;
+      color: var(--ink-soft);
+      margin-bottom: var(--s-6);
+      font-weight: 300;
+    }
+    .hero-meta {
+      display: flex;
+      gap: var(--s-6);
+      padding-top: var(--s-5);
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hero-meta-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .hero-meta-value {
+      font-family: var(--serif);
+      font-size: 19px;
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    /* ============ STATS — Big number lockup ============ */
+    .section { padding: var(--s-8) 0; }
+    .section-tight { padding: var(--s-7) 0; }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: var(--s-3);
+      display: flex;
+      align-items: center;
+      gap: var(--s-2);
+    }
+    .section-eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--teal);
+    }
+
+    .section h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(32px, 4.5vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      max-width: 22ch;
+      margin-bottom: var(--s-5);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-5);
+      margin-top: var(--s-7);
+      padding-top: var(--s-6);
+      border-top: 1px solid var(--line);
+    }
+    .stat-block { padding-right: var(--s-4); }
+    .stat-num {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(48px, 6vw, 84px);
+      letter-spacing: -0.045em;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: var(--s-3);
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .stat-num sup {
+      font-size: 0.4em;
+      vertical-align: super;
+      color: var(--teal);
+      font-weight: 400;
+      margin-left: 4px;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.45;
+      max-width: 22ch;
+    }
+
+    /* ============ Featured Study — Editorial card ============ */
+    .study-editorial {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: var(--s-7);
+      position: relative;
+      overflow: hidden;
+    }
+    .study-editorial::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--teal);
+    }
+    .study-editorial-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--s-4);
+      margin-bottom: var(--s-5);
+      flex-wrap: wrap;
+    }
+    .study-tag {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      padding: 4px 10px;
+      border: 1px solid var(--teal);
+      border-radius: 3px;
+    }
+    .study-id {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--ink-muted);
+    }
+    .study-editorial h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(28px, 3.5vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: var(--s-4);
+      max-width: 24ch;
+    }
+    .study-deck {
+      font-size: 19px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 60ch;
+      margin-bottom: var(--s-6);
+      font-weight: 300;
+    }
+    .study-deck strong { color: var(--ink); font-weight: 500; }
+
+    .findings-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-bottom: var(--s-6);
+    }
+    .finding {
+      background: var(--paper);
+      padding: var(--s-5) var(--s-4);
+    }
+    .finding-num {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--teal);
+      margin-bottom: var(--s-2);
+    }
+    .finding-name {
+      font-size: 14px;
+      color: var(--ink);
+      font-weight: 500;
+      margin-bottom: var(--s-1);
+      line-height: 1.4;
+    }
+    .finding-pval {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    .study-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-2);
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      padding-bottom: 3px;
+      border-bottom: 1px solid var(--ink);
+      transition: color 0.2s, border-color 0.2s, gap 0.2s;
+    }
+    .study-cta:hover {
+      color: var(--teal);
+      border-color: var(--teal);
+      gap: var(--s-3);
+    }
+
+    /* ============ Pull Quote ============ */
+    .pullquote {
+      padding: var(--s-7) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    .pullquote blockquote {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(28px, 3.6vw, 42px);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 28ch;
+      margin: 0 auto var(--s-4);
+    }
+    .pullquote cite {
+      font-family: var(--sans);
+      font-style: normal;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    /* ============ AMSSM Feature Card ============ */
+    .feature-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .feature-card-img {
+      position: relative;
+      min-height: 460px;
+      background: var(--paper-alt);
+    }
+    .feature-card-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .feature-card-body {
+      padding: var(--s-6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .feature-card-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--s-3);
+    }
+    .feature-card-body h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: var(--s-3);
+    }
+    .feature-card-meta {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink-muted);
+      margin-bottom: var(--s-4);
+    }
+    .feature-card-body p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: var(--s-5);
+    }
+    .feature-card-links {
+      display: flex;
+      gap: var(--s-5);
+      font-size: 14px;
+    }
+    .feature-card-links a {
+      color: var(--teal);
+      border-bottom: 1px solid var(--teal);
+      padding-bottom: 2px;
+      font-weight: 500;
+    }
+
+    /* ============ Footer note ============ */
+    .footer-note {
+      padding: var(--s-7) 0;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--ink-muted);
+      font-size: 14px;
+    }
+    .footer-note p { margin-bottom: var(--s-2); }
+
+    /* Section dividers between sections */
+    .divider-line {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--s-4);
+    }
+    .divider-line::after {
+      content: "";
+      display: block;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); gap: var(--s-5); }
+      .findings-row { grid-template-columns: 1fr; }
+      .feature-card { grid-template-columns: 1fr; }
+      .feature-card-img { min-height: 320px; }
+      .nav-links { display: none; }
+      .study-editorial { padding: var(--s-5); }
+      .section { padding: var(--s-7) 0; }
+    }
+
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .hero-meta { gap: var(--s-4); }
+    }
+
+    /* Animated reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+    .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Preview banner -->
+  <div class="preview-banner">
+    <span class="preview-banner-tag">Preview</span>
+    <span>Editorial / Research-Journal Direction</span>
+    <span style="opacity:0.4">·</span>
+    <a href="index.html" class="preview-banner-link">Back to live site</a>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="images/herolab-icon.png" alt="HERO Lab">
+        <span>HERO Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#team">Team</a>
+        <a href="#press">Press</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">UCLA &middot; UCSF Research Collaboration</div>
+      <h1>The science of <em>recovery</em>, written in athletes' biometrics.</h1>
+      <p class="hero-lede">The HERO Lab combines wearable physiology with rigorous clinical-trial methodology to study how NCAA Division I athletes sleep, recover, and perform &mdash; and how to make each measurably better.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Founded</span>
+          <span class="hero-meta-value">2024</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Active Studies</span>
+          <span class="hero-meta-value">Three</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Athletes Enrolled</span>
+          <span class="hero-meta-value">150+</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="hero-meta-label">Wearable Partner</span>
+          <span class="hero-meta-value">WHOOP</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+  <!-- About / Stats -->
+  <section class="section">
+    <div class="container">
+      <div class="section-eyebrow">About</div>
+      <h2>Where sports medicine meets data science.</h2>
+      <p style="max-width: 60ch; font-size: 19px; line-height: 1.6; color: var(--ink-soft); font-weight: 300;">A collaboration between the David Geffen School of Medicine at UCLA and UCSF's Department of Orthopaedic Surgery. We build evidence, not protocols-by-vibes.</p>
+
+      <div class="stats-row reveal-stagger">
+        <div class="stat-block">
+          <div class="stat-num">150<sup>+</sup></div>
+          <div class="stat-label">NCAA Division I athletes studied across our active trials</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Clinical studies on supplementation, recovery, and concussion biomarkers</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">2</div>
+          <div class="stat-label">University partners advancing the science together</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Continuous wearable physiological monitoring</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+  <!-- Featured Study (Editorial) -->
+  <section class="section">
+    <div class="container">
+      <div class="section-eyebrow">Featured Study</div>
+      <h2>Magnesium L&#8209;Threonate &amp; the cognitive edge.</h2>
+
+      <div class="study-editorial reveal">
+        <div class="study-editorial-header">
+          <span class="study-tag">Pilot Results · AMSSM 2026</span>
+          <span class="study-id">NCT07015047</span>
+        </div>
+        <h3>Effects of Magnesium L-Threonate on sleep, recovery, and neurocognitive performance in collegiate athletes.</h3>
+        <p class="study-deck">In a randomized, <strong>double-blind, placebo-controlled</strong> pilot trial of 107 NCAA Division I athletes at UCLA, four weeks of nightly Magnesium L-Threonate (1 g) yielded measurable advantages in cognitive reaction time and sleep quantity over placebo &mdash; effects that emerged within two to three weeks and held across both wearable and subjective measures.</p>
+
+        <div class="findings-row">
+          <div class="finding">
+            <div class="finding-num">&minus;52.3<span style="font-size:24px; color:var(--ink-muted);">ms</span></div>
+            <div class="finding-name">Faster cognitive reaction time vs. placebo</div>
+            <div class="finding-pval">p = 0.001</div>
+          </div>
+          <div class="finding">
+            <div class="finding-num">+54.6<span style="font-size:24px; color:var(--ink-muted);">min</span></div>
+            <div class="finding-name">Total sleep time at Week 2 vs. placebo</div>
+            <div class="finding-pval">p = 0.002</div>
+          </div>
+          <div class="finding">
+            <div class="finding-num">+6.27<span style="font-size:24px; color:var(--ink-muted);">pts</span></div>
+            <div class="finding-name">WHOOP sleep score over the 4-week intervention</div>
+            <div class="finding-pval">p = 0.010</div>
+          </div>
+        </div>
+
+        <a href="#" class="study-cta">Read the full study &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pull quote -->
+  <section class="pullquote">
+    <div class="container-narrow">
+      <blockquote>"Benefits emerged within two to three weeks &mdash; supported by both wearable and subjective measures."</blockquote>
+      <cite>From the AMSSM 2026 pilot trial poster</cite>
+    </div>
+  </section>
+
+  <!-- AMSSM Feature -->
+  <section class="section">
+    <div class="container">
+      <div class="section-eyebrow">From the Field</div>
+      <h2>HERO Lab at AMSSM 2026.</h2>
+
+      <div class="feature-card reveal">
+        <div class="feature-card-img">
+          <img src="images/amssm-2026/mgt-poster-presentation-2.jpg" alt="Drs. Swisher and Burbank at the HERO Lab Magnesium poster, AMSSM 2026">
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-card-tag">Conference Presentation</div>
+          <h3>Two posters, presented in Seattle.</h3>
+          <p class="feature-card-meta">36th American Medical Society for Sports Medicine Annual Meeting &middot; April 24&ndash;29, 2026</p>
+          <p>Findings from the magnesium pilot trial and our early-resistance-exercise concussion observational study were presented at AMSSM's 36th annual meeting. Both poster PDFs and full study pages are now available on the site.</p>
+          <div class="feature-card-links">
+            <a href="#">Magnesium study &rarr;</a>
+            <a href="#">Concussion study &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+  <!-- Footer note for preview -->
+  <div class="footer-note">
+    <div class="container-narrow">
+      <p style="font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink);">End of premium preview.</p>
+      <p>Editorial direction prototype — Fraunces serif headlines, Inter body, refined palette, strict spacing rhythm.</p>
+      <p style="margin-top: var(--s-4);"><a href="index.html" style="border-bottom: 1px solid var(--ink-muted); padding-bottom: 2px;">&larr; Return to current live site</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Lightweight scroll-reveal for previewing motion design
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in-view')),
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>

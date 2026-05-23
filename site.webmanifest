@@ -1,0 +1,21 @@
+{
+  "name": "HERO Lab Sports Medicine",
+  "short_name": "HERO Lab",
+  "description": "UCLA + UCSF sports medicine research collaboration studying sleep, recovery, and athletic performance in NCAA Division I athletes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a7a8a",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

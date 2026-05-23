@@ -1009,6 +1009,17 @@ body.has-news-banner {
   line-height: 1.6;
 }
 
+.pub-affiliation {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 8px;
+}
+
+.btn-icon-inline {
+  vertical-align: -3px;
+  margin-right: 6px;
+}
+
 .pub-link {
   display: inline-block;
   margin-top: 12px;

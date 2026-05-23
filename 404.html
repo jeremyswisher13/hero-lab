@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found &mdash; HERO Lab</title>
+  <meta name="description" content="The page you were looking for could not be found. Browse current HERO Lab studies and publications.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1a7a8a">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .nf-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, var(--color-dark) 0%, #0c3547 50%, var(--color-primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .nf-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(12, 124, 158, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 70%, rgba(240, 165, 0, 0.08) 0%, transparent 50%);
+    }
+    .nf-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      text-align: center;
+      color: #fff;
+    }
+    .nf-code {
+      font-size: clamp(5rem, 14vw, 9rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.5) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .nf-title {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .nf-lede {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.75);
+      margin: 0 auto 40px;
+      max-width: 480px;
+    }
+    .nf-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .nf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .nf-btn-primary {
+      background: var(--color-accent);
+      color: var(--color-dark);
+    }
+    .nf-btn-primary:hover {
+      background: #e6b830;
+      transform: translateY(-1px);
+    }
+    .nf-btn-ghost {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .nf-btn-ghost:hover {
+      background: rgba(255,255,255,0.14);
+    }
+    .nf-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .nf-link {
+      display: block;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: left;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .nf-link:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--color-accent);
+    }
+    .nf-link-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .nf-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+    .nf-brand img {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <main class="nf-wrap">
+    <div class="nf-inner">
+      <div class="nf-brand">
+        <img src="/images/herolab-icon.png" alt="HERO Lab">
+        <span>HERO Lab</span>
+      </div>
+      <div class="nf-code">404</div>
+      <h1 class="nf-title">This page wandered off.</h1>
+      <p class="nf-lede">The page you&rsquo;re looking for doesn&rsquo;t exist or has moved. Head back to our work below, or jump straight to a current study.</p>
+
+      <div class="nf-actions">
+        <a href="/" class="nf-btn nf-btn-primary">Go to Homepage</a>
+        <a href="/#research" class="nf-btn nf-btn-ghost">Current Studies</a>
+      </div>
+
+      <div class="nf-links">
+        <a href="/mgt-amssm-2026.html" class="nf-link">
+          <span class="nf-link-label">AMSSM 2026 Poster</span>
+          Magnesium L-Threonate
+        </a>
+        <a href="/concussion-amssm-2026.html" class="nf-link">
+          <span class="nf-link-label">AMSSM 2026 Poster</span>
+          Concussion Rehabilitation
+        </a>
+        <a href="/cwi-amssm-2025.html" class="nf-link">
+          <span class="nf-link-label">AMSSM 2025 Podium</span>
+          Cold Water Immersion
+        </a>
+        <a href="/#team" class="nf-link">
+          <span class="nf-link-label">About</span>
+          Meet the Team
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Analytics: GoatCounter (privacy-friendly, no cookies, no banner needed)
+       To activate: claim a free account at https://www.goatcounter.com/signup
+       then uncomment the script block below and replace YOUR-CODE with your subdomain. -->
+  <!--
+  <script data-goatcounter="https://YOUR-CODE.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  -->
+
+</body>
+</html>

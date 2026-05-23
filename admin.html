@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin &mdash; HERO Lab Analytics</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #f7f9fc;
+      padding-top: 0;
+    }
+    .admin-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .admin-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .admin-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .admin-header-left img {
+      width: 32px;
+      height: 32px;
+    }
+    .admin-header h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      letter-spacing: -0.02em;
+    }
+    .admin-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(212, 160, 23, 0.12);
+      color: #8a6a18;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .admin-header-right {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .admin-header-right a {
+      color: var(--color-primary);
+      font-weight: 500;
+    }
+    .admin-section {
+      background: #fff;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .admin-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 16px;
+    }
+    .admin-section p {
+      color: var(--color-text-light);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+    .admin-section p strong { color: var(--color-text); }
+    .admin-section ol {
+      padding-left: 22px;
+      color: var(--color-text);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .admin-section ol li { margin-bottom: 8px; }
+    .admin-section code {
+      background: #eef2f7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      color: var(--color-primary-dark);
+    }
+    .empty-state {
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+      border: 2px dashed #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 64px 32px;
+      text-align: center;
+    }
+    .empty-state-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      color: var(--color-text-light);
+    }
+    .empty-state h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 8px;
+    }
+    .empty-state p {
+      max-width: 480px;
+      margin: 0 auto 24px;
+      color: var(--color-text-light);
+    }
+    .embed-frame {
+      width: 100%;
+      height: 720px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: #fff;
+    }
+    .step-block {
+      background: #f8fafc;
+      border-left: 3px solid var(--color-primary);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 12px 0;
+    }
+    .step-block strong { color: var(--color-primary-dark); }
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .quick-link {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 14px 18px;
+      background: #f8fafc;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .quick-link:hover {
+      border-color: var(--color-primary);
+      background: #fff;
+    }
+    .quick-link-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-light);
+    }
+    .quick-link-url {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      color: var(--color-primary);
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .status-pill.inactive {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .status-pill.active {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+
+    <!-- Header -->
+    <div class="admin-header">
+      <div class="admin-header-left">
+        <img src="/images/herolab-icon.png" alt="HERO Lab">
+        <h1>HERO Lab &mdash; Analytics</h1>
+        <span class="admin-tag">Private</span>
+      </div>
+      <div class="admin-header-right">
+        <span class="status-pill inactive"><span class="status-dot"></span> Setup pending</span>
+        <a href="/">&larr; Back to site</a>
+      </div>
+    </div>
+
+    <!-- Setup status -->
+    <div class="admin-section">
+      <h2>Analytics provider: GoatCounter</h2>
+      <p>This site is wired for <strong>GoatCounter</strong> &mdash; a free, open-source, privacy-friendly analytics service that doesn&rsquo;t require a cookie banner (no personal data collected, no fingerprinting). To activate, you need to claim a free GoatCounter account and update one placeholder.</p>
+
+      <div class="step-block">
+        <p style="margin: 0;"><strong>Step 1.</strong> Go to <a href="https://www.goatcounter.com/signup" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">goatcounter.com/signup</a> and create a free account. Choose a code like <code>herolab</code>. Your dashboard URL will be <code>https://herolab.goatcounter.com</code>.</p>
+      </div>
+
+      <div class="step-block">
+        <p style="margin: 0;"><strong>Step 2.</strong> In <code>index.html</code> and every other production HTML page, find the comment block <code>&lt;!-- Analytics: GoatCounter --&gt;</code> at the bottom of <code>&lt;body&gt;</code>. Uncomment the &lt;script&gt; tag and replace <code>YOUR-CODE</code> with the code you chose (e.g., <code>herolab</code>).</p>
+      </div>
+
+      <div class="step-block">
+        <p style="margin: 0;"><strong>Step 3.</strong> In your GoatCounter settings, under &ldquo;Site settings&rdquo; &rarr; &ldquo;Site access&rdquo;, either: (a) make the dashboard <strong>public</strong> so it can be embedded below, or (b) keep it private and use the &ldquo;Quick access&rdquo; links below to view it in a new tab.</p>
+      </div>
+
+      <div class="step-block">
+        <p style="margin: 0;"><strong>Step 4.</strong> In this file (<code>admin.html</code>), find the comment <code>&lt;!-- Embed: replace src --&gt;</code> and update the iframe&rsquo;s <code>src</code> attribute to <code>https://YOUR-CODE.goatcounter.com</code> (use the same code from Step 1).</p>
+      </div>
+    </div>
+
+    <!-- Quick links -->
+    <div class="admin-section">
+      <h2>Quick access</h2>
+      <p>Once your account is set up, bookmark these links for fast access.</p>
+      <div class="quick-links">
+        <a href="https://YOUR-CODE.goatcounter.com" target="_blank" rel="noopener" class="quick-link">
+          <span class="quick-link-label">Dashboard</span>
+          <span class="quick-link-url">YOUR-CODE.goatcounter.com</span>
+        </a>
+        <a href="https://YOUR-CODE.goatcounter.com/pages" target="_blank" rel="noopener" class="quick-link">
+          <span class="quick-link-label">Top Pages</span>
+          <span class="quick-link-url">/pages</span>
+        </a>
+        <a href="https://YOUR-CODE.goatcounter.com/locations" target="_blank" rel="noopener" class="quick-link">
+          <span class="quick-link-label">Locations</span>
+          <span class="quick-link-url">/locations</span>
+        </a>
+        <a href="https://YOUR-CODE.goatcounter.com/settings" target="_blank" rel="noopener" class="quick-link">
+          <span class="quick-link-label">Settings</span>
+          <span class="quick-link-url">/settings</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Embedded dashboard -->
+    <div class="admin-section">
+      <h2>Live dashboard</h2>
+      <p>Once you make your dashboard public, replace the placeholder below with your iframe.</p>
+
+      <div class="empty-state">
+        <svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+        </svg>
+        <h3>Analytics not configured yet</h3>
+        <p>Follow the setup steps above to wire your free GoatCounter account. Once the dashboard is public, the embedded view will appear here.</p>
+        <a href="https://www.goatcounter.com/signup" target="_blank" rel="noopener" class="btn btn-primary">Sign up for GoatCounter (free)</a>
+      </div>
+
+      <!-- Embed: replace src with your dashboard URL once public -->
+      <!--
+      <iframe class="embed-frame" src="https://YOUR-CODE.goatcounter.com" title="HERO Lab analytics dashboard"></iframe>
+      -->
+    </div>
+
+    <!-- Why GoatCounter -->
+    <div class="admin-section">
+      <h2>Why GoatCounter (vs. Google Analytics)</h2>
+      <p>For a small research lab site, GoatCounter is a better fit than GA4 for three reasons:</p>
+      <ol>
+        <li><strong>No cookie banner required.</strong> GoatCounter doesn&rsquo;t set cookies and doesn&rsquo;t collect IP addresses, so GDPR/CCPA consent isn&rsquo;t needed. Academic visitors from the EU won&rsquo;t hit a pop-up.</li>
+        <li><strong>Free for non-commercial use.</strong> Personal/nonprofit sites are free indefinitely. No 14-month data retention limit like GA4.</li>
+        <li><strong>Simple dashboard.</strong> One page that shows visitors, top pages, referrers, locations. No 50-menu GA4 maze.</li>
+      </ol>
+      <p>If you ever want richer analytics (event tracking, conversion funnels, custom reports), I can swap to Plausible Analytics ($9/mo, also privacy-friendly) or wire up GA4 with a Cookiebot banner. Just say the word.</p>
+    </div>
+
+    <!-- Security note -->
+    <div class="admin-section">
+      <h2>Note on this admin page</h2>
+      <p>This page is <code>noindex,nofollow</code> &mdash; search engines won&rsquo;t list it &mdash; and isn&rsquo;t linked from the public navigation. Anyone with the URL <code>/admin.html</code> can view it, however, since GitHub Pages doesn&rsquo;t support server-side authentication. If you want to gate it behind a password, options include: Cloudflare Access (free for &le;50 users), a Netlify redirect rule, or moving the site to a host that supports basic auth. Let me know if you want any of these.</p>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press &amp; Media | HERO Lab</title>
+  <meta name="description" content="HERO Lab media hub: downloadable posters and logos, ready-to-quote study summaries, speaking engagements, and a dedicated media contact for journalists.">
+  <meta name="keywords" content="HERO Lab press, sports medicine media kit, UCLA research press, AMSSM 2026 posters, media contact, research logos download">
+  <link rel="canonical" href="https://herolabsportsmedicine.com/press.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1a7a8a">
+  <meta property="og:title" content="Press &amp; Media | HERO Lab">
+  <meta property="og:description" content="Downloadable posters and logos, ready-to-quote study summaries, speaking engagements, and a dedicated media contact.">
+  <meta property="og:image" content="https://herolabsportsmedicine.com/images/og-card.png">
+  <meta property="og:url" content="https://herolabsportsmedicine.com/press.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HERO Lab Sports Medicine">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Press &amp; Media | HERO Lab">
+  <meta name="twitter:description" content="HERO Lab media hub for journalists: posters, logos, study summaries, and a media contact.">
+  <meta name="twitter:image" content="https://herolabsportsmedicine.com/images/og-card.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://herolabsportsmedicine.com/"},
+      {"@type":"ListItem","position":2,"name":"Press","item":"https://herolabsportsmedicine.com/press.html"}
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .evidence-hero {
+      position: relative;
+      padding: 140px 24px 70px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .evidence-hero .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--color-dark) 0%, #0c3547 40%, var(--color-primary-dark) 100%);
+      z-index: 0;
+    }
+    .evidence-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+    .evidence-hero .section-label { color: var(--color-accent); }
+    .evidence-hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .evidence-hero p { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+    .press-section { padding: 64px 0; }
+    .press-section + .press-section { padding-top: 0; }
+    .press-section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 800; color: var(--color-dark); letter-spacing: -0.02em; margin-bottom: 8px;
+    }
+    .press-section .lead { color: var(--color-text-light); margin-bottom: 32px; max-width: 70ch; line-height: 1.7; }
+
+    .press-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    @media (max-width: 800px) { .press-grid { grid-template-columns: 1fr; } }
+    .press-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 28px;
+    }
+    .press-card-tag {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--color-primary); margin-bottom: 10px;
+    }
+    .press-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--color-dark); line-height: 1.4; margin-bottom: 12px; }
+    .press-card p { font-size: 0.9rem; color: var(--color-text); line-height: 1.7; margin-bottom: 16px; }
+    .press-card .meta { font-size: 0.82rem; color: var(--color-text-light); margin-bottom: 16px; }
+    .press-card .meta strong { color: var(--color-text); }
+    .press-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .asset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 800px) { .asset-grid { grid-template-columns: 1fr; } }
+    .asset-card {
+      display: flex; flex-direction: column; gap: 6px;
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+    }
+    .asset-card .asset-name { font-weight: 600; color: var(--color-dark); font-size: 0.95rem; }
+    .asset-card .asset-detail { font-size: 0.8rem; color: var(--color-text-light); }
+    .asset-card a { margin-top: 8px; font-size: 0.85rem; font-weight: 600; color: var(--color-primary); }
+
+    .timeline-list { max-width: 760px; }
+    .timeline-row {
+      display: flex; gap: 20px; padding: 18px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-date {
+      flex-shrink: 0; width: 120px; font-weight: 700; color: var(--color-primary); font-size: 0.9rem;
+    }
+    .timeline-detail h4 { font-size: 0.98rem; font-weight: 700; color: var(--color-dark); margin-bottom: 4px; }
+    .timeline-detail p { font-size: 0.88rem; color: var(--color-text-light); margin: 0; line-height: 1.6; }
+    .timeline-detail a { color: var(--color-primary); font-weight: 600; }
+
+    .media-contact-box {
+      background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary-dark) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      color: #fff;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .media-contact-box h3 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .media-contact-box p { color: rgba(255,255,255,0.8); margin: 0; max-width: 52ch; line-height: 1.6; }
+    .media-contact-box .btn-primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-dark); flex-shrink: 0; }
+    .media-contact-box .btn-primary:hover { background: #e6b830; border-color: #e6b830; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.9rem; font-weight: 600; color: var(--color-primary); margin-top: 8px;
+    }
+    .back-link svg { width: 18px; height: 18px; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img" width="82" height="82">
+        <span class="logo-text">HERO Lab</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html#about">About</a>
+        <a href="index.html#research">Research</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#publications">Publications</a>
+            <a href="press.html">Press &amp; Media</a>
+            <a href="faq.html">FAQ</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="evidence-hero" id="main" tabindex="-1">
+    <div class="hero-bg"></div>
+    <div class="evidence-hero-content">
+      <span class="section-label">Press &amp; Media</span>
+      <h1>Media Resources</h1>
+      <p>Ready-to-use posters, logos, and study summaries for journalists, conference organizers, and partners covering HERO Lab research.</p>
+    </div>
+  </section>
+
+  <!-- Study summaries -->
+  <section class="press-section" style="padding-top:64px;">
+    <div class="container">
+      <h2>Study Summaries</h2>
+      <p class="lead">Concise, quotable summaries of recent HERO Lab work. Each links to the full study page and a downloadable poster (PDF).</p>
+      <div class="press-grid">
+        <div class="press-card">
+          <div class="press-card-tag">AMSSM 2026 Poster &middot; Magnesium</div>
+          <h3>Effects of Magnesium L-Threonate on Sleep, Recovery, and Neurocognitive Performance in Collegiate Athletes</h3>
+          <p>In a randomized, double-blind, placebo-controlled pilot of 107 NCAA Division I athletes at UCLA, nightly Magnesium L-Threonate (1 g) produced a <strong>52.3 ms faster cognitive reaction time</strong> (p = 0.001), <strong>54.6 additional minutes of total sleep at Week 2</strong> (p = 0.002), and a <strong>6.27-point higher WHOOP sleep score</strong> (p = 0.010) versus placebo. Benefits emerged within 2&ndash;3 weeks. Preliminary results; full manuscript in preparation.</p>
+          <div class="meta"><strong>Presenting Author:</strong> Kimberly Burbank, MD &middot; <strong>Study ID:</strong> NCT07015047</div>
+          <div class="press-actions">
+            <a href="posters/HERO-Lab-AMSSM-2026-Magnesium-Poster.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download Poster (PDF)</a>
+            <a href="mgt-amssm-2026.html" class="btn btn-secondary">Study Page</a>
+          </div>
+        </div>
+        <div class="press-card">
+          <div class="press-card-tag">AMSSM 2026 Poster &middot; Concussion</div>
+          <h3>Resistance Exercise During Post-Concussion Rehabilitation in NCAA Division I Athletes</h3>
+          <p>In a preliminary, uncontrolled observational study of 11 NCAA Division I athletes (8 female, mean age 19.8 yrs), supervised weightlifting introduced a mean 5.2 days post-concussion was <strong>not associated with symptom worsening</strong> (0/11 worse SCAT6). Mean symptom scores dropped from 22.9 to 0.9. As a single-arm pilot, findings are hypothesis-generating, not causal.</p>
+          <div class="meta"><strong>First Author:</strong> Kyle Lau, MD &middot; <strong>Senior Author:</strong> Joshua Goldman, MD, MBA</div>
+          <div class="press-actions">
+            <a href="posters/HERO-Lab-AMSSM-2026-Concussion-Poster.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download Poster (PDF)</a>
+            <a href="concussion-amssm-2026.html" class="btn btn-secondary">Study Page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand assets -->
+  <section class="press-section">
+    <div class="container">
+      <h2>Brand Assets</h2>
+      <p class="lead">Approved HERO Lab logos and the social share card. Please don&rsquo;t alter the marks or use them to imply endorsement.</p>
+      <div class="asset-grid">
+        <div class="asset-card">
+          <span class="asset-name">HERO Lab Icon</span>
+          <span class="asset-detail">Square mark, PNG</span>
+          <a href="images/herolab-logo.png" target="_blank" rel="noopener" download>Download &darr;</a>
+        </div>
+        <div class="asset-card">
+          <span class="asset-name">Horizontal Logo</span>
+          <span class="asset-detail">Wordmark + icon, PNG</span>
+          <a href="images/herolab-logo-horizontal.png" target="_blank" rel="noopener" download>Download &darr;</a>
+        </div>
+        <div class="asset-card">
+          <span class="asset-name">Social Share Card</span>
+          <span class="asset-detail">1200&times;630, PNG</span>
+          <a href="images/og-card.png" target="_blank" rel="noopener" download>Download &darr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Speaking / appearances -->
+  <section class="press-section">
+    <div class="container">
+      <h2>Presentations &amp; Appearances</h2>
+      <p class="lead">Recent and upcoming conference presentations.</p>
+      <div class="timeline-list">
+        <div class="timeline-row">
+          <div class="timeline-date">Apr 24&ndash;29, 2026</div>
+          <div class="timeline-detail">
+            <h4>AMSSM 36th Annual Meeting &middot; Seattle, WA</h4>
+            <p>Two posters: <a href="mgt-amssm-2026.html">Magnesium L-Threonate</a> and <a href="concussion-amssm-2026.html">Early Resistance Exercise in Concussion</a>.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-date">2025</div>
+          <div class="timeline-detail">
+            <h4>AMSSM 35th Annual Meeting</h4>
+            <p>Podium presentation: <a href="cwi-amssm-2025.html">The Impact of Cold Water Immersion on Recovery and Performance in Division I Athletes</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Media contact -->
+  <section class="press-section">
+    <div class="container">
+      <div class="media-contact-box">
+        <div>
+          <h3>Media Inquiries</h3>
+          <p>For interviews, high-resolution images, or additional information, contact our team. We aim to respond to press inquiries promptly.</p>
+        </div>
+        <a href="mailto:jswisher@mednet.ucla.edu?subject=HERO%20Lab%20Media%20Inquiry" class="btn btn-primary">Contact for Press</a>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="index.html" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img" width="82" height="82">
+            <span class="logo-text">HERO Lab</span>
+          </div>
+          <p>Human Enhancement Recovery Optimization</p>
+          <p>A UCLA + UCSF Research Collaboration</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Research</h4>
+            <a href="index.html#research">Current Studies</a>
+            <a href="index.html#publications">Publications</a>
+            <a href="https://clinicaltrials.gov/study/NCT07015047" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+          </div>
+          <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-human-enhancement-recovery-optimization-hero-lab/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:jswisher@mednet.ucla.edu">Email</a>
+          </div>
+          <div class="footer-col">
+            <h4>Team</h4>
+            <a href="https://www.uclahealth.org/providers/jeremy-swisher" target="_blank" rel="noopener">Dr. Swisher</a>
+            <a href="https://www.uclahealth.org/providers/joshua-goldman" target="_blank" rel="noopener">Dr. Goldman</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025&ndash;2026 HERO Lab. All rights reserved.</p>
+        <p class="footer-disclaimer">This website is for informational purposes only and does not constitute medical advice.</p>
+        <p class="footer-disclaimer"><strong>Funding &amp; Disclosures:</strong> WHOOP provided wearable devices used in HERO Lab research. Studies were conducted with institutional support from UCLA and UCSF and registered on ClinicalTrials.gov where applicable. The investigators report no commercial funding that influenced study design, data analysis, or interpretation.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+
+  <!-- Analytics: GoatCounter (privacy-friendly, no cookies, no banner needed)
+       To activate: claim a free account at https://www.goatcounter.com/signup
+       then uncomment the script block below and replace YOUR-CODE with your subdomain. -->
+  <!--
+  <script data-goatcounter="https://YOUR-CODE.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  -->
+
+</body>
+</html>

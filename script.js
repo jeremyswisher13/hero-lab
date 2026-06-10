@@ -71,10 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
     '.location-info', '.evidence-card'
   ];
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   animateSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach((el, i) => {
       el.classList.add('fade-in');
-      el.style.transitionDelay = `${i * 0.1}s`;
+      if (!prefersReducedMotion) {
+        el.style.transitionDelay = `${i * 0.1}s`;
+      }
       observer.observe(el);
     });
   });
@@ -94,8 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (scrollPos >= top && scrollPos < top + height) {
         navAnchors.forEach(a => {
           a.classList.remove('active');
+          a.removeAttribute('aria-current');
           if (a.getAttribute('href') === `#${id}`) {
             a.classList.add('active');
+            a.setAttribute('aria-current', 'true');
           }
         });
       }

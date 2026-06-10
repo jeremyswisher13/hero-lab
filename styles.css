@@ -500,6 +500,24 @@ body.has-news-banner {
   color: #fff;
 }
 
+/* Tertiary hero CTA — text link with underline affordance */
+.btn-tertiary {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.hero .btn-tertiary {
+  color: rgba(255,255,255,0.85);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255,255,255,0.35);
+}
+.hero .btn-tertiary:hover {
+  color: #fff;
+  text-decoration-color: var(--color-accent);
+}
+
 .hero-pillars {
   display: flex;
   align-items: center;
@@ -1252,6 +1270,57 @@ body.has-news-banner {
   color: var(--color-text-light);
   line-height: 1.6;
   margin-bottom: 20px;
+}
+
+.contact-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Ethics / registration line + disclosures on study pages */
+.ethics-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 48px;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+.ethics-line svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ethics-line strong { color: var(--color-dark); }
+.ethics-line a { color: var(--color-primary); font-weight: 600; }
+
+.study-disclosures {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  margin-bottom: 48px;
+}
+.study-disclosures h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 10px;
+}
+.study-disclosures p {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin: 0;
 }
 
 .location-info {

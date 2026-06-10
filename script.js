@@ -113,14 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Instagram embed fallback: if embed.js is blocked (ad blockers,
   // strict privacy, Edge Tracking Prevention), show clickable cards instead.
+  // Lazy: only run the check once the feed scrolls near the viewport, and
+  // degrade to fallback after a short grace period instead of a hard 3.5s wait.
   const igFeed = document.getElementById('instagramFeed');
   if (igFeed) {
-    setTimeout(() => {
-      const hasIframes = igFeed.querySelectorAll('iframe').length > 0;
-      if (!hasIframes) {
-        const blockquotes = igFeed.querySelectorAll('blockquote.instagram-media');
-        const urls = Array.from(blockquotes).map(b => b.getAttribute('data-instgrm-permalink'));
-        igFeed.innerHTML = urls.map(url => `
+    const renderFallback = () => {
+      if (igFeed.querySelectorAll('iframe').length > 0) return; // embed succeeded
+      const blockquotes = igFeed.querySelectorAll('blockquote.instagram-media');
+      if (!blockquotes.length) return;
+      const urls = Array.from(blockquotes).map(b => b.getAttribute('data-instgrm-permalink'));
+      igFeed.innerHTML = urls.map(url => `
           <a href="${url}" target="_blank" rel="noopener" class="ig-fallback-card">
             <div class="ig-fallback-icon">
               <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
@@ -131,7 +133,23 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ig-fallback-sub">@herolabsportsmedicine</div>
           </a>
         `).join('');
-      }
-    }, 3500);
+    };
+
+    const checkFeed = () => {
+      // Give embed.js a short grace period to convert blockquotes to iframes.
+      setTimeout(renderFallback, 2000);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const igObserver = new IntersectionObserver((entries, obs) => {
+        if (entries.some(e => e.isIntersecting)) {
+          obs.disconnect();
+          checkFeed();
+        }
+      }, { rootMargin: '300px' });
+      igObserver.observe(igFeed);
+    } else {
+      checkFeed();
+    }
   }
 });

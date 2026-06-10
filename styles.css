@@ -1048,7 +1048,9 @@ body.has-news-banner {
 }
 
 .pub-type {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 3px 10px;
   background: var(--color-primary-light);
   color: var(--color-primary);
@@ -1058,6 +1060,26 @@ body.has-news-banner {
   letter-spacing: 0.06em;
   border-radius: 4px;
   margin-bottom: 12px;
+}
+.pub-type::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+/* Evidence-hierarchy color coding */
+.pub-type--published {
+  background: #dcfce7;
+  color: #15803d;
+}
+.pub-type--presented {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.pub-type--prep {
+  background: var(--color-accent-light);
+  color: #8a6a18;
 }
 
 .pub-card h4 {

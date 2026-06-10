@@ -1303,6 +1303,56 @@ body.has-news-banner {
 .ethics-line strong { color: var(--color-dark); }
 .ethics-line a { color: var(--color-primary); font-weight: 600; }
 
+/* Audience CTA on deep (evidence/study) pages */
+.deep-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border-radius: var(--radius-lg);
+  padding: 32px 36px;
+  margin: 48px 0 8px;
+  color: #fff;
+}
+.deep-cta-text h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.deep-cta-text p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  max-width: 46ch;
+  line-height: 1.6;
+}
+.deep-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.deep-cta-actions .btn-primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-dark);
+}
+.deep-cta-actions .btn-primary:hover {
+  background: #e6b830;
+  border-color: #e6b830;
+}
+.deep-cta-actions .btn-outline {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+}
+.deep-cta-actions .btn-outline:hover {
+  background: rgba(255,255,255,0.16);
+}
+
 .study-disclosures {
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // News banner dismiss (persists via localStorage)
   const newsBanner = document.getElementById('newsBanner');
   const newsBannerClose = document.getElementById('newsBannerClose');
-  const BANNER_KEY = 'herolab-news-banner-dismissed-amssm2026';
+  const BANNER_KEY = 'herolab-news-banner-dismissed-travel2026';
   if (newsBanner) {
     if (localStorage.getItem(BANNER_KEY) === 'true') {
       newsBanner.remove();

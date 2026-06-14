@@ -135,21 +135,37 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     };
 
-    const checkFeed = () => {
-      // Give embed.js a short grace period to convert blockquotes to iframes.
-      setTimeout(renderFallback, 2000);
+    // Inject Instagram's embed.js only when the feed is needed (saves ~103 KB
+    // + 3 third-party iframes on initial load for anyone who never scrolls here).
+    const loadEmbed = () => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      } else if (!document.getElementById('ig-embed-js')) {
+        const s = document.createElement('script');
+        s.id = 'ig-embed-js';
+        s.async = true;
+        s.src = 'https://www.instagram.com/embed.js';
+        document.body.appendChild(s);
+      }
+    };
+
+    const activateFeed = () => {
+      loadEmbed();
+      // Give embed.js a grace period to convert blockquotes to iframes,
+      // then fall back to clickable cards if it was blocked or failed.
+      setTimeout(renderFallback, 2500);
     };
 
     if ('IntersectionObserver' in window) {
       const igObserver = new IntersectionObserver((entries, obs) => {
         if (entries.some(e => e.isIntersecting)) {
           obs.disconnect();
-          checkFeed();
+          activateFeed();
         }
-      }, { rootMargin: '300px' });
+      }, { rootMargin: '400px' });
       igObserver.observe(igFeed);
     } else {
-      checkFeed();
+      activateFeed();
     }
   }
 });

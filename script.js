@@ -111,14 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', highlightNav, { passive: true });
   highlightNav();
 
-  // Instagram embed fallback: if embed.js is blocked (ad blockers,
-  // strict privacy, Edge Tracking Prevention), show clickable cards instead.
-  // Lazy: only run the check once the feed scrolls near the viewport, and
-  // degrade to fallback after a short grace period instead of a hard 3.5s wait.
+  // Instagram embeds load eagerly via embed.js (included in the page). This
+  // fallback ONLY replaces them if embed.js was genuinely blocked (ad blockers,
+  // strict privacy, Edge Tracking Prevention) — it never clobbers real embeds
+  // that are simply slow to render.
   const igFeed = document.getElementById('instagramFeed');
   if (igFeed) {
     const renderFallback = () => {
-      if (igFeed.querySelectorAll('iframe').length > 0) return; // embed succeeded
       const blockquotes = igFeed.querySelectorAll('blockquote.instagram-media');
       if (!blockquotes.length) return;
       const urls = Array.from(blockquotes).map(b => b.getAttribute('data-instgrm-permalink'));
@@ -135,37 +134,25 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     };
 
-    // Inject Instagram's embed.js only when the feed is needed (saves ~103 KB
-    // + 3 third-party iframes on initial load for anyone who never scrolls here).
-    const loadEmbed = () => {
-      if (window.instgrm) {
+    const checkEmbeds = () => {
+      // If Instagram's script loaded, make sure the blockquotes get processed
+      // and leave the real embeds alone.
+      if (window.instgrm && window.instgrm.Embeds) {
         window.instgrm.Embeds.process();
-      } else if (!document.getElementById('ig-embed-js')) {
-        const s = document.createElement('script');
-        s.id = 'ig-embed-js';
-        s.async = true;
-        s.src = 'https://www.instagram.com/embed.js';
-        document.body.appendChild(s);
+        return;
+      }
+      // embed.js never loaded (blocked) and nothing rendered → show fallback.
+      if (igFeed.querySelectorAll('iframe').length === 0) {
+        renderFallback();
       }
     };
 
-    const activateFeed = () => {
-      loadEmbed();
-      // Give embed.js a grace period to convert blockquotes to iframes,
-      // then fall back to clickable cards if it was blocked or failed.
-      setTimeout(renderFallback, 2500);
-    };
-
-    if ('IntersectionObserver' in window) {
-      const igObserver = new IntersectionObserver((entries, obs) => {
-        if (entries.some(e => e.isIntersecting)) {
-          obs.disconnect();
-          activateFeed();
-        }
-      }, { rootMargin: '400px' });
-      igObserver.observe(igFeed);
+    // Wait until after load + a generous grace period so slow embeds aren't
+    // mistaken for blocked ones.
+    if (document.readyState === 'complete') {
+      setTimeout(checkEmbeds, 4000);
     } else {
-      activateFeed();
+      window.addEventListener('load', () => setTimeout(checkEmbeds, 4000));
     }
   }
 });

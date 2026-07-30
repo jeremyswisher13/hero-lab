@@ -48,40 +48,42 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // Scroll-triggered fade-in animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Add fade-in class to elements and observe them
-  const animateSelectors = [
-    '.about-text', '.about-stats', '.partner-logos',
-    '.study-featured', '.area-card', '.team-card',
-    '.pub-card', '.social-cta', '.contact-card',
-    '.location-info', '.evidence-card'
-  ];
-
+  // Restrained, one-shot reveal motion for explicitly marked content.
+  // Elements remain visible when JavaScript is unavailable, motion is reduced,
+  // or IntersectionObserver is unsupported.
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const supportsIntersectionObserver = 'IntersectionObserver' in window;
 
-  animateSelectors.forEach(selector => {
-    document.querySelectorAll(selector).forEach((el, i) => {
+  if (!prefersReducedMotion && supportsIntersectionObserver) {
+    const observerOptions = {
+      threshold: 0.12,
+      rootMargin: '0px 0px -10% 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = new Set(document.querySelectorAll('[data-reveal]'));
+
+    document.querySelectorAll('[data-reveal-group]').forEach(group => {
+      Array.from(group.children).forEach((el, index) => {
+        const delay = Math.min(index, 3) * 75;
+        el.style.setProperty('--reveal-delay', `${delay}ms`);
+        revealElements.add(el);
+      });
+    });
+
+    revealElements.forEach(el => {
       el.classList.add('fade-in');
-      if (!prefersReducedMotion) {
-        el.style.transitionDelay = `${i * 0.1}s`;
-      }
       observer.observe(el);
     });
-  });
+  }
 
   // Smooth active nav link highlighting
   const sections = document.querySelectorAll('section[id]');

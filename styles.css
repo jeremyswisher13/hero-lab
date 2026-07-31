@@ -1006,6 +1006,280 @@ body.has-news-banner {
   color: var(--color-accent);
 }
 
+/* Magnesium evidence panel */
+.study-featured.study-featured-evidence {
+  padding: 0;
+  overflow: clip;
+  border-color: #d9e3e8;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(10, 22, 40, 0.11);
+}
+
+.evidence-study-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: clamp(36px, 5vw, 56px);
+  color: #fff;
+  background:
+    radial-gradient(circle at 92% 4%, rgba(26, 122, 138, 0.34), transparent 34%),
+    linear-gradient(138deg, #071525 0%, #0a2035 58%, #0b3442 100%);
+}
+
+.evidence-study-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.evidence-study-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.77rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.evidence-study-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 12px;
+  border: 1px solid rgba(240, 196, 82, 0.38);
+  border-radius: 999px;
+  color: #f3d36d;
+  background: rgba(212, 160, 23, 0.12);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.evidence-study-registry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.evidence-study-registry:hover {
+  color: #fff;
+  border-color: var(--color-accent);
+}
+
+.evidence-study-registry:focus-visible,
+.evidence-study-text-link:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.evidence-study-heading {
+  max-width: 900px;
+}
+
+.evidence-study-kicker {
+  margin-bottom: 12px;
+  color: #66c5ce;
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.evidence-study-heading h3 {
+  max-width: 22ch;
+  margin-bottom: 18px;
+  color: #fff;
+  font-size: clamp(2.15rem, 4.4vw, 3.75rem);
+  font-weight: 780;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.evidence-study-summary {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.evidence-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 14px;
+  background: rgba(3, 15, 27, 0.52);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.evidence-result {
+  min-width: 0;
+  padding: 28px 26px 26px;
+}
+
+.evidence-result + .evidence-result {
+  border-left: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.evidence-result dt {
+  min-height: 30px;
+  margin-bottom: 12px;
+  color: #8cd3d9;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.evidence-result-primary dt {
+  color: #f3d36d;
+}
+
+.evidence-result dd {
+  margin: 0;
+}
+
+.evidence-result-value {
+  color: #fff;
+  font-size: clamp(2.25rem, 4vw, 3.2rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.evidence-result-value span {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.45em;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.evidence-result-label {
+  min-height: 48px;
+  margin-top: 13px !important;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.evidence-result-detail {
+  margin-top: 9px !important;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.55;
+}
+
+.evidence-result-interpretation {
+  display: inline-flex;
+  margin-top: 13px !important;
+  padding: 4px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+.evidence-study-brief {
+  padding: 32px clamp(36px, 5vw, 56px) 36px;
+}
+
+.evidence-study-facts {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 0.65fr 1.1fr;
+  gap: 0;
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.evidence-study-facts > div {
+  min-width: 0;
+  padding-right: 24px;
+}
+
+.evidence-study-facts > div + div {
+  padding-left: 24px;
+  border-left: 1px solid var(--color-border);
+}
+
+.evidence-study-facts dt {
+  margin-bottom: 6px;
+  color: var(--color-text-light);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.evidence-study-facts dd {
+  color: var(--color-dark);
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.evidence-study-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 36px;
+  align-items: center;
+  padding-top: 28px;
+}
+
+.evidence-study-footer > p {
+  max-width: 640px;
+  color: var(--color-text-light);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.evidence-study-footer > p strong {
+  color: var(--color-dark);
+}
+
+.evidence-study-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+}
+
+.evidence-study-actions .btn {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.evidence-study-text-link {
+  color: var(--color-primary-dark);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+
+.evidence-study-text-link:hover {
+  color: var(--color-primary);
+}
+
 /* ========================================
    Research Areas
    ======================================== */
@@ -1954,6 +2228,30 @@ body.has-news-banner {
     grid-template-columns: 1fr;
   }
 
+  .evidence-study-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 22px;
+  }
+
+  .evidence-study-facts > div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .evidence-study-facts > div:nth-child(n + 3) {
+    padding-top: 22px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .evidence-study-footer {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .evidence-study-actions {
+    justify-content: flex-start;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -2081,6 +2379,60 @@ body.has-news-banner {
     padding: 28px 20px;
   }
 
+  .evidence-study-stage {
+    padding: 34px 24px;
+  }
+
+  .evidence-study-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .evidence-study-status {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .evidence-study-heading h3 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .evidence-results {
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+  }
+
+  .evidence-result {
+    padding: 24px 22px;
+  }
+
+  .evidence-result + .evidence-result {
+    border-top: 1px solid rgba(255, 255, 255, 0.13);
+    border-left: 0;
+  }
+
+  .evidence-result dt,
+  .evidence-result-label {
+    min-height: 0;
+  }
+
+  .evidence-result-value {
+    font-size: 2.45rem;
+  }
+
+  .evidence-study-brief {
+    padding: 28px 24px 30px;
+  }
+
+  .evidence-study-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   .study-details-grid {
     grid-template-columns: 1fr;
   }
@@ -2166,6 +2518,37 @@ body.has-news-banner {
 
   .about-stats {
     grid-template-columns: 1fr;
+  }
+
+  .evidence-study-facts {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .evidence-study-facts > div {
+    padding: 16px 0;
+  }
+
+  .evidence-study-facts > div + div,
+  .evidence-study-facts > div:nth-child(3),
+  .evidence-study-facts > div:nth-child(n + 3) {
+    padding: 16px 0;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+  }
+
+  .evidence-study-facts > div:first-child {
+    padding-top: 0;
+  }
+
+  .evidence-study-actions,
+  .evidence-study-actions .btn,
+  .evidence-study-text-link {
+    width: 100%;
+  }
+
+  .evidence-study-text-link {
+    text-align: center;
   }
 }
 

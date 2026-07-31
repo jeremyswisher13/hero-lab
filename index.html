@@ -194,7 +194,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260730-header">
 </head>
 <body>
   <a href="#home" class="skip-link">Skip to main content</a>
@@ -207,12 +207,12 @@
         2026 FIFA World Cup collection
       </span>
       <a href="https://link.springer.com/article/10.1007/s40279-026-02455-y" target="_blank" rel="noopener" class="news-banner-link">Read it &rarr;</a>
-      <button class="news-banner-close" id="newsBannerClose" aria-label="Dismiss announcement">&times;</button>
+      <button type="button" class="news-banner-close" id="newsBannerClose" aria-label="Dismiss announcement">&times;</button>
     </div>
   </div>
 
   <!-- Navigation -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" aria-label="Primary">
     <div class="nav-container">
       <a href="#home" class="nav-logo">
         <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img" width="82" height="82">
@@ -229,7 +229,7 @@
         <a href="faq.html">FAQ</a>
         <a href="#contact">Contact</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Open navigation" aria-controls="navLinks" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -1216,7 +1216,7 @@
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script src="script.js?v=20260730-header" defer></script>
 
   <!-- Analytics: GoatCounter (privacy-friendly, no cookies, no banner needed)
        To activate: claim a free account at https://www.goatcounter.com/signup

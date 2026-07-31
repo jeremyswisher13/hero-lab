@@ -3,45 +3,141 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // News banner dismiss (persists via localStorage)
+  const root = document.documentElement;
+  const body = document.body;
   const newsBanner = document.getElementById('newsBanner');
   const newsBannerClose = document.getElementById('newsBannerClose');
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
   const BANNER_KEY = 'herolab-news-banner-dismissed-travel2026';
-  if (newsBanner) {
-    if (localStorage.getItem(BANNER_KEY) === 'true') {
-      newsBanner.remove();
+
+  let currentBannerHeight = 0;
+  let bannerResizeObserver = null;
+  let resizeFallbackAttached = false;
+
+  const setBannerHeight = (height = 0) => {
+    const nextHeight = Math.max(0, Math.ceil(height));
+    if (nextHeight === currentBannerHeight) return;
+
+    currentBannerHeight = nextHeight;
+    root.style.setProperty('--news-banner-height', `${currentBannerHeight}px`);
+  };
+
+  const measureBanner = () => {
+    const isVisible =
+      newsBanner?.isConnected &&
+      body.classList.contains('has-news-banner') &&
+      !newsBanner.classList.contains('dismissed');
+
+    setBannerHeight(isVisible ? newsBanner.getBoundingClientRect().height : 0);
+  };
+
+  const stopBannerMeasurement = () => {
+    bannerResizeObserver?.disconnect();
+
+    if (resizeFallbackAttached) {
+      window.removeEventListener('resize', measureBanner);
+      resizeFallbackAttached = false;
+    }
+  };
+
+  let bannerWasDismissed = false;
+  try {
+    bannerWasDismissed = localStorage.getItem(BANNER_KEY) === 'true';
+  } catch {
+    // Storage can be unavailable in strict privacy contexts.
+  }
+
+  if (newsBanner && !bannerWasDismissed) {
+    body.classList.add('has-news-banner');
+    measureBanner();
+
+    if ('ResizeObserver' in window) {
+      bannerResizeObserver = new ResizeObserver(measureBanner);
+      bannerResizeObserver.observe(newsBanner);
     } else {
-      document.body.classList.add('has-news-banner');
-      if (newsBannerClose) {
-        newsBannerClose.addEventListener('click', () => {
-          newsBanner.classList.add('dismissed');
-          document.body.classList.remove('has-news-banner');
-          localStorage.setItem(BANNER_KEY, 'true');
-          setTimeout(() => newsBanner.remove(), 300);
-        });
+      window.addEventListener('resize', measureBanner, { passive: true });
+      resizeFallbackAttached = true;
+    }
+
+    window.addEventListener('load', measureBanner, { once: true });
+
+    newsBannerClose?.addEventListener('click', () => {
+      if (newsBanner.classList.contains('dismissed')) return;
+
+      stopBannerMeasurement();
+      newsBanner.classList.add('dismissed');
+      body.classList.remove('has-news-banner');
+      setBannerHeight(0);
+
+      try {
+        localStorage.setItem(BANNER_KEY, 'true');
+      } catch {
+        // Dismissal still works for the current visit.
       }
+
+      const removeBanner = () => {
+        if (newsBanner.isConnected) newsBanner.remove();
+      };
+
+      newsBanner.addEventListener('transitionend', removeBanner, { once: true });
+      window.setTimeout(removeBanner, 350);
+    });
+  } else {
+    body.classList.remove('has-news-banner');
+    setBannerHeight(0);
+    newsBanner?.remove();
+  }
+
+  requestAnimationFrame(() => {
+    body.classList.add('header-offset-ready');
+  });
+
+  // Mobile navigation toggle
+  const setMobileNavOpen = (isOpen) => {
+    if (!navToggle || !navLinks) return;
+
+    navToggle.classList.toggle('active', isOpen);
+    navLinks.classList.toggle('active', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+  };
+
+  if (navToggle && navLinks) {
+    navToggle.setAttribute('aria-controls', navLinks.id);
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open navigation');
+
+    navToggle.addEventListener('click', () => {
+      setMobileNavOpen(!navLinks.classList.contains('active'));
+    });
+
+    // Close mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => setMobileNavOpen(false));
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && navLinks.classList.contains('active')) {
+        setMobileNavOpen(false);
+        navToggle.focus();
+      }
+    });
+
+    const mobileNavQuery = window.matchMedia('(max-width: 768px)');
+    const handleBreakpointChange = event => {
+      if (!event.matches) setMobileNavOpen(false);
+    };
+
+    if (mobileNavQuery.addEventListener) {
+      mobileNavQuery.addEventListener('change', handleBreakpointChange);
+    } else {
+      mobileNavQuery.addListener(handleBreakpointChange);
     }
   }
 
-  // Mobile navigation toggle
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-
-  navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
-  });
-
-  // Close mobile nav on link click
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navToggle.classList.remove('active');
-      navLinks.classList.remove('active');
-    });
-  });
-
   // Navbar scroll effect
-  const navbar = document.getElementById('navbar');
   const onScroll = () => {
     navbar.classList.toggle('scrolled', window.scrollY > 20);
   };
@@ -90,7 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const navAnchors = navLinks.querySelectorAll('a');
 
   const highlightNav = () => {
-    const scrollPos = window.scrollY + 100;
+    const scrollPos =
+      window.scrollY +
+      currentBannerHeight +
+      (navbar?.offsetHeight || 0) +
+      16;
 
     sections.forEach(section => {
       const top = section.offsetTop;

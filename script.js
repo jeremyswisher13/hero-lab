@@ -105,9 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (navToggle && navLinks) {
+    const mobileNavQuery = window.matchMedia('(max-width: 768px)');
+    const navRegion = navToggle.closest('nav') || navToggle.parentElement;
     navToggle.setAttribute('aria-controls', navLinks.id);
-    navToggle.setAttribute('aria-expanded', 'false');
-    navToggle.setAttribute('aria-label', 'Open navigation');
+    setMobileNavOpen(false);
 
     navToggle.addEventListener('click', () => {
       setMobileNavOpen(!navLinks.classList.contains('active'));
@@ -120,14 +121,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && navLinks.classList.contains('active')) {
+        event.preventDefault();
         setMobileNavOpen(false);
-        navToggle.focus();
+        navToggle.focus({ preventScroll: true });
       }
     });
 
-    const mobileNavQuery = window.matchMedia('(max-width: 768px)');
+    // The disclosure is nonmodal: Tab follows the document and closes it on exit.
+    document.addEventListener('focusin', event => {
+      if (!navRegion.contains(event.target)) setMobileNavOpen(false);
+    });
+    document.addEventListener('click', event => {
+      if (!navRegion.contains(event.target)) setMobileNavOpen(false);
+    });
+
     const handleBreakpointChange = event => {
-      if (!event.matches) setMobileNavOpen(false);
+      const focusedElement = document.activeElement;
+      setMobileNavOpen(false);
+
+      // Preserve a visible focus target when the responsive layout hides it.
+      if (event.matches && navLinks.contains(focusedElement)) {
+        navToggle.focus({ preventScroll: true });
+      } else if (!event.matches && focusedElement === navToggle) {
+        navLinks.querySelector('a')?.focus({ preventScroll: true });
+      }
     };
 
     if (mobileNavQuery.addEventListener) {

@@ -185,8 +185,8 @@ video { max-width:100%; }
   .premium-home .news-banner-close { top:50%; right:6px; transform:translateY(-50%); }
   .premium-home .container { padding-inline:20px; }
   .premium-home .team-led-hero { padding:96px 20px 44px; }
-  .premium-home .team-led-hero .hero-actions { flex-direction:row; flex-wrap:nowrap; gap:10px; margin-bottom:0; }
-  .premium-home .hero-actions .btn { flex:1; padding:12px 10px; font-size:.75rem; text-align:center; min-width:0; }
+  .premium-home .team-led-hero .hero-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; align-items:stretch; gap:10px; margin-bottom:0; }
+  .premium-home .hero-actions .btn { width:100%; min-width:0; min-height:46px; justify-content:center; gap:6px; padding:12px 8px; font-size:.8125rem; line-height:1.4; text-align:center; white-space:normal; }
   .premium-home .team-led-hero .hero-topics { display:none; }
   .premium-home .team-led-hero .refresh-eyebrow { margin-bottom:20px; font-size:.75rem; }
   .premium-home .hero-team-photo figcaption { font-size:.75rem; }

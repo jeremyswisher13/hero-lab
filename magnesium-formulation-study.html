@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="styles.css?v=20260730-research-panels">
   <link rel="stylesheet" href="refresh.css?v=20260906">
   <link rel="stylesheet" href="study-experience.css?v=20260906">
+  <link rel="stylesheet" href="study-film.css?v=20260906-film">
 </head>
 <body class="formulation-page">
 <a href="#study-main" class="skip-link">Skip to study details</a>
@@ -63,17 +64,20 @@
         <div class="feature-actions"><a href="#study-journey" class="btn btn-primary" data-analytics="study-cta" data-analytics-id="study-timeline">Explore the study <span aria-hidden="true">↓</span></a><a href="#participate" class="study-hero-link" data-analytics="study-cta" data-analytics-id="study-participate">Ask about participation <span aria-hidden="true">↗</span></a></div>
         <a href="https://clinicaltrials.gov/study/NCT07640685" class="study-registration-link" target="_blank" rel="noopener">View trial registration <span aria-hidden="true">↗</span></a>
       </div>
-      <figure class="study-capsule-figure">
-        <div class="study-capsule-stage">
-          <video class="study-capsule-video" controls playsinline muted preload="none" poster="media/magnesium-allocation-poster.webp" width="720" height="720" aria-label="Conceptual animation of three equal study groups" data-capsule-video>
-            <source src="media/magnesium-allocation.mp4" type="video/mp4">
-            <p>Three identical capsule illustrations represent the study’s three equally allocated groups.</p>
-          </video>
-          <div class="study-capsule-label" aria-hidden="true"><span>THREE STUDY GROUPS</span><strong>1 : 1 : 1</strong></div>
-          <button type="button" class="study-motion-control" data-capsule-control hidden><span aria-hidden="true">▶</span> <span data-capsule-label>Play capsule sequence</span></button>
-        </div>
-        <figcaption>Conceptual illustration of equal assignment. Capsules and tokens are illustrative.</figcaption>
-      </figure>
+      <figure class="study-film-feature study-film-feature--dark" id="film" aria-label="The magnesium study film">
+    <div class="study-film-player" data-study-film>
+      <video id="study-page-film" controls playsinline preload="none" poster="media/study-film-testing-cover.webp" width="720" height="1280" aria-label="HERO Lab 60-second magnesium study film" data-analytics-video="study-film-vertical">
+        <source src="media/hero-magnesium-study-2026.mp4?v=team-20260906" type="video/mp4">
+        <track kind="captions" src="media/magnesium-study-captions.vtt?v=team-20260906" srclang="en" label="English">
+        <p><a href="media/hero-magnesium-study-v14-with-music.mp4" data-analytics="download" data-analytics-id="study-film-vertical">Download the full study film with music</a>.</p>
+      </video>
+      <button class="study-film-launch" type="button" aria-controls="study-page-film" hidden>
+        <img src="media/study-film-testing-cover-720.webp" srcset="media/study-film-testing-cover-480.webp 480w, media/study-film-testing-cover-720.webp 720w, media/study-film-testing-cover.webp 1080w" sizes="(max-width: 800px) calc(100vw - 48px), (max-width: 1240px) calc(45vw - 40px), 540px" alt="" width="1080" height="1920" loading="lazy" decoding="async">
+        <span class="study-film-cover-label"><span class="study-film-play-icon" aria-hidden="true">▶</span><span>Watch the study film<small>60 sec · HERO Lab</small></span></span>
+      </button>
+    </div>
+    <figcaption><span>Prior team and testing footage · Study animations</span><a href="media/hero-magnesium-study-v14-with-music.mp4" download data-analytics="download" data-analytics-id="study-film-vertical">Download film <span aria-hidden="true">↓</span></a></figcaption>
+  </figure>
     </div>
   </header>
   <section class="section study-question-section">
@@ -120,20 +124,7 @@
       <div class="study-whoop-copy"><span class="section-label">In partnership with WHOOP</span><h2 id="whoop-feature-heading">The study continues<br>beyond the lab.</h2><p>WHOOP 5.0 will follow sleep and recovery across the baseline and treatment periods, giving the research team repeated measurements during athletes’ daily lives.</p><dl class="study-measure-list"><div><dt>Sleep</dt><dd>Sleep efficiency is the primary outcome. Duration and consistency provide additional context.</dd></div><div><dt>Recovery</dt><dd>HRV, resting heart rate, and WHOOP Recovery Score are secondary measures.</dd></div><div><dt>Performance</dt><dd>Structured reaction-time and VALD testing complement wearable monitoring.</dd></div></dl><p class="study-source-note">Planned measurements describe what the study will test; they are not findings of a treatment benefit.</p></div>
     </div>
   </section>
-  <section class="section study-film-section study-wide-film-section" aria-labelledby="study-film-heading">
-    <div class="container">
-      <div class="study-section-intro"><div><span class="section-label">The study film</span><h2 id="study-film-heading">A team behind every question.</h2></div><a href="index.html#team" class="text-link">Meet the team <span aria-hidden="true">↗</span></a></div>
-      <figure class="study-film study-wide-film">
-        <video controls playsinline preload="none" poster="media/hero-magnesium-web-poster.jpg" width="1280" height="720" aria-label="HERO Lab magnesium study film" data-analytics-video="study-film-web">
-          <source src="media/hero-magnesium-web-film.mp4?v=team-20260906" type="video/mp4">
-          <track kind="captions" src="media/hero-magnesium-web-captions.vtt" srclang="en" label="English">
-          <p><a href="media/hero-magnesium-web-film.mp4?v=team-20260906" data-analytics="download" data-analytics-id="study-film-web">Download the magnesium study film</a>.</p>
-        </video>
-        <figcaption><span>Featuring the HERO Lab team, prior study testing, and conceptual study animations.</span><a href="media/hero-magnesium-study-v14-with-music.mp4" download data-analytics="download" data-analytics-id="study-film-vertical">Download vertical film <span aria-hidden="true">↓</span></a></figcaption>
-      </figure>
-    </div>
-  </section>
-  <section class="section formulation-section study-participate" id="participate">
+<section class="section formulation-section study-participate" id="participate">
     <div class="container study-participate-layout"><div><span class="refresh-eyebrow">Enrolling Fall 2026</span><h2>Be part of the next question.</h2><p>UCLA varsity athletes can contact the research team about eligibility, study visits, and enrollment. Participation is confirmed through the study team.</p></div><a class="btn" href="mailto:jswisher@mednet.ucla.edu?subject=HERO%20Lab%20Magnesium%20Study%20%E2%80%94%20Fall%202026" data-analytics="inquiry" data-analytics-id="study-participation">Email the study team <span aria-hidden="true">↗</span></a></div>
   </section>
   <section class="section formulation-section study-context-section">
@@ -189,5 +180,6 @@
 <script src="study-experience.js?v=20260906"></script>
   <script src="analytics-config.js?v=20260906" defer></script>
   <script src="analytics.js?v=20260906" defer></script>
+  <script src="study-film.js?v=20260906-film" defer></script>
 </body>
 </html>

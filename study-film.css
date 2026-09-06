@@ -1,0 +1,184 @@
+/* Shared featured study film. The photo cover is cropped; the film retains its full frame. */
+.study-film-feature {
+  --study-film-cover-ratio: 4 / 3;
+  --study-film-cover-position: center 43%;
+  --study-film-caption: #4a6571;
+  --study-film-link: #135f70;
+  --study-film-border: #b9d0d6;
+  --study-film-focus: #1a7a8a;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  scroll-margin-top: 110px;
+}
+
+.study-film-feature--dark {
+  --study-film-caption: #b9d5dc;
+  --study-film-link: #e0f5f6;
+  --study-film-border: #527a85;
+  --study-film-focus: #c1f4f5;
+}
+
+.study-film-player {
+  overflow: hidden;
+  border: 1px solid var(--study-film-border);
+  border-radius: 8px;
+  background: #061e28;
+}
+
+.study-film-player video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  max-height: 640px;
+  max-height: min(72svh, 640px);
+  margin: 0;
+  object-fit: contain;
+  background: #061e28;
+}
+
+/* Explicit rules protect the native fallback from other display declarations. */
+.study-film-player video[hidden],
+.study-film-launch[hidden] {
+  display: none !important;
+}
+
+.study-film-launch {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  color: #fff;
+  background: #061e28;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.study-film-launch > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--study-film-cover-ratio);
+  margin: 0;
+  object-fit: cover;
+  object-position: var(--study-film-cover-position);
+}
+
+.study-film-cover-label {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 14px;
+  align-items: center;
+  padding: 20px clamp(20px, 3vw, 30px);
+  background: #061e28;
+  color: #fff;
+  font-size: clamp(1rem, 1.55vw, 1.2rem);
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.study-film-cover-label small {
+  display: block;
+  margin-top: 4px;
+  color: #e3f0f3;
+  font-size: .75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: .015em;
+}
+
+.study-film-play-icon {
+  display: flex;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding-left: 3px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  background: #092b38e6;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.study-film-launch:hover .study-film-play-icon {
+  color: #082c38;
+  background: #fff;
+}
+
+.study-film-launch:focus-visible,
+.study-film-player video:focus-visible {
+  outline: 3px solid #c1f4f5;
+  outline-offset: -6px;
+}
+
+.study-film-feature figcaption {
+  display: flex;
+  gap: 12px 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: var(--study-film-caption);
+  font-size: .75rem;
+  line-height: 1.7;
+}
+
+.study-film-feature figcaption > span {
+  padding-top: 11px;
+}
+
+.study-film-feature figcaption a {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-height: 44px;
+  color: var(--study-film-link);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.study-film-feature figcaption a:focus-visible {
+  outline: 3px solid var(--study-film-focus);
+  outline-offset: 3px;
+}
+
+.study-film-status {
+  margin: 0;
+  color: #e0eff3;
+  font-size: .8125rem;
+  line-height: 1.6;
+}
+
+.study-film-status:not(:empty) {
+  padding: 16px 20px;
+  border-top: 1px solid #527a85;
+}
+
+@media (max-width: 480px) {
+  .study-film-cover-label {
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .study-film-feature figcaption {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .study-film-feature figcaption > span {
+    padding-top: 0;
+  }
+}

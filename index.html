@@ -197,6 +197,7 @@
   <link rel="stylesheet" href="styles.css?v=20260730-research-panels">
   <link rel="stylesheet" href="refresh.css?v=20260906">
   <link rel="stylesheet" href="premium.css?v=20260906-usability">
+  <link rel="stylesheet" href="study-film.css?v=20260906-film">
 </head>
 <body class="homepage-refresh premium-home">
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -262,16 +263,20 @@
     <div class="feature-actions"><a class="btn btn-primary" href="magnesium-formulation-study.html#study-journey" data-analytics="study-cta" data-analytics-id="study-timeline">Explore the study timeline <span aria-hidden="true">→</span></a></div>
     <p class="study-registry">NCT07640685 · Planned study; results are not yet available.</p>
   </div>
-  <figure class="flagship-art">
-    <div class="allocation-stage"><video id="home-allocation" controls muted playsinline preload="none" poster="media/magnesium-allocation-poster.webp" width="720" height="720" aria-label="Conceptual animation of three study capsule groups"><source src="media/magnesium-allocation.mp4" type="video/mp4"></video><button class="allocation-play" type="button" data-home-allocation hidden>Play capsule sequence <span aria-hidden="true">↻</span></button></div>
-    <figcaption>Three groups. One carefully controlled comparison.<small>Conceptual study illustration.</small></figcaption>
+  <figure class="study-film-feature" id="film" aria-label="The magnesium study film">
+    <div class="study-film-player" data-study-film>
+      <video id="home-study-film" controls playsinline preload="none" poster="media/study-film-testing-cover.webp" width="720" height="1280" aria-label="HERO Lab 60-second magnesium study film" data-analytics-video="study-film-vertical">
+        <source src="media/hero-magnesium-study-2026.mp4?v=team-20260906" type="video/mp4">
+        <track kind="captions" src="media/magnesium-study-captions.vtt?v=team-20260906" srclang="en" label="English">
+        <p><a href="media/hero-magnesium-study-v14-with-music.mp4" data-analytics="download" data-analytics-id="study-film-vertical">Download the full study film with music</a>.</p>
+      </video>
+      <button class="study-film-launch" type="button" aria-controls="home-study-film" hidden>
+        <img src="media/study-film-testing-cover-720.webp" srcset="media/study-film-testing-cover-480.webp 480w, media/study-film-testing-cover-720.webp 720w, media/study-film-testing-cover.webp 1080w" sizes="(max-width: 800px) calc(100vw - 48px), (max-width: 1240px) calc(45vw - 40px), 540px" alt="" width="1080" height="1920" loading="lazy" decoding="async">
+        <span class="study-film-cover-label"><span class="study-film-play-icon" aria-hidden="true">▶</span><span>Watch the study film<small>60 sec · HERO Lab</small></span></span>
+      </button>
+    </div>
+    <figcaption><span>Prior team and testing footage · Study animations</span><a href="media/hero-magnesium-study-v14-with-music.mp4" download data-analytics="download" data-analytics-id="study-film-vertical">Download film <span aria-hidden="true">↓</span></a></figcaption>
   </figure>
-</div></section>
-
-<section class="section web-film-section" id="film" aria-labelledby="film-heading"><div class="container">
-<div class="film-heading"><div><p class="refresh-eyebrow">Inside HERO Lab</p><h2 id="film-heading">Real people.<br>Questions worth pursuing.</h2></div><p>From the sidelines to the testing floor.<br>Meet the team behind the magnesium study.</p></div>
-<figure class="web-film"><video controls playsinline preload="none" poster="media/hero-magnesium-web-poster.jpg" width="1280" height="720" aria-label="HERO Lab magnesium study website film" data-analytics-video="study-film-web"><source src="media/hero-magnesium-web-film.mp4?v=team-20260906" type="video/mp4"><track kind="captions" src="media/hero-magnesium-web-captions.vtt" srclang="en" label="English"><p><a href="media/hero-magnesium-web-film.mp4?v=team-20260906" data-analytics="download" data-analytics-id="study-film-web">Download the website film</a>.</p></video><figcaption><span>Prior team and testing footage · Conceptual study animations</span><a href="media/hero-magnesium-web-film.mp4?v=team-20260906" download data-analytics="download" data-analytics-id="study-film-web">Download film ↓</a></figcaption></figure>
-<details class="vertical-film-details"><summary>Watch the full 60-second vertical film</summary><div class="vertical-film-inner"><video controls playsinline preload="none" poster="media/magnesium-study-poster.webp" width="720" height="1280" aria-label="HERO Lab 60-second magnesium study film" data-analytics-video="study-film-vertical"><source src="media/hero-magnesium-study-2026.mp4?v=team-20260906" type="video/mp4"><track kind="captions" src="media/magnesium-study-captions.vtt?v=team-20260906" srclang="en" label="English"></video><a href="media/hero-magnesium-study-v14-with-music.mp4" download data-analytics="download" data-analytics-id="study-film-vertical">Download the full film ↓</a></div></details>
 </div></section>
 
 <section class="section" id="team">
@@ -817,5 +822,6 @@
 <script src="premium.js?v=20260906-premium" defer></script>
   <script src="analytics-config.js?v=20260906" defer></script>
   <script src="analytics.js?v=20260906" defer></script>
+  <script src="study-film.js?v=20260906-film" defer></script>
 </body>
 </html>

@@ -124,26 +124,19 @@
     }
     .back-link svg { width: 18px; height: 18px; }
   </style>
+  <link rel="stylesheet" href="premium.css?v=20260906-premium">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
   <!-- Navigation -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" aria-label="Primary">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
         <img src="images/herolab-icon.png" alt="HERO Lab" class="logo-img" width="82" height="82">
         <span class="logo-text">HERO Lab</span>
       </a>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html#about">About</a>
-        <a href="index.html#research">Research</a>
-        <a href="index.html#team">Team</a>
-        <a href="index.html#publications">Publications</a>
-            <a href="press.html">Press &amp; Media</a>
-            <a href="faq.html">FAQ</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <div class="nav-links" id="navLinks"><a href="index.html#research">Research</a><a href="index.html#team">Team</a><a href="index.html#news">Updates</a><a href="index.html#contact">Collaborate</a><a href="magnesium-formulation-study.html#participate" class="nav-study-link">Study participation <span aria-hidden="true">↗</span></a></div>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Open navigation" aria-controls="navLinks" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -164,6 +157,7 @@
   <!-- Study summaries -->
   <section class="press-section" style="padding-top:64px;">
     <div class="container">
+      <nav class="article-breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Press &amp; Media</span></nav>
       <h2>Study Summaries</h2>
       <p class="lead">Concise, quotable summaries of recent HERO Lab work. Each links to the full source.</p>
       <div class="press-grid">
@@ -178,13 +172,13 @@
           </div>
         </div>
         <div class="press-card">
-          <div class="press-card-tag">AMSSM 2026 Poster &middot; Magnesium</div>
+          <div class="press-card-tag">Completed MgT Trial &middot; Unpublished Results</div>
           <h3>Effects of Magnesium L-Threonate on Sleep, Recovery, and Neurocognitive Performance in Collegiate Athletes</h3>
-          <p>In a randomized, double-blind, placebo-controlled pilot of 107 NCAA Division I athletes at UCLA, nightly Magnesium L-Threonate (1 g) produced a <strong>52.3 ms faster cognitive reaction time</strong> (p = 0.001), <strong>54.6 additional minutes of total sleep at Week 2</strong> (p = 0.002), and a <strong>6.27-point higher WHOOP sleep score</strong> (p = 0.010) versus placebo. Benefits emerged within 2&ndash;3 weeks. Preliminary results; full manuscript in preparation.</p>
+          <p>In this four-week, randomized, double-blind, placebo-controlled UCLA trial, 1 g of magnesium L-threonate compound nightly showed no benefit on the primary Week 4 deep-sleep outcome (+0.7 min versus placebo; 95% CI &minus;6.0 to 7.3; p = .844; n = 75). Two prespecified secondary reaction-time tests favored MgT in 107 athletes with paired measurements. These updated results are unpublished and require replication. The linked AMSSM 2026 poster reports the earlier preliminary analysis.</p>
           <div class="meta"><strong>Presenting Author:</strong> Kimberly Burbank, MD &middot; <strong>Study ID:</strong> NCT07015047</div>
           <div class="press-actions">
-            <a href="posters/HERO-Lab-AMSSM-2026-Magnesium-Poster.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download Poster (PDF)</a>
-            <a href="mgt-amssm-2026.html" class="btn btn-secondary">Study Page</a>
+            <a href="posters/HERO-Lab-AMSSM-2026-Magnesium-Poster.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download Preliminary Poster (PDF)</a>
+            <a href="mgt-amssm-2026.html" class="btn btn-secondary">Updated Study Results</a>
           </div>
         </div>
         <div class="press-card">
@@ -290,6 +284,13 @@
         </div>
         <div class="footer-links">
           <div class="footer-col">
+            <h4>Resources</h4>
+            <a href="press.html" aria-current="page">Press &amp; Media</a>
+            <a href="faq.html">FAQ</a>
+            <a href="index.html#evidence">Evidence</a>
+            <a href="index.html#about">About HERO Lab</a>
+          </div>
+          <div class="footer-col">
             <h4>Research</h4>
             <a href="index.html#research">Current Studies</a>
             <a href="index.html#publications">Publications</a>
@@ -316,7 +317,7 @@
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script src="script.js?v=20260906-premium" defer></script>
 
   <!-- Analytics: GoatCounter (privacy-friendly, no cookies, no banner needed)
        To activate: claim a free account at https://www.goatcounter.com/signup

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
-  const BANNER_KEY = 'herolab-news-banner-dismissed-travel2026';
+  const BANNER_KEY = 'herolab-news-banner-dismissed-magnesium-fall2026';
 
   let currentBannerHeight = 0;
   let bannerResizeObserver = null;

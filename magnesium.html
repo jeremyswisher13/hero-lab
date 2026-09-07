@@ -51,7 +51,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260907-mobile">
   <style>
     .evidence-hero {
       position: relative;
@@ -203,6 +203,26 @@
       width: 18px;
       height: 18px;
     }
+    .why-it-matters p + p { margin-top: 16px; }
+    .why-it-matters a, .athlete-evidence a, .article-funding a { color: var(--color-primary-dark); text-decoration: underline; text-underline-offset: 3px; }
+    .evidence-contents { margin-bottom: 40px; padding: 24px; background: var(--color-bg-alt); border-radius: var(--radius-md); }
+    .evidence-contents h2, .evidence-heading, .athlete-evidence h2 { font-size: 1.4rem; margin-bottom: 16px; }
+    .evidence-contents ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); list-style: none; gap: 8px 20px; padding: 0; margin: 0; }
+    .evidence-contents a { display: block; padding: 10px 0; color: var(--color-primary-dark); text-decoration: underline; }
+    .evidence-note { margin-bottom: 24px; max-width: 75ch; line-height: 1.7; }
+    .article-funding { font-size: .9rem; line-height: 1.7; padding-top: 16px; margin-bottom: 12px; border-top: 1px solid var(--color-border); }
+    .article-sources { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .article-sources a { min-height: 44px; overflow-wrap: anywhere; min-width: 0; }
+    .article-card, .athlete-evidence { scroll-margin-top: 110px; }
+    .athlete-evidence { margin-top: 48px; }
+    .athlete-evidence h3 { margin: 24px 0 8px; font-size: 1.1rem; }
+    .athlete-evidence p { line-height: 1.8; max-width: 80ch; }
+    .evidence-section a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+    @media (max-width: 540px) {
+      .why-it-matters { padding: 24px; }
+      .evidence-contents ul { grid-template-columns: 1fr; }
+      .article-card { padding: 28px 24px; }
+    }
   </style>
 <link rel="stylesheet" href="refresh.css?v=20260906">
   <link rel="stylesheet" href="premium.css?v=20260906-usability">
@@ -258,7 +278,7 @@
       <p>What does the research say about magnesium supplementation and sleep quality?</p>
     </div>
   </section>
-<aside class="container upcoming-study-link" style="margin-top:32px;margin-bottom:32px" aria-label="Upcoming magnesium formulation study"><div><span>ENROLLING FALL 2026</span><h3>The next magnesium study</h3><p>A separate trial comparing glycinate, L-threonate, and placebo in UCLA varsity athletes. Enrolling Fall 2026; results are not yet available.</p></div><a href="magnesium-formulation-study.html" data-analytics="study-cta" data-analytics-id="study-explore">Explore the study &rarr;</a></aside>
+
 
 
   <!-- Evidence Section -->
@@ -267,80 +287,72 @@
 
       <nav class="article-breadcrumbs" aria-label="Breadcrumb"><a href="/#evidence">Evidence</a> <span aria-hidden="true">/</span> <span aria-current="page">Magnesium &amp; Sleep</span></nav>
       <div class="why-it-matters">
-        <h2>Why We Study This</h2>
-        <p>Sleep supports athletic recovery and performance. Magnesium has a biological role in sleep-related physiology, but supplementation studies have produced mixed findings and athlete-specific evidence remains limited. HERO Lab studies magnesium formulations using wearable sleep measures and structured performance testing.</p>
-        <p style="margin-top: 16px;"><strong>Completed MgT trial:</strong> Updated unpublished analyses found no benefit on the primary Week 4 deep-sleep outcome; two prespecified secondary reaction-time tests favored MgT and require replication. The study page includes these results and the earlier AMSSM 2026 poster. <a href="mgt-amssm-2026.html" style="color: var(--color-primary); font-weight: 600;">View updated study results &rarr;</a></p>
+        <h2>Does magnesium improve sleep?</h2>
+        <p>Research findings are mixed. Some adult trials report benefits on particular sleep questionnaires or wearable-derived scores, while other outcomes show no difference from placebo. The <a href="#bisglycinate-2025">2025 bisglycinate trial</a> found a small improvement in insomnia severity. L-threonate trials reported improvements in some <a href="#mgt-2024">Oura sleep scores</a> or <a href="#mgt-2026">sleep-related daytime impairment</a>; these findings do not establish a consistent benefit across sleep measures.</p>
+        <p>These studies used different populations, formulations, doses, and outcomes. They do not establish which formulation works best for athletes. <a href="#athlete-studies">HERO Lab&rsquo;s completed and planned athlete trials</a> address separate research questions.</p>
       </div>
-
-      <!-- Article 1 -->
-      <div class="article-card">
-        <div class="article-meta">
-          <span class="article-year">2022</span>
-          <span class="article-journal">Biological Trace Element Research</span>
-        </div>
+      <nav class="evidence-contents" aria-label="Find a magnesium paper">
+        <h2>Find a paper</h2>
+        <ul>
+          <li><a href="#review-2022">Systematic review &middot; Arab et al.</a></li>
+          <li><a href="#mgt-2024">L-threonate and sleep &middot; 2024 trial</a></li>
+          <li><a href="#mgt-2026">L-threonate, cognition, and sleep &middot; 2026 trial</a></li>
+          <li><a href="#bisglycinate-2025">Bisglycinate and insomnia symptoms &middot; 2025 trial</a></li>
+        </ul>
+      </nav>
+      <h2 class="evidence-heading">Published evidence and original sources</h2>
+      <p class="evidence-note">Read the findings, limitations, and funding disclosures alongside each paper. Study doses below describe research protocols, not dosing recommendations.</p>
+      <article class="article-card" id="review-2022">
+        <div class="article-meta"><span class="article-year">2022 online / 2023 issue</span><span class="article-journal">Biological Trace Element Research</span></div>
         <h3>The Role of Magnesium in Sleep Health: A Systematic Review</h3>
         <p class="article-citation">Arab A, Rafie N, Amani R, Shirani F.</p>
-        <p class="article-summary">Systematic review of 9 studies (7,582 subjects). Observational studies suggest an association between magnesium status and sleep quality, but randomized controlled trials showed contradictory findings. The authors concluded that well-designed RCTs with larger sample sizes are needed to establish a definitive relationship.</p>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/35184264/" target="_blank" rel="noopener" class="article-link">
-          View on PubMed
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-        </a>
-      </div>
+        <p class="article-summary">The review included nine studies with 7,582 participants. Observational studies suggested a relationship between magnesium status and sleep, but randomized trials produced inconsistent findings. The authors called for larger, better-designed trials.</p>
+        <div class="article-sources" aria-label="Sources for review-2022"><a href="https://pubmed.ncbi.nlm.nih.gov/35184264/" target="_blank" rel="noopener" class="article-link">PubMed</a></div>
+      </article>
 
-      <!-- Article 2 -->
-      <div class="article-card">
-        <div class="article-meta">
-          <span class="article-year">2024</span>
-          <span class="article-journal">Sleep Medicine: X</span>
-        </div>
-        <h3>Magnesium-L-Threonate Improves Sleep Quality and Daytime Functioning in Adults</h3>
-        <p class="article-citation">Hausenblas HA, Hooper S, Engelen MPKJ.</p>
-        <p class="article-summary">Randomized controlled trial of 80 adults aged 35&ndash;55 taking 1g/day of magnesium L-threonate for 21 days. Significant improvements were observed in deep sleep, REM sleep, readiness scores, and daytime functioning compared to placebo.</p>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/39252819/" target="_blank" rel="noopener" class="article-link">
-          View on PubMed
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-        </a>
-      </div>
+      <article class="article-card" id="mgt-2024">
+        <div class="article-meta"><span class="article-year">2024</span><span class="article-journal">Sleep Medicine: X</span></div>
+        <h3>Magnesium-L-threonate improves sleep quality and daytime functioning in adults with self-reported sleep problems: A randomized controlled trial</h3>
+        <p class="article-citation">Hausenblas HA, Lynch T, Hooper S, et al.</p>
+        <p class="article-summary">Eighty adults aged 35&ndash;55 with self-reported sleep problems were assigned to 1 g/day magnesium L-threonate or placebo for 21 days. Some Oura deep-sleep and REM-sleep scores, readiness measures, and daytime-function measures favored L-threonate. However, actual deep-sleep and REM-sleep minutes, total sleep time, and sleep efficiency did not show significant group-by-time differences. A higher wearable score should not be read as proof of more deep sleep.</p>
+        <p class="article-funding"><strong>Funding &amp; disclosures:</strong> AIDP commissioned and funded the study. Three authors disclosed paid roles with AIDP; the full conflict disclosure was added in a <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12190206/" target="_blank" rel="noopener">2025 published correction</a>.</p>
+        <div class="article-sources" aria-label="Sources for mgt-2024"><a href="https://pubmed.ncbi.nlm.nih.gov/39252819/" target="_blank" rel="noopener" class="article-link">PubMed</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11381753/" target="_blank" rel="noopener" class="article-link">Open full text</a><a href="https://doi.org/10.1016/j.sleepx.2024.100121" target="_blank" rel="noopener" class="article-link">DOI: 10.1016/j.sleepx.2024.100121</a></div>
+      </article>
 
-      <!-- Article 3 -->
-      <div class="article-card">
-        <div class="article-meta">
-          <span class="article-year">2026</span>
-          <span class="article-journal">Frontiers in Nutrition</span>
-        </div>
-        <h3>Effects of Magnesium L-Threonate (Magtein) on Cognitive Performance and Sleep Quality</h3>
+      <article class="article-card" id="mgt-2026">
+        <div class="article-meta"><span class="article-year">2026</span><span class="article-journal">Frontiers in Nutrition</span></div>
+        <h3>The effects of magnesium L-threonate (Magtein&reg;) on cognitive performance and sleep quality in adults: a randomised, double-blind, placebo-controlled trial</h3>
         <p class="article-citation">Lopresti AL, Smith SJ.</p>
-        <p class="article-summary">Randomized controlled trial of 100 adults aged 18&ndash;45 taking 2g daily for 6 weeks. Participants showed improved hand-eye coordination, reaction time, and subjective sleep quality. The study also observed reduced resting heart rate and increased heart rate variability during sleep.</p>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/41601871/" target="_blank" rel="noopener" class="article-link">
-          View on PubMed
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-        </a>
-        <a href="https://doi.org/10.3389/fnut.2025.1729164" target="_blank" rel="noopener" class="article-link" style="margin-left:20px;">DOI</a>
-      </div>
+        <p class="article-summary">One hundred adults aged 18&ndash;45 were randomized to 2 g/day magnesium L-threonate or placebo for six weeks. The trial reported benefits on selected cognitive tasks and self-reported sleep-related impairment. It found no significant between-group differences in wearable sleep outcomes, and not all self-reported sleep measures improved. The findings should not be summarized as a general improvement in sleep quality.</p>
+        <p class="article-funding"><strong>Funding &amp; disclosures:</strong> Threotech funded the study, supplied the study product, and participated in developing the study design. The authors also disclosed professional relationships with the nutraceutical industry.</p>
+        <div class="article-sources" aria-label="Sources for mgt-2026"><a href="https://pubmed.ncbi.nlm.nih.gov/41601871/" target="_blank" rel="noopener" class="article-link">PubMed</a><a href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2025.1729164/full" target="_blank" rel="noopener" class="article-link">Open full text</a><a href="https://doi.org/10.3389/fnut.2025.1729164" target="_blank" rel="noopener" class="article-link">DOI: 10.3389/fnut.2025.1729164</a></div>
+      </article>
 
-      <!-- Article 4 -->
-      <div class="article-card">
-        <div class="article-meta">
-          <span class="article-year">2025</span>
-          <span class="article-journal">Nature and Science of Sleep</span>
-        </div>
-        <h3>Magnesium Bisglycinate Supplementation in Healthy Adults Reporting Poor Sleep</h3>
-        <p class="article-citation">Schuster J, et al.</p>
-        <p class="article-summary">The first randomized controlled trial examining magnesium glycinate/bisglycinate specifically for sleep. 155 adults received 250mg elemental magnesium daily. Significant reduction in Insomnia Severity Index scores versus placebo was observed at Week 4. The supplement was well tolerated with minimal side effects.</p>
-        <a href="https://pubmed.ncbi.nlm.nih.gov/40918053/" target="_blank" rel="noopener" class="article-link">
-          View on PubMed
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-        </a>
-        <a href="https://doi.org/10.2147/NSS.S524348" target="_blank" rel="noopener" class="article-link" style="margin-left:20px;">DOI</a>
-      </div>
+      <article class="article-card" id="bisglycinate-2025">
+        <div class="article-meta"><span class="article-year">2025</span><span class="article-journal">Nature and Science of Sleep</span></div>
+        <h3>Magnesium Bisglycinate Supplementation in Healthy Adults Reporting Poor Sleep: A Randomized, Placebo-Controlled Trial</h3>
+        <p class="article-citation">Schuster J, Cycelskij I, Lopresti A, Hahn A.</p>
+        <p class="article-summary">The trial randomized 155 adults with self-reported poor sleep to magnesium bisglycinate (250 mg elemental magnesium daily) or placebo for four weeks. Insomnia Severity Index scores fell by 3.9 points with magnesium and 2.3 with placebo. The between-group effect was small (Cohen&rsquo;s d = 0.2; p = 0.049). Outcomes were questionnaire-based; the trial did not establish an improvement in objectively measured sleep.</p>
+        <p class="article-funding"><strong>Funding &amp; disclosures:</strong> The Institute of Food and One Health at Leibniz University Hannover funded the study. Adrian Lopresti disclosed nutraceutical research and honoraria relationships.</p>
+        <div class="article-sources" aria-label="Sources for bisglycinate-2025"><a href="https://pubmed.ncbi.nlm.nih.gov/40918053/" target="_blank" rel="noopener" class="article-link">PubMed</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12412596/" target="_blank" rel="noopener" class="article-link">Open full text</a><a href="https://doi.org/10.2147/NSS.S524348" target="_blank" rel="noopener" class="article-link">DOI: 10.2147/NSS.S524348</a></div>
+      </article>
+
+      <section class="athlete-evidence" id="athlete-studies" aria-labelledby="athlete-evidence-title">
+        <h2 id="athlete-evidence-title">What is HERO Lab studying in athletes?</h2>
+        <h3>Completed L-threonate trial</h3>
+        <p>Updated unpublished analyses of HERO Lab&rsquo;s completed UCLA athlete trial found no benefit on the primary Week 4 deep-sleep outcome. Two prespecified secondary reaction-time tests favored L-threonate and require replication. <a href="mgt-amssm-2026.html">Read the updated results and earlier AMSSM poster</a>.</p>
+        <h3>Upcoming formulation comparison</h3>
+        <p>A separate study will compare magnesium glycinate, L-threonate, and placebo in UCLA varsity athletes. Enrollment is planned for Fall 2026; results are not yet available. <a href="magnesium-formulation-study.html" data-analytics="study-cta" data-analytics-id="study-explore">Explore the new study and registered protocol</a>.</p>
+      </section>
+
       <!-- Audience CTA -->
       <div class="deep-cta">
         <div class="deep-cta-text">
           <h3>Want to get involved?</h3>
-          <p>UCLA varsity athletes can join an active study, and researchers or partners can collaborate with the HERO Lab.</p>
+          <p>UCLA varsity athletes can ask about eligibility for the Fall 2026 magnesium formulation study. The study team confirms participation; researchers and partners can contact us about collaboration.</p>
         </div>
         <div class="deep-cta-actions">
-          <a href="/#contact-athletes" class="btn btn-primary">Enroll as an Athlete</a>
+          <a href="magnesium-formulation-study.html#participate" class="btn btn-primary" data-analytics="study-cta" data-analytics-id="evidence-participate">Check study eligibility</a>
           <a href="/#contact-researchers" class="btn btn-outline">Collaborate</a>
         </div>
       </div>
@@ -348,7 +360,7 @@
 
       <a href="/#evidence" class="back-link">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
-        Back to Why We Study This
+        Back to the evidence library
       </a>
 
     </div>
@@ -409,6 +421,6 @@
   <script src="script.js?v=20260906-usability" defer></script>
 
   <script src="analytics-config.js?v=20260907-ga4" defer></script>
-  <script src="analytics.js?v=20260907-ga4" defer></script>
+  <script src="analytics.js?v=20260907-mobile" defer></script>
 </body>
 </html>

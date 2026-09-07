@@ -1657,7 +1657,15 @@ body.header-offset-ready .navbar {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 100%;
+}
+.deep-cta-actions .btn { max-width: 100%; white-space: normal; }
+@media (max-width: 540px) {
+  .deep-cta { padding: 28px 24px; }
+  .deep-cta-actions { width: 100%; }
+  .deep-cta-actions .btn { flex: 1 1 100%; }
 }
 .deep-cta-actions .btn-primary {
   background: var(--color-accent);

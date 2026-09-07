@@ -76,6 +76,7 @@
   var loaded = false;
   var loading = false;
   var active = false;
+  var preferencesOpener = null;
   var expiry = 180 * 24 * 60 * 60 * 1000;
   var disableKey = 'ga-disable-' + config.measurementId;
   window[disableKey] = true;
@@ -111,6 +112,7 @@
     choice = value;
     try { window.localStorage.setItem(consentKey, JSON.stringify({choice: value, expires: Date.now() + expiry})); } catch (_) {}
     panel.hidden = true;
+    if (preferencesOpener) preferencesOpener.focus();
     if (value === 'granted') start(); else stop();
   }
   function start() {
@@ -160,6 +162,7 @@
   document.querySelectorAll('[data-analytics-preferences]').forEach(function (button) {
     button.hidden = false;
     button.addEventListener('click', function () {
+      preferencesOpener = button;
       document.getElementById('hero-analytics-status').textContent = choice === 'granted' ? 'Analytics is allowed. You can withdraw your permission below.' : 'Analytics is currently off.';
       panel.hidden = false;
       document.getElementById('hero-analytics-decline').focus();
@@ -253,6 +256,12 @@
       started = true;
       filmEvent('play', 'first play');
     });
+    // Playback can already be active when the consented Google tag finishes loading.
+    // The baseline above still excludes footage played before instrumentation.
+    if (!video.paused && !video.ended && video.readyState >= 2 && document.visibilityState !== 'hidden') {
+      started = true;
+      filmEvent('play', 'playback active');
+    }
     function progress(event) {
       if (!started || video.seeking) return;
       var fraction = fractionWatched();

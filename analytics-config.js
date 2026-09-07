@@ -1,8 +1,7 @@
-/* Public configuration only. Never put an API key or account password here.
- * Activate with the real https://SITE-CODE.goatcounter.com/count endpoint,
- * then set enabled to true. Keep false for local and release-preview QA.
+/* Public GA4 web stream identifier, never an API secret.
+ * Google loads only after consent and only on allowlisted production pages.
  */
 window.HERO_ANALYTICS_CONFIG = Object.freeze({
-  enabled: false,
-  endpoint: ''
+  enabled: true,
+  measurementId: 'G-VR0TQJEDT5'
 });

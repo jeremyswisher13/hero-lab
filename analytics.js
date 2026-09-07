@@ -1,15 +1,12 @@
-/* HERO public-site engagement. See the external analytics handoff notes.
- * Uses GoatCounter's documented /count protocol, deliberately avoiding
- * count.js, whose default payload also includes location.search.
+/* Optional HERO public-site analytics. Google loads only after consent.
+ * Custom event values come from the constants below. See privacy.html.
  */
 (function () {
   'use strict';
 
   var config = window.HERO_ANALYTICS_CONFIG;
   if (!config || config.enabled !== true || window.__heroAnalyticsStarted) return;
-  if (typeof config.endpoint !== 'string' ||
-      !/^https:\/\/[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.goatcounter\.com\/count$/.test(config.endpoint)) return;
-  if (typeof window.fetch !== 'function') return;
+  if (typeof config.measurementId !== 'string' || !/^G-[A-Z0-9]{6,16}$/.test(config.measurementId)) return;
 
   var hosts = ['herolabsportsmedicine.com', 'www.herolabsportsmedicine.com'];
   var pages = {
@@ -74,24 +71,132 @@
   if (!permitted()) return;
   window.__heroAnalyticsStarted = true;
   var seen = Object.create(null);
+  var consentKey = 'hero-analytics-consent-v1';
+  var choice = readChoice();
+  var loaded = false;
+  var loading = false;
+  var active = false;
+  var expiry = 180 * 24 * 60 * 60 * 1000;
+  var disableKey = 'ga-disable-' + config.measurementId;
+  window[disableKey] = true;
 
-  // Only constants from the allowlists above reach this transport. No hrefs,
-  // document titles, referrers, URL queries, form fields, or visitor IDs.
-  function send(path, title, event) {
-    if (!permitted() || document.visibilityState === 'hidden' || seen[path]) return;
-    seen[path] = true;
-    var params = new URLSearchParams({ p: path, t: title, rnd: Math.random().toString(36).slice(2, 10) });
-    if (event) params.set('e', 'true');
+  function readChoice() {
     try {
-      window.fetch(config.endpoint + '?' + params.toString(), {
-        method: 'GET', mode: 'no-cors', credentials: 'omit', cache: 'no-store',
-        keepalive: true, referrerPolicy: 'no-referrer'
-      }).catch(function () { /* Blocking or network failure must not affect the site. */ });
-    } catch (_) { /* Unsupported transport options must not affect the site. */ }
+      var saved = JSON.parse(window.localStorage.getItem(consentKey));
+      if (saved && (saved.choice === 'granted' || saved.choice === 'denied') &&
+          typeof saved.expires === 'number' && saved.expires > Date.now()) return saved.choice;
+    } catch (_) { /* Storage is optional; no stored choice means no analytics. */ }
+    return '';
+  }
+  function gtag() { window.dataLayer.push(arguments); }
+  function clearCookies() {
+    // Only our prefixed GA cookies; never touch other site cookies.
+    document.cookie.split(';').forEach(function (part) {
+      var name = part.trim().split('=')[0];
+      if (!/^hero_ga(?:_|$)/.test(name)) return;
+      ['', '; domain=' + window.location.hostname, '; domain=.' + window.location.hostname].forEach(function (domain) {
+        document.cookie = name + '=; Max-Age=0; path=/; SameSite=Lax; Secure' + domain;
+      });
+    });
+  }
+  function stop() {
+    active = false;
+    window[disableKey] = true;
+    seen = Object.create(null);
+    clearCookies();
+    // Unload Google's lifecycle listeners after withdrawal, including in another tab.
+    if (loaded) window.location.reload();
+  }
+  function choose(value) {
+    choice = value;
+    try { window.localStorage.setItem(consentKey, JSON.stringify({choice: value, expires: Date.now() + expiry})); } catch (_) {}
+    panel.hidden = true;
+    if (value === 'granted') start(); else stop();
+  }
+  function start() {
+    if (choice !== 'granted' || !permitted() || loading || loaded) return;
+    loading = true;
+    var script = document.createElement('script');
+    script.id = 'hero-google-analytics';
+    script.async = true;
+    script.referrerPolicy = 'no-referrer';
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + config.measurementId;
+    // Queue privacy settings before the external script runs.
+    window.dataLayer = window.dataLayer || [];
+    gtag('consent', 'default', {analytics_storage:'denied', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+    gtag('set', 'ads_data_redaction', true);
+    script.onload = function () {
+      loading = false;
+      loaded = true;
+      if (choice !== 'granted' || !permitted()) { stop(); return; }
+      window[disableKey] = false;
+      gtag('consent', 'update', {analytics_storage:'granted', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
+      gtag('js', new Date());
+      gtag('config', config.measurementId, {
+        send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false,
+        page_location: 'https://herolabsportsmedicine.com' + pagePath,
+        page_title: page[1], page_referrer: '', cookie_prefix: 'hero',
+        cookie_domain: 'none', cookie_expires: 15552000, cookie_update: false
+      });
+      active = true;
+      pageview();
+      instrumentFilms();
+    };
+    script.onerror = function () { loading = false; script.remove(); };
+    document.head.appendChild(script);
+  }
+  var panel = document.createElement('section');
+  panel.id = 'hero-analytics-panel';
+  panel.className = 'hero-analytics-panel';
+  panel.setAttribute('aria-labelledby', 'hero-analytics-title');
+  panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
+    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, study-link clicks, and video engagement. We do not send email addresses, message contents, or research records.</p>' +
+    '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
+    '<button type="button" id="hero-analytics-decline">Decline</button><a href="/privacy.html">Analytics privacy</a></div>';
+  panel.hidden = !!choice;
+  document.body.appendChild(panel);
+  document.getElementById('hero-analytics-allow').addEventListener('click', function () { choose('granted'); });
+  document.getElementById('hero-analytics-decline').addEventListener('click', function () { choose('denied'); });
+  document.querySelectorAll('[data-analytics-preferences]').forEach(function (button) {
+    button.hidden = false;
+    button.addEventListener('click', function () {
+      document.getElementById('hero-analytics-status').textContent = choice === 'granted' ? 'Analytics is allowed. You can withdraw your permission below.' : 'Analytics is currently off.';
+      panel.hidden = false;
+      document.getElementById('hero-analytics-decline').focus();
+    });
+  });
+  window.addEventListener('storage', function (event) {
+    if (event.key !== consentKey) return;
+    choice = readChoice();
+    if (choice !== 'granted') stop(); else start();
+  });
+
+  // Our custom payload never reads link destinations, page queries, titles,
+  // referrers or form values. Google also collects standard session information.
+  function send(path, title, event) {
+    if (!active || choice !== 'granted' || !permitted() || document.visibilityState === 'hidden' || seen[path]) return;
+    seen[path] = true;
+    var params = { send_to: config.measurementId, page_id: page[0],
+      page_location: 'https://herolabsportsmedicine.com' + pagePath, page_title: page[1], page_referrer: '' };
+    var name = 'page_view';
+    if (event) {
+      var parts = path.split(':');
+      if (parts[0] === 'film') {
+        params.film_id = parts[1];
+        name = parts[2] === 'play' ? 'hero_film_play' : parts[2] === 'complete' ? 'hero_film_complete' : 'hero_film_progress';
+        if (name === 'hero_film_progress') params.percent_watched = Number(parts[2]);
+      } else {
+        name = {'study-cta':'hero_study_cta', inquiry:'hero_inquiry_click', download:'hero_film_download'}[parts[0]];
+        params.action_id = parts[1];
+      }
+    }
+    gtag('event', name, params);
   }
 
-  function pageview() { send(pagePath, page[1], false); }
-  pageview();
+  function pageview() {
+    if (!permitted() && active) { stop(); return; }
+    send(pagePath, page[1], false);
+  }
   document.addEventListener('visibilitychange', pageview);
 
   function click(event) {
@@ -108,6 +213,7 @@
   document.addEventListener('click', click, true);
   document.addEventListener('auxclick', click, true);
 
+  function instrumentFilms() {
   document.querySelectorAll('video[data-analytics-video]').forEach(function (video) {
     var id = video.getAttribute('data-analytics-video');
     if (!has(films, id)) return;
@@ -119,11 +225,9 @@
 
     // TimeRanges records actual played segments, excluding skipped content.
     // Count unique footage watched; looping a quarter cannot become completion.
-    function fractionWatched() {
-      var duration = video.duration;
+    function watchedSeconds(duration) {
       var ranges = video.played;
-      if (!Number.isFinite(duration) || duration <= 0 || duration > 7200 ||
-          !ranges || ranges.length > 256) return 0;
+      if (!ranges || ranges.length > 256) return 0;
       var seconds = 0;
       var previousEnd = 0;
       for (var i = 0; i < ranges.length; i += 1) {
@@ -134,7 +238,14 @@
         seconds += Math.max(0, Math.min(end, duration) - Math.max(start, previousEnd));
         previousEnd = Math.max(previousEnd, end);
       }
-      return seconds / duration;
+      return seconds;
+    }
+    // Capture old footage even if duration metadata is not available yet.
+    var baselineSeconds = watchedSeconds(7200);
+    function fractionWatched() {
+      var duration = video.duration;
+      if (!Number.isFinite(duration) || duration <= 0 || duration > 7200) return 0;
+      return Math.max(0, watchedSeconds(duration) - baselineSeconds) / duration;
     }
 
     video.addEventListener('playing', function () {
@@ -155,4 +266,6 @@
     video.addEventListener('timeupdate', progress);
     video.addEventListener('ended', progress);
   });
+  }
+  if (choice === 'granted') start();
 }());

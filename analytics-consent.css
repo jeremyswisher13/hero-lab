@@ -1,0 +1,13 @@
+.hero-analytics-panel[hidden], [data-analytics-preferences][hidden] { display: none !important; }
+.hero-analytics-panel { position: fixed; z-index: 10000; bottom: 16px; right: 16px; width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow: auto; box-sizing: border-box; padding: 22px; border: 1px solid #b8d0dc; border-radius: 14px; background: #fff; color: #152f3d; box-shadow: 0 6px 32px #152f3d30; font: 15px/1.55 Arial, sans-serif; }
+.hero-analytics-panel h2 { color: #152f3d; font: 700 19px/1.3 Arial, sans-serif; margin: 0 0 10px; }
+.hero-analytics-panel p { color: #152f3d; margin: 0 0 14px; }
+.hero-analytics-panel p:empty { display: none; }
+.hero-analytics-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.hero-analytics-actions button { appearance: none; flex: 1 1 160px; min-height: 44px; padding: 10px 16px; border: 1px solid #246083; border-radius: 6px; background: #edf5f9; color: #143d56; font: 700 15px/1.3 Arial, sans-serif; cursor: pointer; }
+.hero-analytics-actions a { color: #145581; text-decoration: underline; }
+.hero-analytics-actions button:hover { background: #dcecf5; }
+.hero-analytics-actions :focus-visible, .hero-analytics-preferences :focus-visible { outline: 3px solid #f0aa20; outline-offset: 3px; }
+.footer-bottom .hero-analytics-preferences { opacity: 1; color: #fff; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 12px 0; }
+.hero-analytics-preferences button { color: inherit; font: inherit; background: transparent; border: 0; text-decoration: underline; cursor: pointer; padding: 8px 0; }
+.hero-analytics-preferences a { color: inherit; text-decoration: underline; padding: 8px 0; }

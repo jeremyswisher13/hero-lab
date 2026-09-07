@@ -1,0 +1,34 @@
+/* The HERO Brief: extends the existing HERO Lab palette and typography. */
+.newsletter-section { background:#092631; color:#fff; padding:64px 24px; }
+.newsletter-section .container { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(240px,.7fr); align-items:center; gap:40px; }
+.newsletter-eyebrow { color:#9be1e4; font-size:.875rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin-bottom:16px; }
+.newsletter-section h2 { color:#fff; font-size:clamp(2rem,4vw,3rem); line-height:1.13; letter-spacing:-.04em; margin-bottom:18px; }
+.newsletter-section p:not(.newsletter-eyebrow) { color:#d3e5e9; font-size:1.0625rem; max-width:650px; }
+.newsletter-action { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+.newsletter-action .btn { background:#9be1e4; color:#092631; border:1px solid #9be1e4; white-space:normal; text-align:center; }
+.newsletter-action .btn:hover { background:#c9f2f3; }
+.newsletter-action small { color:#c5dce2; font-size:.875rem; }
+.newsletter-page { background:#f0f6f7; }
+.newsletter-header { background:#092631; color:#fff; padding:20px 24px; }
+.newsletter-header .container { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.newsletter-header .nav-logo { color:#fff; }
+.newsletter-header .logo-text { color:#fff; }
+.newsletter-back { color:#c9eff1; font-size:.9375rem; text-decoration:underline; text-underline-offset:4px; }
+.newsletter-main { max-width:1320px; margin:auto; padding:56px 24px 64px; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:48px; align-items:start; }
+.newsletter-intro { padding:18px 0; }
+.newsletter-intro .newsletter-eyebrow { color:#146778; }
+.newsletter-intro h1 { color:#092631; font-size:clamp(2.8rem,5vw,4.5rem); letter-spacing:-.055em; line-height:1.06; margin-bottom:24px; }
+.newsletter-intro > p:not(.newsletter-eyebrow) { font-size:1.125rem; line-height:1.7; color:#355565; margin-bottom:26px; }
+.newsletter-benefits { border-top:1px solid #c7dce1; margin:28px 0; }
+.newsletter-benefits li { padding:17px 0; border-bottom:1px solid #c7dce1; color:#355565; font-size:1rem; }
+.newsletter-benefits strong { display:block; color:#103b49; margin-bottom:4px; }
+.newsletter-intro .newsletter-small { font-size:.9375rem!important; }
+.newsletter-intro a,.newsletter-form-note a,.newsletter-page-footer a { color:#125e6b; text-decoration:underline; text-underline-offset:3px; }
+.newsletter-form-wrap { min-width:0; }
+.newsletter-form { display:block; width:100%; height:850px; border:0; border-radius:12px; background:#fff; }
+.newsletter-form-note { font-size:.9375rem; color:#355565; margin:16px 8px 0; line-height:1.65; }
+.newsletter-page-footer { border-top:1px solid #c7dce1; padding:24px; text-align:center; color:#45616c; font-size:.875rem; }
+.newsletter-page-footer a { margin:0 10px; }
+.newsletter-page a:focus-visible,.newsletter-section a:focus-visible { outline:3px solid #d4a017; outline-offset:5px; }
+@media(max-width:1000px) { .newsletter-main { grid-template-columns:1fr; max-width:760px; padding-top:32px; gap:8px; } .newsletter-benefits { margin:20px 0; } .newsletter-intro { padding:0; } }
+@media(max-width:640px) { .newsletter-section .container { grid-template-columns:1fr; gap:28px; } .newsletter-section { padding:48px 20px; } .newsletter-main { padding:32px 12px 40px; } .newsletter-intro { padding:0 8px; } .newsletter-form { height:1080px; } .newsletter-header { padding:16px; } .newsletter-back { max-width:115px; text-align:right; } }

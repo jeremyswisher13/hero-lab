@@ -42,6 +42,7 @@
     inquiry: {
       'study-participation': 'Study participation inquiry click',
       'athlete-participation': 'Athlete participation inquiry click',
+      'concussion-participation': 'Concussion research inquiry click',
       'research-collaboration': 'Research collaboration inquiry click',
       partnership: 'Partnership inquiry click'
     },

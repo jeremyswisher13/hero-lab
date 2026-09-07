@@ -19,3 +19,8 @@
 .article-card[id], .evidence-outcomes[id] { scroll-margin-top: 110px; }
 .evidence-contents a:focus-visible, .evidence-sources a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
 @media (max-width: 600px) { .evidence-contents ul, .evidence-outcomes dl { grid-template-columns: 1fr; } .why-it-matters, .article-card { padding: 24px; } }
+
+.evidence-editorial { padding:24px; margin:40px 0; border-top:1px solid var(--color-border); background:var(--color-bg-alt); border-radius:var(--radius-md); }
+.evidence-editorial h2 { font-size:1.2rem; margin-bottom:12px; }
+.evidence-editorial p { font-size:.9375rem; line-height:1.75; margin-top:12px; }
+.evidence-editorial a { color:var(--color-primary-dark); text-decoration:underline; text-underline-offset:3px; }

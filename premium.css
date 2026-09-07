@@ -87,7 +87,7 @@ video { max-width:100%; }
 .moments-grid figure:nth-child(2) { padding-top:50px; }
 .moments-grid figure:nth-child(3) { padding-top:20px; }
 .moments-grid figcaption { margin-top:16px; color:#173f4b; font-size:.875rem; font-weight:600; line-height:1.55; }
-.moments-grid figcaption span { display:block; color:#698087; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; font-weight:500; margin-bottom:7px; }
+.moments-grid figcaption span { display:block; color:#526970; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; font-weight:500; margin-bottom:7px; }
 .whoop-feature { background:#edf3f2; }
 .whoop-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:70px; align-items:center; }
 .whoop-device { margin:0; min-width:0; }

@@ -43,6 +43,7 @@
 .journey-nav small { display:block; margin-top:4px; font-size:.6875rem; font-weight:400; line-height:1.5; color:#506d79; }
 .journey-arrow { margin-left:auto; font-weight:400; color:#306d79; }
 .journey-nav button[aria-selected="true"] .journey-arrow { transform:rotate(45deg); }
+.study-journey .section-label { color:#125466; }
 .journey-panels { background:white; border-bottom:1px solid #c8dce1; }
 .journey-panel { display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,5vw,70px); padding:48px; min-height:370px; align-items:center; }
 .journey-panel+.journey-panel { border-top:1px solid #d5e4e8; }

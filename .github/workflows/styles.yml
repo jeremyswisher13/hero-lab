@@ -10,3 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: python3 scripts/build_styles.py --check
+      - run: python3 scripts/check_public_copy.py

@@ -1,5 +1,11 @@
 # Stylesheet bundles
 
+Public website and newsletter copy must not use em dashes. Use periods,
+commas, colons, or parentheses as appropriate. Run
+`python3 scripts/check_public_copy.py` before publication. CI also scans
+public text, including encoded punctuation in email links and metadata.
+The embedded Google Form must be checked separately in its editor.
+
 The homepage and formulation study load one CSS bundle each. The original
 stylesheets remain the editing sources and retain their exact cascade order.
 The bundle files stay in the site root so relative asset URLs still resolve.

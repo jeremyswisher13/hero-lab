@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Instagram embeds load eagerly via embed.js (included in the page). This
   // fallback ONLY replaces them if embed.js was genuinely blocked (ad blockers,
-  // strict privacy, Edge Tracking Prevention) — it never clobbers real embeds
+  // strict privacy, Edge Tracking Prevention); it never clobbers real embeds
   // that are simply slow to render.
   const igFeed = document.getElementById('instagramFeed');
   if (igFeed) {

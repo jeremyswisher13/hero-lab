@@ -22,9 +22,15 @@
     '/mgt-amssm-2026.html': ['mgt-amssm-2026', 'MgT athlete trial results'],
     '/concussion-amssm-2026.html': ['concussion-amssm-2026', 'Early resistance exercise in concussion'],
     '/press.html': ['press', 'HERO Lab press and media'],
+    '/collaborate.html': ['collaborate', 'HERO Lab research collaborations'],
     '/faq.html': ['faq', 'HERO Lab frequently asked questions']
   };
   var clicks = {
+    navigation: {
+      'hero-research': 'Home research portfolio link',
+      'hero-collaborate': 'Home collaboration page link',
+      'nav-collaborate': 'Navigation collaboration link'
+    },
     'study-cta': {
       'nav-participate': 'Navigation participation link',
       'banner-study': 'Study announcement link',
@@ -152,7 +158,7 @@
   panel.className = 'hero-analytics-panel';
   panel.setAttribute('aria-labelledby', 'hero-analytics-title');
   panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
-    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, study-link clicks, and video engagement. We do not send email addresses, message contents, or research records.</p>' +
+    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, selected research and collaboration links, and video engagement. We do not send email addresses, message contents, or research records.</p>' +
     '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
     '<button type="button" id="hero-analytics-decline">Decline</button><a href="/privacy.html">Analytics privacy</a></div>';
   panel.hidden = !!choice;
@@ -189,7 +195,7 @@
         name = parts[2] === 'play' ? 'hero_film_play' : parts[2] === 'complete' ? 'hero_film_complete' : 'hero_film_progress';
         if (name === 'hero_film_progress') params.percent_watched = Number(parts[2]);
       } else {
-        name = {'study-cta':'hero_study_cta', inquiry:'hero_inquiry_click', download:'hero_film_download'}[parts[0]];
+        name = {navigation:'hero_navigation_click', 'study-cta':'hero_study_cta', inquiry:'hero_inquiry_click', download:'hero_film_download'}[parts[0]];
         params.action_id = parts[1];
       }
     }

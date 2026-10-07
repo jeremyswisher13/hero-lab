@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Smooth active nav link highlighting
   const sections = document.querySelectorAll('section[id]');
-  const navAnchors = navLinks.querySelectorAll('a');
+  const navAnchors = navLinks.querySelectorAll('a[href^="#"]');
 
   const highlightNav = () => {
     const scrollPos =

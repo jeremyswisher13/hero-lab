@@ -32,3 +32,17 @@
 .newsletter-page a:focus-visible,.newsletter-section a:focus-visible { outline:3px solid #d4a017; outline-offset:5px; }
 @media(max-width:1000px) { .newsletter-main { grid-template-columns:1fr; max-width:760px; padding-top:32px; gap:8px; } .newsletter-benefits { margin:20px 0; } .newsletter-intro { padding:0; } }
 @media(max-width:640px) { .newsletter-section .container { grid-template-columns:1fr; gap:28px; } .newsletter-section { padding:48px 20px; } .newsletter-main { padding:32px 12px 40px; } .newsletter-intro { padding:0 8px; } .newsletter-form { height:1080px; } .newsletter-header { padding:16px; } .newsletter-back { max-width:115px; text-align:right; } }
+
+/* Accessible validation added around the public MailerLite form. */
+.newsletter-form-wrap .hero-newsletter-field-error,
+.newsletter-form-wrap .hero-newsletter-server-error,
+.newsletter-form-wrap .hero-newsletter-error-summary { color:#9c1b20!important; font-size:.9375rem!important; line-height:1.5!important; margin:8px 0 16px!important; }
+.newsletter-form-wrap .hero-newsletter-error-summary { border-left:3px solid #9c1b20; padding-left:12px; }
+.newsletter-form-wrap .hero-newsletter-required-note { color:#355565!important; font-size:.875rem!important; margin:0 0 16px!important; }
+.newsletter-form-wrap .hero-newsletter-field-error:empty,
+.newsletter-form-wrap .hero-newsletter-server-error:empty,
+.newsletter-form-wrap .hero-newsletter-server-error.d-none,
+.newsletter-form-wrap .hero-newsletter-error-summary[hidden] { display:none!important; }
+.newsletter-form-wrap input:focus-visible,
+.newsletter-form-wrap button:focus-visible { outline:3px solid #125e6b!important; outline-offset:3px; }
+.newsletter-form-wrap .ml-form-checkboxRow input[type="checkbox"]:focus ~ .label-description::before { outline:3px solid #125e6b!important; outline-offset:3px; }

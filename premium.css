@@ -4,6 +4,14 @@ video { max-width:100%; }
 .nav-links .nav-study-link { background:#123d47; color:#fff; padding:11px 16px; border-radius:5px; font-size:.8125rem; }
 .nav-links .nav-study-link:hover,.nav-links .nav-study-link:focus-visible { background:#1a6370; color:white; }
 .nav-links .nav-study-link::after { display:none; }
+/* Shared conference-page components follow each page's inline styles. */
+.findings-primary::before { color:#fff; }
+.takeaway-card h4 { color:var(--color-primary-dark); }
+.poster-download-btn { max-width:100%; white-space:normal; text-align:center; justify-content:center; }
+.poster-download-btn svg { flex-shrink:0; }
+@media(max-width:420px) {
+  .study-design-grid { grid-template-columns:minmax(0,1fr); }
+}
 .premium-home { color:#314b55; }
 .premium-home main { display:block; }
 .premium-home .container { max-width:1240px; }

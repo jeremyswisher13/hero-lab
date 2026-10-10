@@ -8,6 +8,7 @@
 .evidence-scope { font-size: 1rem; line-height: 1.7; margin-bottom: 24px; }
 .article-summary, .evidence-limit, .evidence-funding { font-size: 1rem; line-height: 1.75; margin-bottom: 16px; }
 .article-year, .article-journal, .article-citation { font-size: .875rem; }
+.article-year { color: var(--color-primary-dark); }
 .evidence-funding { color: var(--color-text-light); }
 .evidence-sources { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .evidence-sources a { min-height: 44px; display: inline-flex; align-items: center; max-width: 100%; overflow-wrap: anywhere; color: var(--color-primary-dark); font-size: .9rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
@@ -17,7 +18,7 @@
 .evidence-outcomes dt { font-weight: 700; margin-bottom: 8px; }
 .evidence-outcomes dd { margin: 0; font-size: 1rem; line-height: 1.75; }
 .article-card[id], .evidence-outcomes[id] { scroll-margin-top: 110px; }
-.evidence-contents a:focus-visible, .evidence-sources a:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+.evidence-contents a:focus-visible, .evidence-sources a:focus-visible { outline: 3px solid var(--color-primary-dark); outline-offset: 4px; }
 @media (max-width: 600px) { .evidence-contents ul, .evidence-outcomes dl { grid-template-columns: 1fr; } .why-it-matters, .article-card { padding: 24px; } }
 
 .evidence-editorial { padding:24px; margin:40px 0; border-top:1px solid var(--color-border); background:var(--color-bg-alt); border-radius:var(--radius-md); }

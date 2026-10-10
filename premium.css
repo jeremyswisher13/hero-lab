@@ -24,10 +24,12 @@ video { max-width:100%; }
 .premium-home .btn-primary { box-shadow:none; border:1px solid transparent; }
 .premium-home .btn-primary:hover { box-shadow:none; transform:translateY(-1px); }
 .premium-home .btn-secondary { box-shadow:none; }
-.premium-home .btn:focus-visible,.premium-home summary:focus-visible,.premium-home a:focus-visible,.premium-home button:focus-visible { outline:3px solid #bd891c; outline-offset:4px; }
+.premium-home .btn:focus-visible,.premium-home summary:focus-visible,.premium-home a:focus-visible,.premium-home button:focus-visible { outline:3px solid #125e6b; outline-offset:4px; }
+.premium-home :is(.news-banner,.team-led-hero,.web-film-section,.deep-cta,.footer) :focus-visible { outline-color:#c1f4f5; }
 .premium-home .news-banner-tag { background:#d9eddf; color:#123d47; border-radius:3px; }
 .premium-home .news-banner { background:#174f5a; }
 .premium-home .news-banner-close { min-width:44px; min-height:40px; }
+.premium-home .news-banner-close:focus-visible { opacity:1; }
 .premium-home .nav-container { max-width:1240px; }
 .premium-home .nav-links { gap:26px; }
 .premium-home .team-led-hero { padding:116px 24px 64px; }

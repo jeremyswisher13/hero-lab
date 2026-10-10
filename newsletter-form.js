@@ -16,6 +16,10 @@
     // Our text errors replace browser bubbles, while retaining required semantics.
     form.noValidate = true;
     let attempted = false;
+    let pendingRequest = null;
+    let requestTimer;
+    let observedProvider;
+    const pendingMessage = 'We could not confirm your signup yet. Please check your inbox for a confirmation email and wait before trying again.';
 
     const summary = document.createElement('p');
     summary.className = 'hero-newsletter-error-summary';
@@ -40,6 +44,7 @@
     serverError.setAttribute('role', 'alert');
     serverError.setAttribute('aria-live', 'assertive');
     serverError.setAttribute('aria-atomic', 'true');
+    serverError.tabIndex = -1;
 
     function field(input, name, group) {
       input.required = true;
@@ -88,13 +93,72 @@
       if (summary.textContent !== message) summary.textContent = message;
     }
     function clearServerError() {
-      serverError.textContent = '';
+      if (serverError.textContent) serverError.textContent = '';
       serverError.classList.add('d-none');
+    }
+    function showServerError(message, focus = true) {
+      if (serverError.textContent !== message) serverError.textContent = message;
+      serverError.classList.remove('d-none');
+      if (focus) serverError.focus();
+    }
+    function finishRequest(request) {
+      if (pendingRequest !== request) return;
+      window.clearTimeout(requestTimer);
+      pendingRequest = null;
+      form.removeAttribute('aria-busy');
+    }
+    function observeProvider() {
+      const provider = window.ml_jQuery;
+      if (typeof provider !== 'function' || !provider(form).data('ml-submit-bound')) return false;
+      if (observedProvider === provider) return true;
+      observedProvider = provider;
+      const action = new URL(form.action);
+      function isSubscription(settings) {
+        try {
+          const url = new URL(settings.url, window.location.href);
+          return url.origin === action.origin && url.pathname === action.pathname;
+        } catch (_) {
+          return false;
+        }
+      }
+      // Observe the provider's public AJAX events. Its request, callback, loading
+      // state, and double opt-in success flow remain owned by MailerLite.
+      provider(document).on('ajaxSend.heroNewsletter', (event, request, settings) => {
+        if (!isSubscription(settings)) return;
+        pendingRequest = request;
+        form.setAttribute('aria-busy', 'true');
+        requestTimer = window.setTimeout(() => {
+          if (pendingRequest !== request) return;
+          // Keep the guard while allowing the notice inside the form to announce.
+          form.removeAttribute('aria-busy');
+          showServerError(pendingMessage, form.contains(document.activeElement));
+        }, 20000);
+      }).on('ajaxSuccess.heroNewsletter', (event, request, settings, response) => {
+        if (!isSubscription(settings) || pendingRequest !== request) return;
+        finishRequest(request);
+        clearServerError();
+        if (!response?.success && !response?.fieldsToConfirm?.length && !fields.some(item => item.group.classList.contains('ml-error') || item.input.getAttribute('aria-invalid') === 'true')) {
+          showServerError('Your signup could not be completed. Please try again, or open signup in a new tab.');
+        }
+      }).on('ajaxError.heroNewsletter', (event, request, settings) => {
+        if (!isSubscription(settings) || pendingRequest !== request) return;
+        finishRequest(request);
+        const message = serverError.textContent.trim();
+        showServerError(message && message !== pendingMessage ? message : 'We could not confirm your signup. Please check your connection and inbox before trying again.');
+      }).on('ajaxComplete.heroNewsletter', (event, request, settings) => {
+        if (isSubscription(settings)) finishRequest(request);
+      });
+      return true;
     }
 
     // Capture runs before the provider's submit listener. Invalid attempts never
     // reach its subscription handler; valid attempts use it without modification.
     form.addEventListener('submit', event => {
+      if (pendingRequest) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
       attempted = true;
       clearServerError();
       setError(emailField, emailMessage());
@@ -105,18 +169,24 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         firstInvalid.input.focus();
+      } else if (window.navigator.onLine === false || !observeProvider()) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        showServerError(window.navigator.onLine === false
+          ? 'You appear to be offline. Check your connection and try again.'
+          : 'The signup form is still loading. Please try again, or open signup in a new tab.');
       }
     }, true);
 
     email.addEventListener('input', () => {
       if (!attempted) return;
-      clearServerError();
+      if (!pendingRequest) clearServerError();
       setError(emailField, emailMessage());
       updateSummary();
     });
     consent.addEventListener('change', () => {
       if (!attempted) return;
-      clearServerError();
+      if (!pendingRequest) clearServerError();
       setError(consentField, consentMessage());
       updateSummary();
     });

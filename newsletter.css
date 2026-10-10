@@ -29,7 +29,8 @@
 .newsletter-form-note { font-size:.9375rem; color:#355565; margin:16px 8px 0; line-height:1.65; }
 .newsletter-page-footer { border-top:1px solid #c7dce1; padding:24px; text-align:center; color:#45616c; font-size:.875rem; }
 .newsletter-page-footer a { margin:0 10px; }
-.newsletter-page a:focus-visible,.newsletter-section a:focus-visible { outline:3px solid #d4a017; outline-offset:5px; }
+.newsletter-page a:focus-visible { outline:3px solid #125e6b; outline-offset:5px; }
+.newsletter-page .newsletter-header a:focus-visible,.newsletter-section a:focus-visible { outline:3px solid #c1f4f5; outline-offset:5px; }
 @media(max-width:1000px) { .newsletter-main { grid-template-columns:1fr; max-width:760px; padding-top:32px; gap:8px; } .newsletter-benefits { margin:20px 0; } .newsletter-intro { padding:0; } }
 @media(max-width:640px) { .newsletter-section .container { grid-template-columns:1fr; gap:28px; } .newsletter-section { padding:48px 20px; } .newsletter-main { padding:32px 12px 40px; } .newsletter-intro { padding:0 8px; } .newsletter-form { height:1080px; } .newsletter-header { padding:16px; } .newsletter-back { max-width:115px; text-align:right; } }
 
@@ -44,5 +45,20 @@
 .newsletter-form-wrap .hero-newsletter-server-error.d-none,
 .newsletter-form-wrap .hero-newsletter-error-summary[hidden] { display:none!important; }
 .newsletter-form-wrap input:focus-visible,
-.newsletter-form-wrap button:focus-visible { outline:3px solid #125e6b!important; outline-offset:3px; }
+.newsletter-form-wrap button:focus-visible,
+.newsletter-form-wrap .hero-newsletter-server-error:focus { outline:3px solid #125e6b!important; outline-offset:3px; }
 .newsletter-form-wrap .ml-form-checkboxRow input[type="checkbox"]:focus ~ .label-description::before { outline:3px solid #125e6b!important; outline-offset:3px; }
+
+/* Layered important rules override the provider's unlayered important styles,
+   including its generated instance-ID selectors. */
+@layer hero-newsletter-accessibility {
+  .newsletter-form-wrap .ml-form-fieldRow input[type="email"],
+  .newsletter-form-wrap .ml-form-checkboxRow .label-description::before { border-color:#64748b!important; }
+  .newsletter-form-wrap .ml-form-fieldRow input[aria-invalid="true"],
+  .newsletter-form-wrap .ml-form-checkboxRow.ml-error .label-description::before { border-color:#9c1b20!important; }
+  .newsletter-form-wrap .ml-error .label-description,
+  .newsletter-form-wrap .ml-error .label-description p,
+  .newsletter-form-wrap .ml-error .label-description p::first-letter,
+  .newsletter-form-wrap .ml-error .label-description a,
+  .newsletter-form-wrap .ml-error label:first-child { color:#9c1b20!important; }
+}

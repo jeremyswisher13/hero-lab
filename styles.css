@@ -94,6 +94,16 @@ button:focus-visible,
   border-radius: 4px;
 }
 
+.news-banner :focus-visible,
+.hero :focus-visible,
+.evidence-hero :focus-visible,
+.formulation-hero :focus-visible,
+.study-participate :focus-visible,
+.deep-cta :focus-visible,
+.footer :focus-visible {
+  outline-color: #c1f4f5;
+}
+
 /* Respect reduced-motion preference (WCAG 2.3.3 / 2.1) */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -209,7 +219,8 @@ button:focus-visible,
   transition: opacity var(--transition);
 }
 
-.news-banner-close:hover {
+.news-banner-close:hover,
+.news-banner-close:focus-visible {
   opacity: 1;
 }
 

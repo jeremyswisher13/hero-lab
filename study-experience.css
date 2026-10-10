@@ -61,7 +61,7 @@
 .journey-group-list p { margin-top:3px; font-size:.75rem; color:#56727e; }
 .journey-weeks { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); list-style:none; gap:8px; margin:22px 0 30px; }
 .journey-weeks li { text-align:center; }
-.journey-weeks li>span { display:flex; align-items:center; justify-content:center; height:68px; border:1px solid #cedfe4; background:#f4f7f8; color:#5d7883; font-size:1.3125rem; border-radius:4px; }
+.journey-weeks li>span { display:flex; align-items:center; justify-content:center; height:68px; border:1px solid #cedfe4; background:#f4f7f8; color:#506d78; font-size:1.3125rem; border-radius:4px; }
 .journey-weeks li.is-highlighted>span { background:#15596b; color:#fff; border-color:#15596b; }
 .journey-weeks strong { display:block; margin-top:10px; color:#506d78; font-size:.625rem; font-weight:500; }
 .journey-weeks li.is-highlighted strong { color:#15596b; font-weight:700; }

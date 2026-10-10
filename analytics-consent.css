@@ -7,7 +7,8 @@
 .hero-analytics-actions button { appearance: none; flex: 1 1 160px; min-height: 44px; padding: 10px 16px; border: 1px solid #246083; border-radius: 6px; background: #edf5f9; color: #143d56; font: 700 15px/1.3 Arial, sans-serif; cursor: pointer; }
 .hero-analytics-actions a { color: #145581; text-decoration: underline; }
 .hero-analytics-actions button:hover { background: #dcecf5; }
-.hero-analytics-actions :focus-visible, .hero-analytics-preferences :focus-visible { outline: 3px solid #f0aa20; outline-offset: 3px; }
+.hero-analytics-actions :focus-visible { outline: 3px solid #125e6b; outline-offset: 3px; }
+.hero-analytics-preferences :focus-visible { outline: 3px solid #f0aa20; outline-offset: 3px; }
 .footer-bottom .hero-analytics-preferences { opacity: 1; color: #fff; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 12px 0; }
 .hero-analytics-preferences button { color: inherit; font: inherit; background: transparent; border: 0; text-decoration: underline; cursor: pointer; padding: 8px 0; }
 .hero-analytics-preferences a { color: inherit; text-decoration: underline; padding: 8px 0; }

@@ -302,6 +302,7 @@ test('approved October and November newsletter tuples map atomically to fixed GA
   for (const [subject, label] of [
     ['The HERO Brief: What helps recovery?', 'hero_brief_2026_10'],
     ['The HERO Brief What helps recovery', 'hero_brief_2026_10'],
+    ['The HERO Brief What helps recovery ', 'hero_brief_2026_10'],
     ['The HERO Brief: More sleep, smarter fueling', 'hero_brief_2026_11'],
     ['The HERO Brief More sleep smarter fueling', 'hero_brief_2026_11']
   ]) {
@@ -322,8 +323,11 @@ test('approved October and November newsletter tuples map atomically to fixed GA
   }
 });
 
-test('actual MailerLite October redirect label and date yield fixed campaign attribution only', () => {
-  const search = '?utm_source=newsletter&utm_medium=email&utm_term=2026-10-11&utm_campaign=The+HERO+Brief+What+helps+recovery';
+test('actual MailerLite October redirect ending in plus preserves the approved single trailing space', () => {
+  const url = 'https://herolabsportsmedicine.com/newsletter.html?utm_source=newsletter&utm_medium=email&utm_term=2026-10-11&utm_campaign=The+HERO+Brief+What+helps+recovery+';
+  const parsed = new URL(url);
+  assert.equal(parsed.searchParams.get('utm_campaign'), 'The HERO Brief What helps recovery ');
+  const search = parsed.search;
   const f = accept(boot({location: {pathname: '/newsletter.html', search}}));
   for (const params of contexts(f)) {
     assert.equal(params.campaign_id, 'hero_brief_2026_10');
@@ -364,7 +368,9 @@ test('missing, unknown, partial, case-changed, whitespace, duplicate and malform
     approved.replace('utm_medium=email', 'utm_medium=%20email'),
     newsletterQuery('The HERO Brief: What helps recovery? '),
     newsletterQuery('The HERO Brief: What helps recovery? reader@example.com'),
-    newsletterQuery('The HERO Brief What helps recovery '),
+    newsletterQuery(' The HERO Brief What helps recovery'),
+    newsletterQuery(' The HERO Brief What helps recovery '),
+    newsletterQuery('The HERO Brief What helps recovery  '),
     newsletterQuery('The HERO Brief What helps recovery?'),
     newsletterQuery('The HERO Brief: What helps recovery'),
     newsletterQuery('The HERO Brief What Helps Recovery'),
@@ -448,7 +454,7 @@ test('newsletter HTML loads shared consent assets in order and exposes preferenc
   assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
   assert.ok(html.indexOf('src="analytics-config.js?') < html.indexOf('src="analytics.js?'));
   assert.match(html, /src="analytics-config\.js\?[^\"]+" defer/);
-  assert.match(html, /src="analytics\.js\?v=20261011-mailerlite" defer/);
+  assert.match(html, /src="analytics\.js\?v=20261011-mailerlite-space" defer/);
   assert.doesNotMatch(html, /data-analytics=(?:"|')/);
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /<script[^>]+analytics/);

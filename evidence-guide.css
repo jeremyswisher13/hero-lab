@@ -25,3 +25,12 @@
 .evidence-editorial h2 { font-size:1.2rem; margin-bottom:12px; }
 .evidence-editorial p { font-size:.9375rem; line-height:1.75; margin-top:12px; }
 .evidence-editorial a { color:var(--color-primary-dark); text-decoration:underline; text-underline-offset:3px; }
+
+.evidence-newsletter { display:flex; flex-wrap:wrap; align-items:center; gap:20px 32px; margin:40px 0; padding:28px 32px; border:1px solid var(--color-primary); background:var(--color-primary-light); border-radius:var(--radius-md); }
+.evidence-newsletter-text { flex:1 1 32rem; min-width:0; }
+.evidence-newsletter h2 { color:var(--color-primary-dark); font-size:1.4rem; margin-bottom:12px; }
+.evidence-newsletter p { max-width:65ch; margin:0; font-size:1rem; line-height:1.75; }
+.evidence-newsletter-link { display:inline-flex; align-items:center; min-height:44px; max-width:100%; color:var(--color-primary-dark); font-weight:700; text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
+.evidence-newsletter-link:hover { text-decoration-thickness:2px; }
+.evidence-newsletter-link:focus-visible { outline:3px solid var(--color-primary-dark); outline-offset:4px; }
+@media (max-width:600px) { .evidence-newsletter { padding:24px; gap:12px; } }

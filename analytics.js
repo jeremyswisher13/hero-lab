@@ -22,7 +22,12 @@
     '/mgt-amssm-2026.html': ['mgt-amssm-2026', 'MgT athlete trial results'],
     '/concussion-amssm-2026.html': ['concussion-amssm-2026', 'Early resistance exercise in concussion'],
     '/press.html': ['press', 'HERO Lab press and media'],
-    '/faq.html': ['faq', 'HERO Lab frequently asked questions']
+    '/faq.html': ['faq', 'HERO Lab frequently asked questions'],
+    '/newsletter.html': ['newsletter', 'The HERO Brief newsletter']
+  };
+  var newsletterCampaigns = {
+    'The HERO Brief: What helps recovery?': 'hero_brief_2026_10',
+    'The HERO Brief: More sleep, smarter fueling': 'hero_brief_2026_11'
   };
   var clicks = {
     'study-cta': {
@@ -76,6 +81,8 @@
   var loaded = false;
   var loading = false;
   var active = false;
+  var campaignDefaults = {campaign_id: '', campaign_name: '', campaign_source: '', campaign_medium: '', campaign_term: '', campaign_content: ''};
+  var campaign = campaignDefaults;
   var preferencesOpener = null;
   var expiry = 180 * 24 * 60 * 60 * 1000;
   var disableKey = 'ga-disable-' + config.measurementId;
@@ -90,6 +97,27 @@
     return '';
   }
   function gtag() { window.dataLayer.push(arguments); }
+  function newsletterCampaign() {
+    // Read only after consent. Subjects identify approved public campaigns;
+    // only fixed labels below reach Google, never any query value or date.
+    try {
+      var query = window.location.search;
+      if (typeof query !== 'string' || query.length > 8192) return campaignDefaults;
+      // URLSearchParams alone tolerates malformed encodings. Fail closed.
+      decodeURIComponent(query.replace(/\+/g, ' '));
+      var params = new URLSearchParams(query);
+      var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
+      if (keys.some(function (key) { return params.getAll(key).length !== 1; })) return campaignDefaults;
+      if (params.get('utm_source') !== 'newsletter' || params.get('utm_medium') !== 'email') return campaignDefaults;
+      var subject = params.get('utm_campaign');
+      if (!has(newsletterCampaigns, subject)) return campaignDefaults;
+      return {
+        campaign_id: newsletterCampaigns[subject], campaign_name: newsletterCampaigns[subject],
+        campaign_source: 'newsletter', campaign_medium: 'email',
+        campaign_term: '', campaign_content: ''
+      };
+    } catch (_) { return campaignDefaults; }
+  }
   function clearCookies() {
     // Only our prefixed GA cookies; never touch other site cookies.
     document.cookie.split(';').forEach(function (part) {
@@ -134,12 +162,13 @@
       window[disableKey] = false;
       gtag('consent', 'update', {analytics_storage:'granted', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
       gtag('js', new Date());
-      gtag('config', config.measurementId, {
+      campaign = newsletterCampaign();
+      gtag('config', config.measurementId, Object.assign({
         send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false,
         page_location: 'https://herolabsportsmedicine.com' + pagePath,
         page_title: page[1], page_referrer: '', cookie_prefix: 'hero',
         cookie_domain: 'none', cookie_expires: 15552000, cookie_update: false
-      });
+      }, campaign));
       active = true;
       pageview();
       instrumentFilms();
@@ -152,7 +181,7 @@
   panel.className = 'hero-analytics-panel';
   panel.setAttribute('aria-labelledby', 'hero-analytics-title');
   panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
-    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, study-link clicks, and video engagement. We do not send email addresses, message contents, or research records.</p>' +
+    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, approved newsletter campaigns, study-link clicks, and video engagement. We do not send email addresses, message contents, or research records.</p>' +
     '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
     '<button type="button" id="hero-analytics-decline">Decline</button><a href="/privacy.html">Analytics privacy</a></div>';
   panel.hidden = !!choice;
@@ -174,13 +203,14 @@
     if (choice !== 'granted') stop(); else start();
   });
 
-  // Our custom payload never reads link destinations, page queries, titles,
+  // Only the approved newsletter tuple is read from page queries after consent.
+  // Payloads use fixed labels, never link destinations, dynamic titles,
   // referrers or form values. Google also collects standard session information.
   function send(path, title, event) {
     if (!active || choice !== 'granted' || !permitted() || document.visibilityState === 'hidden' || seen[path]) return;
     seen[path] = true;
-    var params = { send_to: config.measurementId, page_id: page[0],
-      page_location: 'https://herolabsportsmedicine.com' + pagePath, page_title: page[1], page_referrer: '' };
+    var params = Object.assign({ send_to: config.measurementId, page_id: page[0],
+      page_location: 'https://herolabsportsmedicine.com' + pagePath, page_title: page[1], page_referrer: '' }, campaign);
     var name = 'page_view';
     if (event) {
       var parts = path.split(':');

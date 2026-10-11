@@ -29,6 +29,7 @@
   var newsletterCampaigns = {
     'The HERO Brief: What helps recovery?': 'hero_brief_2026_10',
     'The HERO Brief What helps recovery': 'hero_brief_2026_10',
+    'The HERO Brief What helps recovery ': 'hero_brief_2026_10',
     'The HERO Brief: More sleep, smarter fueling': 'hero_brief_2026_11',
     'The HERO Brief More sleep smarter fueling': 'hero_brief_2026_11'
   };

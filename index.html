@@ -379,6 +379,21 @@
       <button type="button" class="news-banner-close" id="newsBannerClose" aria-label="Dismiss announcement">&times;</button>
     </div>
   </div>
+  <script>
+    // Reserve the measured banner space before the main content can paint.
+    // Keep the dismissal key synchronized with script.js.
+    (() => {
+      const banner = document.getElementById('newsBanner');
+      let dismissed = false;
+      try {
+        dismissed = localStorage.getItem('herolab-news-banner-dismissed-magnesium-fall2026') === 'true';
+      } catch { /* Keep the announcement visible when storage is unavailable. */ }
+      document.body.classList.toggle('has-news-banner', !dismissed);
+      if (dismissed) banner.remove();
+      document.documentElement.style.setProperty('--news-banner-height',
+        `${dismissed ? 0 : Math.ceil(banner.getBoundingClientRect().height)}px`);
+    })();
+  </script>
 
   <!-- Navigation -->
   <nav class="navbar" id="navbar" aria-label="Primary">

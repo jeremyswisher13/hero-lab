@@ -6,6 +6,11 @@ commas, colons, or parentheses as appropriate. Run
 public text, including encoded punctuation in email links and metadata.
 The embedded Google Form must be checked separately in its editor.
 
+Run `node --test scripts/test_analytics.cjs` for offline analytics consent,
+campaign attribution, and event privacy checks. The tests do not download the
+Google tag or send analytics. Campaign attribution accepts only approved HERO
+Brief links and maps their subjects to fixed labels after analytics consent.
+
 The homepage and formulation study load one CSS bundle each. The original
 stylesheets remain the editing sources and retain their exact cascade order.
 The bundle files stay in the site root so relative asset URLs still resolve.

@@ -1,0 +1,318 @@
+{
+  "format": 1,
+  "encoder": "cwebp 1.6.0",
+  "settings": [
+    "-q",
+    "80",
+    "-m",
+    "6",
+    "-metadata",
+    "none"
+  ],
+  "resize": "width, round(original_height * width / original_width)",
+  "sources": [
+    {
+      "path": "images/amssm-2026/mgt-poster-presentation-1.jpg",
+      "width": 1200,
+      "height": 1600,
+      "bytes": 452488,
+      "sha256": "70a19ee9fb7bcc0507fe54f02f78e334cd80de852ca05a889f61b0afbc16e8d4",
+      "outputs": [
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-1-360-optimized.webp",
+          "width": 360,
+          "height": 480,
+          "bytes": 27590,
+          "sha256": "14d06434a2155abfb2c9b8bca081d5b8a1dd082cf132cf306000872e00e8873e"
+        },
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-1-640-optimized.webp",
+          "width": 640,
+          "height": 853,
+          "bytes": 66630,
+          "sha256": "af31455d22112153d4ccfed7b0cfb1deb337b26713abe996e38e4bd9fb5a546f"
+        },
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-1-960-optimized.webp",
+          "width": 960,
+          "height": 1280,
+          "bytes": 122104,
+          "sha256": "37876172a5ae2994658b3be28ad74085cb21455c4207bf7f08e3b9b5c7a2396f"
+        },
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-1-1200-optimized.webp",
+          "width": 1200,
+          "height": 1600,
+          "bytes": 229240,
+          "sha256": "1eca282dfc108faff94c58469da1c8130160db7934a9ed52d1eec8fd9d685363"
+        }
+      ]
+    },
+    {
+      "path": "images/amssm-2026/mgt-poster-presentation-2.jpg",
+      "width": 1600,
+      "height": 1735,
+      "bytes": 672077,
+      "sha256": "7d71a34023af3f9e723ee57612978ff743945d96e0ad9c742ed2f9258659a1c1",
+      "outputs": [
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-2-360-optimized.webp",
+          "width": 360,
+          "height": 390,
+          "bytes": 22514,
+          "sha256": "2521f2c66f968e59e740c3b305eab3f01ea8d5d1d60d177d997c6b5960b12fcb"
+        },
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-2-640-optimized.webp",
+          "width": 640,
+          "height": 694,
+          "bytes": 65680,
+          "sha256": "3c0b3a061ba80ab048e7ecc399b11c7330458779ea50472ae4f37d4b0affaec6"
+        },
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-2-960-optimized.webp",
+          "width": 960,
+          "height": 1041,
+          "bytes": 135308,
+          "sha256": "92ea4edff402c7b0badb90278c7d007434e2190f453f6183020c650c8ef37c27"
+        },
+        {
+          "path": "images/amssm-2026/mgt-poster-presentation-2-1600-optimized.webp",
+          "width": 1600,
+          "height": 1735,
+          "bytes": 368094,
+          "sha256": "e36fe12ebffe28359197c3e01897ec303f76c0398f388754bca9e5149631f520"
+        }
+      ]
+    },
+    {
+      "path": "images/team-2026/kimberly-sideline.jpg",
+      "width": 1280,
+      "height": 960,
+      "bytes": 511971,
+      "sha256": "560f87b51e6314d6ab049fe2bd44370b8a8c7217bca910bff84ba06ec446b84e",
+      "outputs": [
+        {
+          "path": "images/team-2026/kimberly-sideline-360-optimized.webp",
+          "width": 360,
+          "height": 270,
+          "bytes": 23356,
+          "sha256": "8f9cc3c15c95f3c847ef826335080992c0fc9387309579e9952f4da63346725f"
+        },
+        {
+          "path": "images/team-2026/kimberly-sideline-640-optimized.webp",
+          "width": 640,
+          "height": 480,
+          "bytes": 75440,
+          "sha256": "fcc4760ab8d70116639f43527d62da6bb2bf636ce3f766cd570af62e451fa165"
+        },
+        {
+          "path": "images/team-2026/kimberly-sideline-960-optimized.webp",
+          "width": 960,
+          "height": 720,
+          "bytes": 149262,
+          "sha256": "f4f6a8b92e7ea79818f97b919f6f0ef08f137d56782db0fd196d3a19fb552eda"
+        },
+        {
+          "path": "images/team-2026/kimberly-sideline-1280-optimized.webp",
+          "width": 1280,
+          "height": 960,
+          "bytes": 304186,
+          "sha256": "0bef58ad49b5896d9bc42e7255d9b1fde9fe4adbc4cc0afa986fbbef11cad9f1"
+        }
+      ]
+    },
+    {
+      "path": "images/team-2026/chargers.webp",
+      "width": 1179,
+      "height": 1016,
+      "bytes": 145238,
+      "sha256": "7fb4c8d511a4a8e968f0d0decdf52f2ac14cfdeea6ba396f26a88dcdbed9be96",
+      "outputs": [
+        {
+          "path": "images/team-2026/chargers-360-optimized.webp",
+          "width": 360,
+          "height": 310,
+          "bytes": 17152,
+          "sha256": "78944821ebe9a924d0df75626605ef8d910be5c36d7112f6d6b8741f41370cc0"
+        },
+        {
+          "path": "images/team-2026/chargers-640-optimized.webp",
+          "width": 640,
+          "height": 552,
+          "bytes": 36102,
+          "sha256": "4eedb8a02ba2ccd45e51a6264d61085c705ad9a47932d7134948f15ff9101e97"
+        },
+        {
+          "path": "images/team-2026/chargers-960-optimized.webp",
+          "width": 960,
+          "height": 827,
+          "bytes": 61426,
+          "sha256": "4b878e6b4dd1fe26503e4ac86c62c28c3ced94a7163967ace5447441616496f6"
+        },
+        {
+          "path": "images/team-2026/chargers-1179-optimized.webp",
+          "width": 1179,
+          "height": 1016,
+          "bytes": 102628,
+          "sha256": "c8aa1d48c854354d590975709a6a48eb934641d94a6f70abcfe0b4185a26404a"
+        }
+      ]
+    },
+    {
+      "path": "images/team-2026/brian-amssm-presentation.webp",
+      "width": 1400,
+      "height": 1050,
+      "bytes": 195102,
+      "sha256": "65cbf7b29cd557d68e70cbdde5c4aabb0bd44c22a7a31129a395375cbe3d721b",
+      "outputs": [
+        {
+          "path": "images/team-2026/brian-amssm-presentation-360-optimized.webp",
+          "width": 360,
+          "height": 270,
+          "bytes": 14996,
+          "sha256": "147d5b2da528a3f582e9bcad011d4f08b95546c48c0ce8efac81772fb85d41b6"
+        },
+        {
+          "path": "images/team-2026/brian-amssm-presentation-640-optimized.webp",
+          "width": 640,
+          "height": 480,
+          "bytes": 33164,
+          "sha256": "ea109a641f9c819feb80b4ab5bd316a7e0e37122a5cb1ce95928e3a6ecb39a8d"
+        },
+        {
+          "path": "images/team-2026/brian-amssm-presentation-960-optimized.webp",
+          "width": 960,
+          "height": 720,
+          "bytes": 56540,
+          "sha256": "c90173b692f088dc85bcd23b409ac9fff9ee42ba1eeb55c216ab1dcad5f880c8"
+        },
+        {
+          "path": "images/team-2026/brian-amssm-presentation-1400-optimized.webp",
+          "width": 1400,
+          "height": 1050,
+          "bytes": 99976,
+          "sha256": "9bc9ea3bb9eed247da31c247c00a69b0448d73e8942ccf40ed78f9c69dd9c8c9"
+        }
+      ]
+    },
+    {
+      "path": "images/team-2026/hero-team-group.webp",
+      "width": 1800,
+      "height": 1696,
+      "bytes": 467526,
+      "sha256": "314f24a4da0e2a70e8bf91a1b1a57ca278c214daf1526a34f9e204c89eb4696a",
+      "outputs": [
+        {
+          "path": "images/team-2026/hero-team-group-360-optimized.webp",
+          "width": 360,
+          "height": 339,
+          "bytes": 26162,
+          "sha256": "e8b5cf6876b453cb736ac4e65d7b34265f8423bd05cd9c9e74ffabf48dbc5f56"
+        },
+        {
+          "path": "images/team-2026/hero-team-group-640-optimized.webp",
+          "width": 640,
+          "height": 603,
+          "bytes": 65904,
+          "sha256": "c266cef0df57e6c6d61e8525be190958864723c818158ab84985b4a9e8784338"
+        },
+        {
+          "path": "images/team-2026/hero-team-group-720-optimized.webp",
+          "width": 720,
+          "height": 678,
+          "bytes": 79528,
+          "sha256": "838a224c15112e34a34c343b794d6c5e6fcd78bbce9db2fed9fcfdf2a134ab40"
+        },
+        {
+          "path": "images/team-2026/hero-team-group-800-optimized.webp",
+          "width": 800,
+          "height": 754,
+          "bytes": 92032,
+          "sha256": "7c5494f91f01e4ff1721133a2b27bc5def9b74318bc2db0d8b31691707d0ff4c"
+        },
+        {
+          "path": "images/team-2026/hero-team-group-960-optimized.webp",
+          "width": 960,
+          "height": 905,
+          "bytes": 122954,
+          "sha256": "ec6c5b7f742f6045d5ed6c1e0087de64860bc85015d60135b022aed389fdf31b"
+        },
+        {
+          "path": "images/team-2026/hero-team-group-1280-optimized.webp",
+          "width": 1280,
+          "height": 1206,
+          "bytes": 187810,
+          "sha256": "bd8306bf2c3b7219c0b5884f0fe9afc184f5bf04510b4c2dca8673cc603e5162"
+        },
+        {
+          "path": "images/team-2026/hero-team-group-1800-optimized.webp",
+          "width": 1800,
+          "height": 1696,
+          "bytes": 356988,
+          "sha256": "4ce7d95488386951e71657421c7bffe39798bce93eb788461f47dd0e95131c53"
+        }
+      ]
+    },
+    {
+      "path": "images/team-2026/kimberly-burbank.webp",
+      "width": 600,
+      "height": 1049,
+      "bytes": 109446,
+      "sha256": "a6d9abb7567242d3c1a7ae91f3484462e3932fd5080310ac5f5e48baff1565c5",
+      "outputs": [
+        {
+          "path": "images/team-2026/kimberly-burbank-360-optimized.webp",
+          "width": 360,
+          "height": 629,
+          "bytes": 34824,
+          "sha256": "21e08a5169c4640e69e7d1fb5dc4281cc747e597941ed69146eac1c2dbfcfad0"
+        },
+        {
+          "path": "images/team-2026/kimberly-burbank-480-optimized.webp",
+          "width": 480,
+          "height": 839,
+          "bytes": 51424,
+          "sha256": "f3a07751c39b0eec26c13445b73d175e2a76390870b1429d08b3fcd62940d66d"
+        },
+        {
+          "path": "images/team-2026/kimberly-burbank-600-optimized.webp",
+          "width": 600,
+          "height": 1049,
+          "bytes": 86940,
+          "sha256": "e4b6bb77b1c6ab3bc4bd0ae4f2cdd39c638142306dbaf43753daf4b1dd5c0ac9"
+        }
+      ]
+    },
+    {
+      "path": "images/team-2026/brian-donohoe.webp",
+      "width": 600,
+      "height": 1048,
+      "bytes": 84676,
+      "sha256": "c4e30678397202b30d1e106261e0f852c85606610835ff484a0dd0ad7ea6da10",
+      "outputs": [
+        {
+          "path": "images/team-2026/brian-donohoe-360-optimized.webp",
+          "width": 360,
+          "height": 629,
+          "bytes": 17864,
+          "sha256": "415886f8806699c954fbe209c5a6b4262307f9baf25eb2186209fc8494e5f60f"
+        },
+        {
+          "path": "images/team-2026/brian-donohoe-480-optimized.webp",
+          "width": 480,
+          "height": 838,
+          "bytes": 29832,
+          "sha256": "94913da8fc31459e38e77c3f1f02c97029e2e480f88a65911803a8e8cdc1770b"
+        },
+        {
+          "path": "images/team-2026/brian-donohoe-600-optimized.webp",
+          "width": 600,
+          "height": 1048,
+          "bytes": 61130,
+          "sha256": "d2a9e6c7f6e82f90734a282f92219b155f080e4d4c829177c0e25a0189c4fe72"
+        }
+      ]
+    }
+  ]
+}

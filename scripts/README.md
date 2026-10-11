@@ -28,3 +28,24 @@ unicode ranges, and swap behavior, removing the external CSS request. Font
 binaries continue to be served by fonts.gstatic.com. No font binaries are
 copied into this repository. Source request:
 https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap
+
+
+# Responsive photograph copies
+
+The homepage and AMSSM magnesium gallery use smaller WebP copies selected
+with `srcset` and layout-specific `sizes`. Original photographs remain in
+place. Every derivative is encoded directly from its original, without
+cropping, at quality 80 and method 6; embedded metadata is stripped.
+
+To rebuild the 33 copies, install libwebp 1.6.0 (`cwebp`) and run:
+
+```sh
+python3 scripts/build_responsive_images.py
+python3 scripts/build_responsive_images.py --check
+```
+
+Commit the generated `*-optimized.webp` files and
+`scripts/responsive-images.json` with any source update. The manifest records
+source and output hashes, dimensions, and byte sizes. The check requires only
+Python 3 and verifies the committed assets without re-encoding them. New
+image filenames keep cached original copies from masking the update.

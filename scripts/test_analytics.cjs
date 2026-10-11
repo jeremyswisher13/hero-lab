@@ -301,7 +301,9 @@ function contexts(f) { return f.calls().filter(call => call[0] === 'config' || c
 test('approved October and November newsletter tuples map atomically to fixed GA4 campaign fields', () => {
   for (const [subject, label] of [
     ['The HERO Brief: What helps recovery?', 'hero_brief_2026_10'],
-    ['The HERO Brief: More sleep, smarter fueling', 'hero_brief_2026_11']
+    ['The HERO Brief What helps recovery', 'hero_brief_2026_10'],
+    ['The HERO Brief: More sleep, smarter fueling', 'hero_brief_2026_11'],
+    ['The HERO Brief More sleep smarter fueling', 'hero_brief_2026_11']
   ]) {
     const f = accept(boot({location: {pathname: '/newsletter.html', search: newsletterQuery(subject)}}));
     f.click('inquiry', 'study-participation');
@@ -318,6 +320,25 @@ test('approved October and November newsletter tuples map atomically to fixed GA
     assert.equal(pageviews(f)[0][2].page_id, 'newsletter');
     assert.ok(!JSON.stringify(f.calls()).includes(subject));
   }
+});
+
+test('actual MailerLite October redirect label and date yield fixed campaign attribution only', () => {
+  const search = '?utm_source=newsletter&utm_medium=email&utm_term=2026-10-11&utm_campaign=The+HERO+Brief+What+helps+recovery';
+  const f = accept(boot({location: {pathname: '/newsletter.html', search}}));
+  for (const params of contexts(f)) {
+    assert.equal(params.campaign_id, 'hero_brief_2026_10');
+    assert.equal(params.campaign_name, 'hero_brief_2026_10');
+    assert.equal(params.campaign_source, 'newsletter');
+    assert.equal(params.campaign_medium, 'email');
+    assert.equal(params.campaign_term, '');
+    assert.equal(params.campaign_content, '');
+    assert.equal(params.page_location, 'https://herolabsportsmedicine.com/newsletter.html');
+    assert.equal(params.page_referrer, '');
+  }
+  const serialized = JSON.stringify([contexts(f), f.storageWrites]);
+  assert.ok(!serialized.includes('2026-10-11'));
+  assert.ok(!serialized.includes('The HERO Brief What helps recovery'));
+  assert.ok(!serialized.includes('utm_'));
 });
 
 test('unknown query values, MailerLite date terms, and subscriber identifiers never reach GA4 or storage', () => {
@@ -343,6 +364,16 @@ test('missing, unknown, partial, case-changed, whitespace, duplicate and malform
     approved.replace('utm_medium=email', 'utm_medium=%20email'),
     newsletterQuery('The HERO Brief: What helps recovery? '),
     newsletterQuery('The HERO Brief: What helps recovery? reader@example.com'),
+    newsletterQuery('The HERO Brief What helps recovery '),
+    newsletterQuery('The HERO Brief What helps recovery?'),
+    newsletterQuery('The HERO Brief: What helps recovery'),
+    newsletterQuery('The HERO Brief What Helps Recovery'),
+    newsletterQuery('The HERO Brief What helps recovery reader@example.com'),
+    newsletterQuery('The HERO Brief More sleep smarter fueling '),
+    newsletterQuery('The HERO Brief More sleep, smarter fueling'),
+    newsletterQuery('The HERO Brief More Sleep Smarter Fueling'),
+    newsletterQuery('The HERO Brief More sleep smarter fueling extra'),
+    newsletterQuery('The HERO Brief What helps recovery') + '&utm_campaign=The+HERO+Brief+What+helps+recovery',
     newsletterQuery('The HERO Brief: A future issue'),
     newsletterQuery('hero_brief_2026_10'),
     approved + '&utm_source=newsletter', approved + '&%75tm_source=newsletter',
@@ -417,7 +448,7 @@ test('newsletter HTML loads shared consent assets in order and exposes preferenc
   assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
   assert.ok(html.indexOf('src="analytics-config.js?') < html.indexOf('src="analytics.js?'));
   assert.match(html, /src="analytics-config\.js\?[^\"]+" defer/);
-  assert.match(html, /src="analytics\.js\?v=20261011-newsletter" defer/);
+  assert.match(html, /src="analytics\.js\?v=20261011-mailerlite" defer/);
   assert.doesNotMatch(html, /data-analytics=(?:"|')/);
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /<script[^>]+analytics/);

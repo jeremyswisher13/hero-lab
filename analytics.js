@@ -25,9 +25,12 @@
     '/faq.html': ['faq', 'HERO Lab frequently asked questions'],
     '/newsletter.html': ['newsletter', 'The HERO Brief newsletter']
   };
+  // Accept only these public subjects and MailerLite's exact campaign labels.
   var newsletterCampaigns = {
     'The HERO Brief: What helps recovery?': 'hero_brief_2026_10',
-    'The HERO Brief: More sleep, smarter fueling': 'hero_brief_2026_11'
+    'The HERO Brief What helps recovery': 'hero_brief_2026_10',
+    'The HERO Brief: More sleep, smarter fueling': 'hero_brief_2026_11',
+    'The HERO Brief More sleep smarter fueling': 'hero_brief_2026_11'
   };
   var clicks = {
     'study-cta': {

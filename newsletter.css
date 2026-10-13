@@ -40,6 +40,8 @@
 .newsletter-form-wrap .hero-newsletter-error-summary { color:#9c1b20!important; font-size:.9375rem!important; line-height:1.5!important; margin:8px 0 16px!important; }
 .newsletter-form-wrap .hero-newsletter-error-summary { border-left:3px solid #9c1b20; padding-left:12px; }
 .newsletter-form-wrap .hero-newsletter-required-note { color:#355565!important; font-size:.875rem!important; margin:0 0 16px!important; }
+.newsletter-form-wrap .hero-newsletter-signup-help { margin:16px 0 0!important; font-size:.9375rem!important; line-height:1.5!important; }
+.newsletter-form-wrap .hero-newsletter-signup-help a { display:inline-block; padding:8px 0; color:#125e6b!important; text-decoration:underline!important; text-underline-offset:3px; }
 .newsletter-form-wrap .hero-newsletter-field-error:empty,
 .newsletter-form-wrap .hero-newsletter-server-error:empty,
 .newsletter-form-wrap .hero-newsletter-server-error.d-none,

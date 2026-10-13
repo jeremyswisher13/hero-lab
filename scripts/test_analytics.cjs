@@ -197,6 +197,10 @@ class Document extends EventTarget {
 }
 
 function boot(options = {}) {
+  const FixtureDate = options.now === undefined ? Date : class extends Date {
+    constructor(...args) { super(...(args.length ? args : [options.now])); }
+    static now() { return options.now; }
+  };
   const document = new Document(options);
   const preference = document.createElement('button');
   preference.setAttribute('data-analytics-preferences', '');
@@ -249,7 +253,7 @@ function boot(options = {}) {
   }
   const context = vm.createContext({
     window, document, navigator: window.navigator, localStorage: storage,
-    URL, URLSearchParams, Date, Number, Math, Set, Map, Object, Array,
+    URL, URLSearchParams, Date: FixtureDate, Number, Math, Set, Map, Object, Array,
     setTimeout: window.setTimeout, clearTimeout: window.clearTimeout,
     Event: class { constructor(type, init) { this.type = type; Object.assign(this, init); } },
     CustomEvent: class { constructor(type, init) { this.type = type; Object.assign(this, init); } }
@@ -348,8 +352,12 @@ test('actual MailerLite October redirect ending in plus preserves the approved s
 test('unknown query values, MailerLite date terms, and subscriber identifiers never reach GA4 or storage', () => {
   const search = newsletterQuery() + '&utm_term=2026-10-13&utm_content=private-content&utm_id=raw-campaign-id' +
     '&email=reader%40example.com&subscriber_id=private-subscriber&token=private-token&unknown=private-unknown';
-  const f = accept(boot({location: {search}}));
+  // A real gtag initialization date can coincide with the query date sentinel.
+  // Freeze the fixture clock while retaining the scan of every call and write.
+  const now = Date.parse('2026-01-02T03:04:05Z');
+  const f = accept(boot({location: {search}, now}));
   f.click('study-cta', 'hero-study');
+  assert.deepEqual(f.calls().filter(call => call[0] === 'js'), [['js', new Date(now).toISOString()]]);
   const serialized = JSON.stringify([f.calls(), f.storageWrites, f.document.cookieWrites]);
   for (const secret of ['2026-10-13', 'private-content', 'raw-campaign-id', 'reader@example.com',
     'private-subscriber', 'private-token', 'private-unknown', 'utm_']) assert.ok(!serialized.includes(secret), secret);

@@ -12,3 +12,4 @@ jobs:
       - run: python3 scripts/build_styles.py --check
       - run: python3 scripts/check_public_copy.py
       - run: node --test scripts/test_analytics.cjs
+      - run: node --test scripts/test_newsletter.cjs

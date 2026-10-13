@@ -11,6 +11,11 @@ campaign attribution, and event privacy checks. The tests do not download the
 Google tag or send analytics. Campaign attribution accepts only approved HERO
 Brief links and maps their subjects to fixed labels after analytics consent.
 
+Run `node --test scripts/test_newsletter.cjs` for offline checks of newsletter
+email validation, consent, provider readiness, and errors. The tests execute
+the production script against a small DOM fixture and never send a signup.
+They do not verify email delivery or the provider's accepted address formats.
+
 The homepage and formulation study load one CSS bundle each. The original
 stylesheets remain the editing sources and retain their exact cascade order.
 The bundle files stay in the site root so relative asset URLs still resolve.

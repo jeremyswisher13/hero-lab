@@ -68,14 +68,27 @@
     const emailField = field(email, 'email', email.closest('.ml-field-group') || email.parentElement);
     const consentField = field(consent, 'permission', consent.closest('.ml-form-checkboxRow'));
     const fields = [emailField, consentField];
-    // Match the provider's format check so its local rejection also gets text.
+    const signupHelp = document.createElement('p');
+    signupHelp.className = 'hero-newsletter-signup-help';
+    signupHelp.id = email.id + '-signup-help';
+    const helpLink = document.createElement('a');
+    helpLink.href = 'mailto:jswisher@mednet.ucla.edu';
+    helpLink.textContent = 'Email HERO Lab for signup help';
+    signupHelp.append(helpLink);
+    form.append(signupHelp);
+    email.setAttribute('aria-describedby', email.getAttribute('aria-describedby') + ' ' + signupHelp.id);
+
+    // Retain the existing provider-compatible format restriction. It is not
+    // the definition of valid email syntax, and does not establish deliverability.
     const providerEmailPattern = /^[a-zA-Z0-9_.+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,40}$/;
+    const unsupportedEmailMessage = 'This signup form does not support this email address format. Use another email address or the signup help link.';
 
     function emailMessage() {
       if (!email.value.trim()) return 'Please enter your email address.';
-      if (!email.validity.valid || !providerEmailPattern.test(email.value.trim())) {
+      if (!email.validity.valid) {
         return 'Enter a valid email address, such as name@example.com.';
       }
+      if (!providerEmailPattern.test(email.value.trim())) return unsupportedEmailMessage;
       return '';
     }
     function consentMessage() {
@@ -89,7 +102,7 @@
     function updateSummary() {
       const count = fields.filter(item => item.input.getAttribute('aria-invalid') === 'true').length;
       summary.hidden = count === 0;
-      const message = count ? 'Please correct ' + count + (count === 1 ? ' field' : ' fields') + ' to subscribe.' : '';
+      const message = count ? 'Please review ' + count + (count === 1 ? ' field' : ' fields') + ' before continuing.' : '';
       if (summary.textContent !== message) summary.textContent = message;
     }
     function clearServerError() {
@@ -204,7 +217,7 @@
         }
         if (item.error.textContent.trim()) return;
         item.error.textContent = item === emailField
-          ? 'Please check your email address and try again.'
+          ? emailMessage() || 'The signup service could not accept this email address. Use another email address or the signup help link.'
           : 'Please confirm that you want to receive The HERO Brief.';
         providerRejection = true;
       });

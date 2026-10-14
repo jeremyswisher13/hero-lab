@@ -9,6 +9,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'analytics.js'), 'utf8');
+const newsletterSource = fs.readFileSync(path.join(root, 'newsletter-form.js'), 'utf8');
 const configSource = fs.readFileSync(path.join(root, 'analytics-config.js'), 'utf8');
 const KEY = 'hero-analytics-consent-v1';
 const ID = 'G-OFFLINE123';
@@ -31,11 +32,13 @@ class EventTarget {
     if (!event.target) event.target = this;
     if (!event.preventDefault) event.preventDefault = () => { event.defaultPrevented = true; };
     if (!event.stopPropagation) event.stopPropagation = () => { event.stopped = true; };
+    if (!event.stopImmediatePropagation) event.stopImmediatePropagation = () => { event.immediateStopped = true; event.stopped = true; };
     event.currentTarget = this;
     if (typeof this['on' + event.type] === 'function') this['on' + event.type].call(this, event);
     for (const item of [...(this.listeners[event.type] || [])]) {
       item.fn.call(this, event);
       if (item.once) this.removeEventListener(event.type, item.fn);
+      if (event.immediateStopped) break;
     }
     if (!event.stopped && event.bubbles !== false && this.parentNode) this.parentNode.dispatchEvent(event);
     return !event.defaultPrevented;
@@ -135,12 +138,29 @@ class Element extends EventTarget {
   }
   replaceChildren(...children) { this.children.forEach(child => { child.parentNode = null; }); this.children = []; this.append(...children); }
   remove() { if (this.parentNode?.removeChild) this.parentNode.removeChild(this); }
+  after(child) {
+    const parent = this.parentNode;
+    const next = parent.children[parent.children.indexOf(this) + 1];
+    parent.insertBefore(child, next);
+  }
   contains(target) { return target === this || this.children.some(child => child.contains?.(target)); }
   focus() { this.ownerDocument.activeElement = this; }
   click() { this.dispatchEvent({ type: 'click', isTrusted: true, button: 0, bubbles: true }); }
   showModal() { this.open = true; }
   close() { this.open = false; }
   matches(selector) {
+    if (selector.includes(' ')) {
+      const parts = selector.split(/\s+/);
+      if (!this.matches(parts.pop())) return false;
+      let ancestor = this.parentElement;
+      while (parts.length) {
+        const part = parts.pop();
+        while (ancestor && !ancestor.matches(part)) ancestor = ancestor.parentElement;
+        if (!ancestor) return false;
+        ancestor = ancestor.parentElement;
+      }
+      return true;
+    }
     if (selector.includes(',')) return selector.split(',').some(part => this.matches(part.trim()));
     // The fixture only needs ordinary selectors used by HERO's shared scripts.
     const attrs = [...selector.matchAll(/\[([\w-]+)(?:=["']?([^\]"']+)["']?)?\]/g)];
@@ -215,11 +235,13 @@ function boot(options = {}) {
     removeItem(key) { if (options.storageFailure) throw new Error('Storage blocked'); stored.delete(key); }
   };
   const timers = [];
+  const providerEvents = new Map();
+  const observers = [];
   const window = new EventTarget();
   Object.assign(window, {
     HERO_ANALYTICS_CONFIG: { enabled: true, measurementId: ID, ...options.config },
     location: { protocol: 'https:', hostname: 'herolabsportsmedicine.com', pathname: '/', search: '', reload() { window.reloads = (window.reloads || 0) + 1; }, ...options.location },
-    navigator: { ...options.navigator },
+    navigator: { onLine: true, ...options.navigator },
     localStorage: storage,
     document,
     fetch() { throw new Error('HERO must not make direct analytics requests'); },
@@ -251,15 +273,56 @@ function boot(options = {}) {
     videos.push(item);
     document.body.appendChild(item);
   }
+  let embed, form, email, permission, sourceInput;
+  if (options.newsletter) {
+    embed = document.createElement('div');
+    embed.className = 'ml-embedded';
+    embed.setAttribute('data-form', 'tn5fb0');
+    form = document.createElement('form');
+    form.className = 'ml-block-form';
+    form.action = 'https://dashboard.mailerlite.com/jsonp/2676652/forms/200888505463735643/subscribe';
+    const emailGroup = document.createElement('div');
+    emailGroup.className = 'ml-field-group';
+    email = document.createElement('input');
+    email.setAttribute('type', 'email');
+    email.value = 'private-reader@example.com';
+    email.validity = {valid: true};
+    emailGroup.append(email);
+    const permissionGroup = document.createElement('div');
+    permissionGroup.className = 'ml-form-checkboxRow ml-validate-required';
+    permission = document.createElement('input');
+    permission.setAttribute('type', 'checkbox');
+    permission.checked = true;
+    permissionGroup.append(permission);
+    form.append(emailGroup, permissionGroup);
+    if (options.sourceField !== false) {
+      sourceInput = document.createElement('input');
+      sourceInput.setAttribute('type', 'hidden');
+      sourceInput.setAttribute('name', 'fields[hero_signup_source]');
+      sourceInput.value = 'untrusted-provider-default';
+      form.append(sourceInput);
+    }
+    if (!options.delayedForm) embed.append(form);
+    document.body.append(embed);
+    const providerDocument = {on(name, callback) {providerEvents.set(name, callback); return this;}};
+    window.ml_jQuery = target => target === form ? {data: () => options.providerReady !== false} : providerDocument;
+  }
+  class MutationObserver {
+    constructor(callback) { this.callback = callback; observers.push(this); }
+    observe(target) { this.target = target; }
+    disconnect() { this.disconnected = true; }
+  }
   const context = vm.createContext({
     window, document, navigator: window.navigator, localStorage: storage,
-    URL, URLSearchParams, Date: FixtureDate, Number, Math, Set, Map, Object, Array,
+    URL, URLSearchParams, Date: FixtureDate, Number, Math, Set, Map, Object, Array, MutationObserver,
     setTimeout: window.setTimeout, clearTimeout: window.clearTimeout,
     Event: class { constructor(type, init) { this.type = type; Object.assign(this, init); } },
     CustomEvent: class { constructor(type, init) { this.type = type; Object.assign(this, init); } }
   });
   if (options.realConfig) vm.runInContext(configSource, context);
+  if (options.newsletter && options.formFirst) vm.runInContext(newsletterSource, context);
   vm.runInContext(source, context);
+  if (options.newsletter && !options.formFirst) vm.runInContext(newsletterSource, context);
   const clickId = id => { const item = document.getElementById(id); assert.ok(item, 'Expected UI element #' + id); item.click(); };
   const load = () => {
     const script = document.injectedScripts.find(item => item.id === 'hero-google-analytics');
@@ -283,6 +346,10 @@ function boot(options = {}) {
   };
   return {
     window, document, preference, stored, storageReads, storageWrites, queryReads, videos, calls, events, click, load,
+    form, email, permission, sourceInput,
+    injectForm: () => { embed.append(form); observers.filter(item => item.target === embed && !item.disconnected).forEach(item => item.callback()); },
+    submit: () => { const event = {type: 'submit', bubbles: false}; form.dispatchEvent(event); return event; },
+    providerEvent: (name, request, response, url = form.action) => providerEvents.get(name + '.heroNewsletter')?.({}, request, {url}, response),
     allow: () => clickId('hero-analytics-allow'),
     decline: () => clickId('hero-analytics-decline'),
     rerun: () => vm.runInContext(source, context),
@@ -462,7 +529,7 @@ test('newsletter HTML loads shared consent assets in order and exposes preferenc
   assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
   assert.ok(html.indexOf('src="analytics-config.js?') < html.indexOf('src="analytics.js?'));
   assert.match(html, /src="analytics-config\.js\?[^\"]+" defer/);
-  assert.match(html, /src="analytics\.js\?v=20261011-mailerlite-space" defer/);
+  assert.match(html, /src="analytics\.js\?v=20261013-signup-measurement" defer/);
   assert.doesNotMatch(html, /data-analytics=(?:"|')/);
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /<script[^>]+analytics/);
@@ -827,4 +894,260 @@ test('declining from the preferences panel restores focus to its opener without 
   assert.equal(f.document.activeElement, f.preference);
   assert.equal(f.window.reloads || 0, 0);
   assert.equal(scripts(f).length, 0);
+});
+
+const SIGNUP_SOURCES = [
+  ['instagram', 'social', 'story', 'instagram_story'],
+  ['instagram', 'social', 'bio', 'instagram_bio'],
+  ['email', 'signature', 'signature', 'email_signature'],
+  ['event', 'qr', 'talk', 'event_talk'],
+  ['event', 'qr', 'print', 'event_print']
+];
+function signupQuery(source = 'instagram', medium = 'social', content = 'story') {
+  return '?' + new URLSearchParams({utm_source: source, utm_medium: medium, utm_campaign: 'hero_brief_signup', utm_content: content});
+}
+function signupBoot(options = {}) {
+  return boot({...options, newsletter: true, location: {pathname: '/newsletter.html', search: signupQuery(), ...options.location}});
+}
+const signupEvents = f => f.events().filter(call => /^hero_newsletter_/.test(call[1]));
+function beginRequest(f) {
+  assert.equal(f.submit().defaultPrevented, undefined);
+  const request = {};
+  f.providerEvent('ajaxSend', request);
+  return request;
+}
+
+test('five approved signup tuples map to fixed campaigns and optional source labels in either script order', () => {
+  for (const formFirst of [false, true]) for (const [source, medium, content, label] of SIGNUP_SOURCES) {
+    const f = signupBoot({formFirst, location: {search: signupQuery(source, medium, content)}});
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.deepEqual(f.queryReads, []);
+    f.allow();
+    assert.equal(f.sourceInput.value, label, 'source follows consent before provider serialization or Google readiness');
+    assert.equal(f.events().length, 0);
+    f.load();
+    for (const params of contexts(f)) {
+      assert.deepEqual(Object.fromEntries(CAMPAIGN_KEYS.map(key => [key, params[key]])), {
+        campaign_id: 'hero_brief_signup', campaign_name: 'hero_brief_signup', campaign_source: source,
+        campaign_medium: medium, campaign_term: '', campaign_content: content
+      });
+    }
+    assert.deepEqual(f.queryReads, ['search'], 'only one consented query read on the signup page');
+    assert.equal(f.storageWrites.length, 1);
+    assert.equal(f.storageWrites[0][0], KEY, 'no source persistence');
+  }
+});
+
+test('signup recruitment tuples reject missing, duplicate, encoded duplicate, mismatched and malformed values', () => {
+  const good = signupQuery();
+  const rejected = [
+    '', '?utm_source=instagram', good.replace('&utm_content=story', ''),
+    good.replace('utm_source=instagram', 'utm_source=Instagram'),
+    good.replace('utm_source=instagram', 'utm_source=instagram+'),
+    good.replace('utm_medium=social', 'utm_medium=qr'),
+    good.replace('utm_campaign=hero_brief_signup', 'utm_campaign=HERO_brief_signup'),
+    good.replace('utm_content=story', 'utm_content=bio+'),
+    signupQuery('email', 'signature', 'bio'), signupQuery('event', 'qr', 'story'),
+    signupQuery('instagram', 'social', 'reader@example.com'),
+    good + '&utm_source=instagram', good + '&%75tm_source=instagram',
+    good + '&utm_medium=social', good + '&utm_campaign=hero_brief_signup',
+    good + '&utm_content=story', good + '&%75tm_content=story',
+    good + '&unknown=%ZZ', good + '&unknown=%ED%A0%80', good + '&unknown=' + 'x'.repeat(8192)
+  ];
+  for (const search of rejected) {
+    const f = accept(signupBoot({location: {search}}));
+    assert.equal(f.sourceInput.value, 'not_recorded', search.slice(0, 100));
+    assert.ok(contexts(f).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')));
+  }
+  const unreadable = accept(signupBoot({queryFailure: true}));
+  assert.equal(unreadable.sourceInput.value, 'not_recorded');
+  const otherPage = accept(boot({location: {search: good}}));
+  assert.equal(otherPage.window.HERO_NEWSLETTER_ANALYTICS, undefined);
+  assert.ok(contexts(otherPage).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')));
+});
+
+test('denial and privacy guards leave optional signup source unrecorded and do not read the query', () => {
+  for (const guard of [
+    {stored: denied()}, {navigator: {doNotTrack: '1'}}, {navigator: {globalPrivacyControl: true}},
+    {navigator: {webdriver: true}}, {frame: true}, {prerendering: true},
+    {config: {enabled: false}}, {location: {hostname: 'localhost'}}, {location: {protocol: 'http:'}}
+  ]) {
+    const f = signupBoot({stored: granted(), ...guard});
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.deepEqual(f.queryReads, []);
+    const request = beginRequest(f);
+    f.providerEvent('ajaxSuccess', request, {success: true});
+    assert.equal(signupEvents(f).length, 0);
+    assert.equal(scripts(f).length, 0);
+  }
+});
+
+test('only the actual valid provider request counts submit, and strict provider success counts accepted once', () => {
+  const f = accept(signupBoot());
+  f.submit();
+  assert.deepEqual(signupEvents(f), [], 'a valid local submit without AJAX is not measured');
+  f.flushTimers();
+  const unrelated = {};
+  f.providerEvent('ajaxSend', unrelated, null, 'https://example.com/unrelated');
+  f.providerEvent('ajaxSuccess', unrelated, {success: true});
+  const request = beginRequest(f);
+  assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit']);
+  f.providerEvent('ajaxSend', request);
+  f.providerEvent('ajaxSuccess', {}, {success: true});
+  assert.equal(f.submit().defaultPrevented, true, 'pending duplicate attempt remains blocked');
+  f.providerEvent('ajaxSuccess', request, {success: true, email: 'private-response@example.com'});
+  f.providerEvent('ajaxSuccess', request, {success: true});
+  const repeat = beginRequest(f);
+  f.providerEvent('ajaxSuccess', repeat, {success: true});
+  assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit', 'hero_newsletter_accepted']);
+  const serialized = JSON.stringify([f.calls(), f.storageWrites]);
+  for (const secret of ['private-reader', 'private-response', 'dashboard.mailerlite', 'utm_', 'untrusted-provider-default']) assert.ok(!serialized.includes(secret), secret);
+  for (const call of signupEvents(f)) assert.deepEqual(Object.keys(call[2]).sort(), [
+    'send_to', 'page_id', 'page_location', 'page_title', 'page_referrer', ...CAMPAIGN_KEYS
+  ].sort());
+  assert.ok(!f.events().some(call => /confirmed/.test(call[1])));
+});
+
+test('invalid, offline, unready, expired local attempt and unsolicited matching AJAX never count signup stages', () => {
+  for (const options of [{providerReady: false}, {navigator: {onLine: false}}, {}]) {
+    const f = accept(signupBoot(options));
+    if (!options.providerReady && !options.navigator) f.email.validity.valid = false;
+    assert.equal(f.submit().defaultPrevented, true);
+    f.providerEvent('ajaxSend', {});
+    assert.equal(signupEvents(f).length, 0);
+  }
+  const expired = accept(signupBoot());
+  expired.submit();
+  expired.flushTimers();
+  const request = {};
+  expired.providerEvent('ajaxSend', request);
+  expired.providerEvent('ajaxSuccess', request, {success: true});
+  assert.equal(signupEvents(expired).length, 0);
+});
+
+test('provider rejections, confirmation prompts, transport errors and completion alone never count accepted', () => {
+  for (const [name, response] of [
+    ['ajaxSuccess', {}], ['ajaxSuccess', {success: false}], ['ajaxSuccess', {success: 'true'}],
+    ['ajaxSuccess', {fieldsToConfirm: ['email']}], ['ajaxError', {success: true}], ['ajaxComplete', {success: true}]
+  ]) {
+    const f = accept(signupBoot());
+    const request = beginRequest(f);
+    f.providerEvent(name, request, response);
+    assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit']);
+    const retry = beginRequest(f);
+    f.providerEvent('ajaxSuccess', retry, {success: true});
+    assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit', 'hero_newsletter_accepted']);
+  }
+});
+
+test('late consent or tag readiness never replays signup submit or accepted stages', () => {
+  for (const state of ['undecided', 'denied', 'loading']) {
+    const f = signupBoot({stored: state === 'denied' ? denied() : undefined});
+    if (state === 'loading') f.allow();
+    const request = beginRequest(f);
+    if (state !== 'loading') f.allow();
+    f.load();
+    f.providerEvent('ajaxSuccess', request, {success: true});
+    assert.equal(signupEvents(f).length, 0, state);
+    const future = beginRequest(f);
+    f.providerEvent('ajaxSuccess', future, {success: true});
+    assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit', 'hero_newsletter_accepted']);
+  }
+});
+
+test('withdrawal resets source before serialization and prevents pending acceptance, including another tab', () => {
+  for (const otherTab of [false, true]) {
+    const f = accept(signupBoot());
+    const request = beginRequest(f);
+    if (otherTab) {
+      f.stored.set(KEY, denied());
+      f.window.dispatchEvent({type: 'storage', key: KEY, bubbles: false});
+    } else f.decline();
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    f.providerEvent('ajaxSuccess', request, {success: true});
+    const later = beginRequest(f);
+    f.providerEvent('ajaxSuccess', later, {success: true});
+    assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit']);
+  }
+  const gpc = accept(signupBoot());
+  const pending = beginRequest(gpc);
+  gpc.window.navigator.globalPrivacyControl = true;
+  gpc.providerEvent('ajaxSuccess', pending, {success: true});
+  beginRequest(gpc);
+  assert.equal(gpc.sourceInput.value, 'not_recorded');
+  assert.deepEqual(signupEvents(gpc).map(call => call[1]), ['hero_newsletter_submit']);
+});
+
+test('source metadata adds the native hidden input to cached embeds and sanitizes it before every serialization', () => {
+  const missing = accept(signupBoot({sourceField: false}));
+  assert.equal(missing.form.querySelectorAll('input[type="hidden"]').length, 1);
+  assert.equal(missing.form.querySelector('input[type="hidden"]').getAttribute('name'), 'fields[hero_signup_source]');
+  assert.equal(missing.form.querySelector('input[type="hidden"]').value, 'instagram_story');
+  const request = beginRequest(missing);
+  missing.providerEvent('ajaxSuccess', request, {success: true});
+  assert.equal(signupEvents(missing).length, 2);
+  const f = accept(signupBoot({location: {search: signupQuery() + '&email=private-query%40example.com&token=private-token'}}));
+  f.sourceInput.value = 'private-input@example.com';
+  beginRequest(f);
+  assert.equal(f.sourceInput.value, 'instagram_story');
+  assert.ok(!JSON.stringify([f.calls(), f.storageWrites]).includes('private-'));
+  const duplicate = f.document.createElement('input');
+  duplicate.setAttribute('type', 'hidden');
+  duplicate.setAttribute('name', 'fields[hero_signup_source]');
+  duplicate.value = 'private-duplicate';
+  f.form.append(duplicate);
+  f.submit();
+  assert.equal(f.form.querySelectorAll('input[type="hidden"]').length, 1);
+});
+
+test('a provider form injected after consent receives the fixed source and keeps one enhancement', () => {
+  for (const formFirst of [false, true]) {
+    const f = signupBoot({formFirst, delayedForm: true});
+    f.allow();
+    f.load();
+    f.injectForm();
+    assert.equal(f.sourceInput.value, 'instagram_story');
+    assert.equal(f.form.querySelectorAll('.hero-newsletter-error-summary').length, 1);
+    const request = beginRequest(f);
+    f.providerEvent('ajaxSuccess', request, {success: true});
+    assert.equal(signupEvents(f).length, 2);
+  }
+});
+
+test('source is fixed before the provider submit listener serializes and starts AJAX', () => {
+  const f = accept(signupBoot());
+  const request = {};
+  let serializedSource;
+  f.form.addEventListener('submit', () => {
+    serializedSource = f.sourceInput.value;
+    f.providerEvent('ajaxSend', request);
+  });
+  f.sourceInput.value = 'private-altered-default';
+  f.submit();
+  assert.equal(serializedSource, 'instagram_story');
+  assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit']);
+  f.providerEvent('ajaxSuccess', request, {success: true});
+  assert.equal(signupEvents(f).length, 2);
+});
+
+test('an eligible visible signup may be accepted after switching tabs, without accepting hidden starts', () => {
+  const f = accept(signupBoot());
+  const request = beginRequest(f);
+  f.document.visibilityState = 'hidden';
+  f.providerEvent('ajaxSuccess', request, {success: true});
+  assert.deepEqual(signupEvents(f).map(call => call[1]), ['hero_newsletter_submit', 'hero_newsletter_accepted']);
+  f.providerEvent('ajaxSuccess', request, {success: true});
+  assert.equal(signupEvents(f).length, 2);
+  const hiddenStart = accept(signupBoot());
+  hiddenStart.document.visibilityState = 'hidden';
+  const hiddenRequest = beginRequest(hiddenStart);
+  hiddenStart.document.visibilityState = 'visible';
+  hiddenStart.providerEvent('ajaxSuccess', hiddenRequest, {success: true});
+  assert.equal(signupEvents(hiddenStart).length, 0);
+  const withdrawn = accept(signupBoot());
+  const revokedRequest = beginRequest(withdrawn);
+  withdrawn.document.visibilityState = 'hidden';
+  withdrawn.decline();
+  withdrawn.providerEvent('ajaxSuccess', revokedRequest, {success: true});
+  assert.deepEqual(signupEvents(withdrawn).map(call => call[1]), ['hero_newsletter_submit']);
 });

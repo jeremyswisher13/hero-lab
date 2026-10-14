@@ -33,6 +33,14 @@
     'The HERO Brief: More sleep, smarter fueling': 'hero_brief_2026_11',
     'The HERO Brief More sleep smarter fueling': 'hero_brief_2026_11'
   };
+  // These constants are the only recruitment values that can leave this page.
+  var signupSources = [
+    ['instagram', 'social', 'story', 'instagram_story'],
+    ['instagram', 'social', 'bio', 'instagram_bio'],
+    ['email', 'signature', 'signature', 'email_signature'],
+    ['event', 'qr', 'talk', 'event_talk'],
+    ['event', 'qr', 'print', 'event_print']
+  ];
   var clicks = {
     'study-cta': {
       'nav-participate': 'Navigation participation link',
@@ -87,6 +95,8 @@
   var active = false;
   var campaignDefaults = {campaign_id: '', campaign_name: '', campaign_source: '', campaign_medium: '', campaign_term: '', campaign_content: ''};
   var campaign = campaignDefaults;
+  var signupContext = null;
+  var consentGeneration = 0;
   var preferencesOpener = null;
   var expiry = 180 * 24 * 60 * 60 * 1000;
   var disableKey = 'ga-disable-' + config.measurementId;
@@ -101,26 +111,50 @@
     return '';
   }
   function gtag() { window.dataLayer.push(arguments); }
-  function newsletterCampaign() {
+  function campaignContext() {
     // Read only after consent. Subjects identify approved public campaigns;
     // only fixed labels below reach Google, never any query value or date.
     try {
       var query = window.location.search;
-      if (typeof query !== 'string' || query.length > 8192) return campaignDefaults;
+      if (typeof query !== 'string' || query.length > 8192) return emptyContext();
       // URLSearchParams alone tolerates malformed encodings. Fail closed.
       decodeURIComponent(query.replace(/\+/g, ' '));
       var params = new URLSearchParams(query);
       var keys = ['utm_source', 'utm_medium', 'utm_campaign'];
-      if (keys.some(function (key) { return params.getAll(key).length !== 1; })) return campaignDefaults;
-      if (params.get('utm_source') !== 'newsletter' || params.get('utm_medium') !== 'email') return campaignDefaults;
+      if (keys.some(function (key) { return params.getAll(key).length !== 1; })) return emptyContext();
+      if (initialPath === '/newsletter.html' && params.get('utm_campaign') === 'hero_brief_signup') {
+        if (params.getAll('utm_content').length !== 1) return emptyContext();
+        var approved = signupSources.find(function (tuple) {
+          return params.get('utm_source') === tuple[0] && params.get('utm_medium') === tuple[1] && params.get('utm_content') === tuple[2];
+        });
+        if (!approved) return emptyContext();
+        return {source: approved[3], campaign: {
+          campaign_id: 'hero_brief_signup', campaign_name: 'hero_brief_signup',
+          campaign_source: approved[0], campaign_medium: approved[1],
+          campaign_term: '', campaign_content: approved[2]
+        }};
+      }
+      if (params.get('utm_source') !== 'newsletter' || params.get('utm_medium') !== 'email') return emptyContext();
       var subject = params.get('utm_campaign');
-      if (!has(newsletterCampaigns, subject)) return campaignDefaults;
-      return {
+      if (!has(newsletterCampaigns, subject)) return emptyContext();
+      return {source: 'not_recorded', campaign: {
         campaign_id: newsletterCampaigns[subject], campaign_name: newsletterCampaigns[subject],
         campaign_source: 'newsletter', campaign_medium: 'email',
         campaign_term: '', campaign_content: ''
-      };
-    } catch (_) { return campaignDefaults; }
+      }};
+    } catch (_) { return emptyContext(); }
+  }
+  function emptyContext() { return {source: 'not_recorded', campaign: campaignDefaults}; }
+  function currentContext() {
+    // Recruitment attribution is scoped to this signup page and this visit.
+    // Cache only after consent; never persist query data or source labels.
+    if (choice !== 'granted' || !permitted()) return emptyContext();
+    if (initialPath !== '/newsletter.html') return campaignContext();
+    if (!signupContext) signupContext = campaignContext();
+    return signupContext;
+  }
+  function notifySignup() {
+    if (initialPath === '/newsletter.html') window.dispatchEvent(new Event('hero-newsletter-analytics-change'));
   }
   function clearCookies() {
     // Only our prefixed GA cookies; never touch other site cookies.
@@ -134,8 +168,11 @@
   }
   function stop() {
     active = false;
+    consentGeneration += 1;
+    signupContext = null;
     window[disableKey] = true;
     seen = Object.create(null);
+    notifySignup();
     clearCookies();
     // Unload Google's lifecycle listeners after withdrawal, including in another tab.
     if (loaded) window.location.reload();
@@ -145,7 +182,7 @@
     try { window.localStorage.setItem(consentKey, JSON.stringify({choice: value, expires: Date.now() + expiry})); } catch (_) {}
     panel.hidden = true;
     if (preferencesOpener) preferencesOpener.focus();
-    if (value === 'granted') start(); else stop();
+    if (value === 'granted') { start(); notifySignup(); } else stop();
   }
   function start() {
     if (choice !== 'granted' || !permitted() || loading || loaded) return;
@@ -166,7 +203,7 @@
       window[disableKey] = false;
       gtag('consent', 'update', {analytics_storage:'granted', ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied'});
       gtag('js', new Date());
-      campaign = newsletterCampaign();
+      campaign = currentContext().campaign;
       gtag('config', config.measurementId, Object.assign({
         send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false,
         page_location: 'https://herolabsportsmedicine.com' + pagePath,
@@ -185,7 +222,7 @@
   panel.className = 'hero-analytics-panel';
   panel.setAttribute('aria-labelledby', 'hero-analytics-title');
   panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
-    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, approved newsletter campaigns, study-link clicks, and video engagement. We do not send email addresses, message contents, or research records.</p>' +
+    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, approved newsletter campaigns, newsletter signup requests, study-link clicks, and video engagement. We also record an approved signup channel in your private MailerLite record when you subscribe. Email addresses, message contents, and research records stay out of Google Analytics.</p>' +
     '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
     '<button type="button" id="hero-analytics-decline">Decline</button><a href="/privacy.html">Analytics privacy</a></div>';
   panel.hidden = !!choice;
@@ -204,14 +241,17 @@
   window.addEventListener('storage', function (event) {
     if (event.key !== consentKey) return;
     choice = readChoice();
-    if (choice !== 'granted') stop(); else start();
+    if (choice !== 'granted') stop(); else { start(); notifySignup(); }
   });
 
-  // Only the approved newsletter tuple is read from page queries after consent.
+  // Only approved campaign tuples are read from page queries after consent.
   // Payloads use fixed labels, never link destinations, dynamic titles,
   // referrers or form values. Google also collects standard session information.
   function send(path, title, event) {
-    if (!active || choice !== 'granted' || !permitted() || document.visibilityState === 'hidden' || seen[path]) return;
+    // A consented signup can finish while its reader switches to their inbox.
+    // Only that request's acceptance callback may finish in a hidden tab.
+    if (!active || choice !== 'granted' || !permitted() ||
+        (document.visibilityState === 'hidden' && path !== 'newsletter:accepted') || seen[path]) return;
     seen[path] = true;
     var params = Object.assign({ send_to: config.measurementId, page_id: page[0],
       page_location: 'https://herolabsportsmedicine.com' + pagePath, page_title: page[1], page_referrer: '' }, campaign);
@@ -222,12 +262,35 @@
         params.film_id = parts[1];
         name = parts[2] === 'play' ? 'hero_film_play' : parts[2] === 'complete' ? 'hero_film_complete' : 'hero_film_progress';
         if (name === 'hero_film_progress') params.percent_watched = Number(parts[2]);
+      } else if (parts[0] === 'newsletter') {
+        name = parts[1] === 'submit' ? 'hero_newsletter_submit' : 'hero_newsletter_accepted';
       } else {
         name = {'study-cta':'hero_study_cta', inquiry:'hero_inquiry_click', download:'hero_film_download'}[parts[0]];
         params.action_id = parts[1];
       }
     }
     gtag('event', name, params);
+  }
+
+  if (initialPath === '/newsletter.html') {
+    // No event bus carries requests, responses or form values. The form gets a
+    // one-request callback only if analytics was ready when AJAX actually began.
+    window.HERO_NEWSLETTER_ANALYTICS = Object.freeze({
+      source: function () { return currentContext().source; },
+      beginSubmission: function () {
+        if (!active || choice !== 'granted' || !permitted() || document.visibilityState === 'hidden') return null;
+        var generation = consentGeneration;
+        var finished = false;
+        send('newsletter:submit', page[1], true);
+        return function () {
+          if (finished) return;
+          finished = true;
+          if (generation !== consentGeneration) return;
+          send('newsletter:accepted', page[1], true);
+        };
+      }
+    });
+    notifySignup();
   }
 
   function pageview() {

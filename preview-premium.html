@@ -534,25 +534,29 @@
       .hero-meta { gap: var(--s-4); }
     }
 
-    /* Animated reveal on scroll */
-    .reveal {
+    /* Content stays visible unless scroll animation is available. */
+    .motion-ready .reveal {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .reveal.in-view {
+    .motion-ready .reveal.in-view {
       opacity: 1;
       transform: translateY(0);
     }
-    .reveal-stagger > * {
+    .motion-ready .reveal-stagger > * {
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
-    .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+    .motion-ready .reveal-stagger.in-view > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+    .motion-ready .reveal-stagger.in-view > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+    .motion-ready .reveal-stagger.in-view > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+    .motion-ready .reveal-stagger.in-view > *:nth-child(4) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .motion-ready .reveal,
+      .motion-ready .reveal-stagger > * { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -598,8 +602,8 @@
           <span class="hero-meta-value">Three</span>
         </div>
         <div class="hero-meta-item">
-          <span class="hero-meta-label">MgT Reaction-Time Sample</span>
-          <span class="hero-meta-value">107</span>
+          <span class="hero-meta-label">MgT Evidence Status</span>
+          <span class="hero-meta-value">Under review</span>
         </div>
         <div class="hero-meta-item">
           <span class="hero-meta-label">Wearable Partner</span>
@@ -620,8 +624,8 @@
 
       <div class="stats-row reveal-stagger">
         <div class="stat-block">
-          <div class="stat-num">107</div>
-          <div class="stat-label">Athletes with paired reaction-time measurements in the completed MgT trial</div>
+          <div class="stat-num">MgT</div>
+          <div class="stat-label">Original athlete trial. Analysis and source reconciliation are in progress.</div>
         </div>
         <div class="stat-block">
           <div class="stat-num">3</div>
@@ -645,35 +649,35 @@
   <section class="section">
     <div class="container">
       <div class="section-eyebrow">Featured Study</div>
-      <h2>Magnesium L&#8209;Threonate: the updated findings.</h2>
+      <h2>Magnesium L&#8209;Threonate: a study under review.</h2>
 
       <div class="study-editorial reveal">
         <div class="study-editorial-header">
-          <span class="study-tag">Updated Results · Unpublished</span>
+          <span class="study-tag">Original trial · Analysis under review</span>
           <span class="study-id">NCT07015047</span>
         </div>
         <h3>Effects of Magnesium L-Threonate on sleep, recovery, and neurocognitive performance in collegiate athletes.</h3>
-        <p class="study-deck">The completed randomized, double-blind, placebo-controlled UCLA trial tested 1 g of magnesium L-threonate compound nightly for four weeks. The updated unpublished analysis found no benefit on the primary Week 4 deep-sleep outcome in 75 athletes. Two prespecified secondary reaction-time tests favored MgT in 107 athletes with paired measurements and require replication.</p>
+        <p class="study-deck">The original UCLA athlete trial investigated magnesium L-threonate, sleep, recovery, and reaction time. The registry, presentation, and analysis materials contain differences that are being reconciled. HERO Lab is not presenting a final treatment benefit while that review is in progress.</p>
 
         <div class="findings-row">
           <div class="finding">
-            <div class="finding-num">52.3<span style="font-size:24px; color:var(--ink-muted);">ms</span></div>
-            <div class="finding-name">Greater reduction in RIW response latency vs. placebo</div>
-            <div class="finding-pval">p &lt; 0.001</div>
+            <div class="finding-num">Sleep</div>
+            <div class="finding-name">Registered primary outcomes include deep sleep and HRV</div>
+            <div class="finding-pval">Findings remain provisional</div>
           </div>
           <div class="finding">
-            <div class="finding-num">+0.7<span style="font-size:24px; color:var(--ink-muted);">min</span></div>
-            <div class="finding-name">Primary Week 4 deep-sleep difference vs. placebo</div>
-            <div class="finding-pval">p = .844; no evidence of benefit</div>
+            <div class="finding-num">Design</div>
+            <div class="finding-name">Protocol and registry masking descriptions differ</div>
+            <div class="finding-pval">Reconciliation is in progress</div>
           </div>
           <div class="finding">
-            <div class="finding-num">34.2<span style="font-size:24px; color:var(--ink-muted);">ms</span></div>
-            <div class="finding-name">Greater reduction in Speed Tap response latency vs. placebo</div>
-            <div class="finding-pval">p = 0.010</div>
+            <div class="finding-num">Registry</div>
+            <div class="finding-name">Active, not recruiting; no posted results</div>
+            <div class="finding-pval">Registry checked October 14, 2026</div>
           </div>
         </div>
 
-        <a href="mgt-amssm-2026.html" class="study-cta">Read the full study &rarr;</a>
+        <a href="mgt-amssm-2026.html" class="study-cta">Read the study context &rarr;</a>
       </div>
     </div>
   </section>
@@ -681,8 +685,8 @@
   <!-- Pull quote -->
   <section class="pullquote">
     <div class="container-narrow">
-      <blockquote>The primary sleep outcome was null. Secondary reaction-time findings require replication.</blockquote>
-      <cite>Updated unpublished analysis; see the full study page</cite>
+      <blockquote>Study findings remain provisional while the analysis and source materials are reconciled.</blockquote>
+      <cite>See the study page for evidence status and limitations.</cite>
     </div>
   </section>
 
@@ -723,11 +727,14 @@
 
   <script>
     // Lightweight scroll-reveal for previewing motion design
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in-view')),
-      { threshold: 0.15 }
-    );
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in-view')),
+        { threshold: 0.15 }
+      );
+      document.documentElement.classList.add('motion-ready');
+      document.querySelectorAll('.reveal, .reveal-stagger').forEach((el) => observer.observe(el));
+    }
   </script>
 
 </body>

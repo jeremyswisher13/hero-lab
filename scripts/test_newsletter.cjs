@@ -56,7 +56,7 @@ class Element {
     for (const [, name, value] of selector.matchAll(/\[([\w-]+)="([^"]*)"\]/g)) if (this.getAttribute(name) !== value) return false;
     return true;
   }
-  querySelector(selector) {
+  querySelectorAll(selector) {
     const parts = selector.split(/\s+/);
     const matches = element => {
       if (!element.matches(parts[parts.length - 1])) return false;
@@ -68,16 +68,17 @@ class Element {
       }
       return true;
     };
+    const result = [];
     const visit = node => {
       for (const child of node.children) {
-        if (matches(child)) return child;
-        const found = visit(child);
-        if (found) return found;
+        if (matches(child)) result.push(child);
+        visit(child);
       }
-      return null;
     };
-    return visit(this);
+    visit(this);
+    return result;
   }
+  querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   closest(selector) { for (let node = this; node; node = node.parentElement) if (node.matches(selector)) return node; return null; }
   focus() { this.ownerDocument.activeElement = this; }
   addEventListener(type, callback) { (this.listeners[type] ||= []).push(callback); }
@@ -130,6 +131,7 @@ function boot({ value = '', nativeValid = false, checked = false, online = true,
   let timerId = 0;
   const providerDocument = { on(name, callback) { events.set(name, callback); return this; } };
   const window = {
+    addEventListener() {},
     navigator: { onLine: online },
     location: { href: 'https://herolabsportsmedicine.com/newsletter.html' },
     setTimeout(callback) { timers.set(++timerId, callback); return timerId; },

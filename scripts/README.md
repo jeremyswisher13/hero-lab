@@ -4,12 +4,15 @@ Public website and newsletter copy must not use em dashes. Use periods,
 commas, colons, or parentheses as appropriate. Run
 `python3 scripts/check_public_copy.py` before publication. CI also scans
 public text, including encoded punctuation in email links and metadata.
-The embedded Google Form must be checked separately in its editor.
+The embedded MailerLite form must be checked separately in its editor.
 
 Run `node --test scripts/test_analytics.cjs` for offline analytics consent,
 campaign attribution, and event privacy checks. The tests do not download the
 Google tag or send analytics. Campaign attribution accepts only approved HERO
 Brief links and maps their subjects to fixed labels after analytics consent.
+Signup recruitment attribution and request stages use the same consent guards.
+See [the signup measurement operator notes](../HERO_BRIEF_SIGNUP_MEASUREMENT.md)
+for approved URLs, the native source field, and reporting limits.
 
 Run `node --test scripts/test_newsletter.cjs` for offline checks of newsletter
 email validation, consent, provider readiness, and errors. The tests execute

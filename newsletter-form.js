@@ -17,9 +17,30 @@
     form.noValidate = true;
     let attempted = false;
     let pendingRequest = null;
+    let pendingAcceptance = null;
+    let awaitingSubmission = false;
     let requestTimer;
     let observedProvider;
     const pendingMessage = 'We could not confirm your signup yet. Please check your inbox for a confirmation email and wait before trying again.';
+
+    function syncSignupSource() {
+      // Use MailerLite's native hidden segmentation input. Cached embeds may
+      // omit the newly configured field, so ensure exactly one documented input.
+      // Set it before serialization, never by a separate subscription request.
+      const inputs = Array.from(form.querySelectorAll('input[type="hidden"]')).filter(input => input.getAttribute('name') === 'fields[hero_signup_source]');
+      let input = inputs[0];
+      if (!input) {
+        input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'fields[hero_signup_source]');
+        form.append(input);
+      }
+      inputs.slice(1).forEach(duplicate => duplicate.remove());
+      const source = window.HERO_NEWSLETTER_ANALYTICS?.source() || 'not_recorded';
+      input.value = source;
+    }
+    window.addEventListener('hero-newsletter-analytics-change', syncSignupSource);
+    syncSignupSource();
 
     const summary = document.createElement('p');
     summary.className = 'hero-newsletter-error-summary';
@@ -118,6 +139,7 @@
       if (pendingRequest !== request) return;
       window.clearTimeout(requestTimer);
       pendingRequest = null;
+      pendingAcceptance = null;
       form.removeAttribute('aria-busy');
     }
     function observeProvider() {
@@ -137,8 +159,11 @@
       // Observe the provider's public AJAX events. Its request, callback, loading
       // state, and double opt-in success flow remain owned by MailerLite.
       provider(document).on('ajaxSend.heroNewsletter', (event, request, settings) => {
-        if (!isSubscription(settings)) return;
+        if (!isSubscription(settings) || pendingRequest) return;
+        const eligible = awaitingSubmission;
+        awaitingSubmission = false;
         pendingRequest = request;
+        pendingAcceptance = eligible ? window.HERO_NEWSLETTER_ANALYTICS?.beginSubmission() : null;
         form.setAttribute('aria-busy', 'true');
         requestTimer = window.setTimeout(() => {
           if (pendingRequest !== request) return;
@@ -148,8 +173,12 @@
         }, 20000);
       }).on('ajaxSuccess.heroNewsletter', (event, request, settings, response) => {
         if (!isSubscription(settings) || pendingRequest !== request) return;
+        const accepted = pendingAcceptance;
         finishRequest(request);
         clearServerError();
+        // Provider acceptance may include an existing subscriber. It never
+        // establishes email confirmation or a new, confirmed subscription.
+        if (response?.success === true && accepted) accepted();
         if (!response?.success && !response?.fieldsToConfirm?.length && !fields.some(item => item.group.classList.contains('ml-error') || item.input.getAttribute('aria-invalid') === 'true')) {
           showServerError('Your signup could not be completed. Please try again, or open signup in a new tab.');
         }
@@ -167,6 +196,8 @@
     // Capture runs before the provider's submit listener. Invalid attempts never
     // reach its subscription handler; valid attempts use it without modification.
     form.addEventListener('submit', event => {
+      syncSignupSource();
+      awaitingSubmission = false;
       if (pendingRequest) {
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -188,6 +219,11 @@
         showServerError(window.navigator.onLine === false
           ? 'You appear to be offline. Check your connection and try again.'
           : 'The signup form is still loading. Please try again, or open signup in a new tab.');
+      } else {
+        // MailerLite starts its AJAX in its submit listener. Expire this marker
+        // at the next task so a later unrelated request cannot claim the attempt.
+        awaitingSubmission = true;
+        window.setTimeout(() => { awaitingSubmission = false; }, 0);
       }
     }, true);
 

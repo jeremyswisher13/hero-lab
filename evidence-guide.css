@@ -1,5 +1,10 @@
 /* Focused evidence summaries, extending the existing HERO Lab theme. */
+.evidence-section > .container { max-width: 88ch; }
+.evidence-section p { max-width: 75ch; }
 .why-it-matters p + p { margin-top: 16px; }
+.why-it-matters h3 { margin: 24px 0 12px; font-size: 1rem; color: var(--color-primary-dark); }
+.evidence-takeaways { max-width: 75ch; margin-bottom: 24px; padding-left: 1.25em; list-style: disc; font-size: 1rem; line-height: 1.75; }
+.evidence-takeaways li + li { margin-top: 8px; }
 .why-it-matters a, .evidence-outcomes a { color: var(--color-primary-dark); text-decoration: underline; text-underline-offset: 3px; }
 .evidence-contents { margin-bottom: 40px; padding: 24px; background: var(--color-bg-alt); border-radius: var(--radius-md); }
 .evidence-contents h2, .evidence-heading, .evidence-outcomes h2 { font-size: 1.4rem; margin-bottom: 16px; }

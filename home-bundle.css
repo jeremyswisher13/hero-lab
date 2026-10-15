@@ -3525,12 +3525,16 @@ video { max-width:100%; }
 .newsletter-action { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
 .newsletter-action .btn { background:#9be1e4; color:#092631; border:1px solid #9be1e4; white-space:normal; text-align:center; }
 .newsletter-action .btn:hover { background:#c9f2f3; }
+.newsletter-archive-link { color:#c9f2f3; text-decoration:underline; text-underline-offset:4px; padding:8px 0; }
+.newsletter-archive-link:hover { color:#fff; }
 .newsletter-action small { color:#c5dce2; font-size:.875rem; }
 .newsletter-page { background:#f0f6f7; }
 .newsletter-header { background:#092631; color:#fff; padding:20px 24px; }
 .newsletter-header .container { display:flex; align-items:center; justify-content:space-between; gap:20px; }
-.newsletter-header .nav-logo { color:#fff; }
+.newsletter-header .nav-logo { color:#fff; flex-shrink:0; white-space:nowrap; }
 .newsletter-header .logo-text { color:#fff; }
+.newsletter-header-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:4px 20px; }
+.newsletter-header-links a { display:inline-flex; align-items:center; min-height:44px; }
 .newsletter-back { color:#c9eff1; font-size:.9375rem; text-decoration:underline; text-underline-offset:4px; }
 .newsletter-main { max-width:1320px; margin:auto; padding:56px 24px 64px; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:48px; align-items:start; }
 .newsletter-intro { padding:18px 0; }

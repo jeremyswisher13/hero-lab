@@ -19,7 +19,8 @@ email validation, consent, provider readiness, and errors. The tests execute
 the production script against a small DOM fixture and never send a signup.
 They do not verify email delivery or the provider's accepted address formats.
 
-The homepage and formulation study load one CSS bundle each. The original
+The homepage, formulation study, magnesium evidence page, and wearables
+evidence page load one CSS bundle each. The original
 stylesheets remain the editing sources and retain their exact cascade order.
 The bundle files stay in the site root so relative asset URLs still resolve.
 
@@ -30,9 +31,17 @@ python3 scripts/build_styles.py
 python3 scripts/build_styles.py --check
 ```
 
-Commit both generated CSS files and the updated HTML cache keys. Do not edit
-`home-bundle.css` or `study-bundle.css` directly. Other pages use the original
-stylesheets. The styles workflow checks that committed bundles are current.
+Commit the generated CSS files and the updated HTML cache keys. Do not edit
+`home-bundle.css`, `study-bundle.css`, `magnesium-bundle.css`, or
+`wearables-bundle.css` directly. Other pages use the original stylesheets.
+The existing styles workflow checks all four committed bundles.
+
+`magnesium-evidence.css` and `wearables-evidence.css` preserve the page styles
+previously embedded inline. Each evidence bundle keeps the original order:
+font declarations, `styles.css`, page-specific styles, then the existing
+override stylesheets. `evidence-footer.css` gives the footer's semantic `h2`
+headings the same appearance as the former `h4` headings. Do not move page
+styles after their overrides when changing the bundle source lists.
 
 `fonts.css` preserves the Inter declarations returned by Google Fonts on
 September 7, 2026 for the existing `400;500;600;700;800;900&display=swap` request,

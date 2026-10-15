@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the homepage/study CSS bundles with their original cascade order.
+"""Build page CSS bundles with their original cascade order.
 
 Run from any directory with Python 3; --check validates committed output.
 Only the standard library is needed. See scripts/README.md.
@@ -19,6 +19,16 @@ BUNDLES = {
         "fonts.css", "styles.css", "refresh.css", "study-experience.css",
         "study-film.css", "research-navigation.css", "analytics-consent.css",
     ]),
+    "magnesium-bundle.css": ("magnesium.html", [
+        "fonts.css", "styles.css", "magnesium-evidence.css", "refresh.css",
+        "premium.css", "evidence-guide.css", "evidence-comparisons.css",
+        "research-navigation.css", "analytics-consent.css", "evidence-footer.css",
+    ]),
+    "wearables-bundle.css": ("wearables.html", [
+        "fonts.css", "styles.css", "wearables-evidence.css", "premium.css",
+        "evidence-guide.css", "evidence-comparisons.css",
+        "research-navigation.css", "analytics-consent.css", "evidence-footer.css",
+    ]),
 }
 
 
@@ -34,14 +44,17 @@ def build(check=False):
         updated, count = re.subn(pattern, f'<link rel="stylesheet" href="{output}?v={version}">', html)
         if count != 1:
             raise ValueError(f"Expected one {output} link in {page}; found {count}")
-        if not (ROOT / output).exists() or (ROOT / output).read_text() != content or updated != html:
+        output_changed = not (ROOT / output).exists() or (ROOT / output).read_text() != content
+        if output_changed or updated != html:
             stale.append(output)
         if not check:
-            (ROOT / output).write_text(content)
-            (ROOT / page).write_text(updated)
+            if output_changed:
+                (ROOT / output).write_text(content)
+            if updated != html:
+                (ROOT / page).write_text(updated)
     if check and stale:
         raise SystemExit("Stale bundles: " + ", ".join(stale) + ". Run python3 scripts/build_styles.py")
-    print("CSS bundles are current." if check else "Built homepage and study CSS bundles.")
+    print("CSS bundles are current." if check else "Built page CSS bundles.")
 
 
 if __name__ == "__main__":

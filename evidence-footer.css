@@ -1,0 +1,10 @@
+/* Keep evidence-page footer headings visually consistent at their semantic level. */
+.footer-col h2 {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}

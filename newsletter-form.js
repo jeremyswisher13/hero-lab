@@ -89,6 +89,59 @@
     const emailField = field(email, 'email', email.closest('.ml-field-group') || email.parentElement);
     const consentField = field(consent, 'permission', consent.closest('.ml-form-checkboxRow'));
     const fields = [emailField, consentField];
+
+    // Keep the email label visible after entry. The provider currently supplies
+    // only a placeholder and aria-label, so associate our label with its input.
+    let emailLabel = Array.from(emailField.group.querySelectorAll('label')).find(label => label.getAttribute('for') === email.id);
+    if (!emailLabel) {
+      emailLabel = document.createElement('label');
+      emailField.group.prepend(emailLabel);
+    }
+    emailLabel.classList.add('hero-newsletter-email-label');
+    emailLabel.setAttribute('for', email.id);
+    emailLabel.textContent = 'Email address';
+    email.removeAttribute('aria-label');
+
+    // The landing page already introduces the newsletter. Keep this provider
+    // content brief without replacing any of its form or consent controls.
+    const introduction = embed.querySelector('.ml-form-embedContent');
+    if (introduction) {
+      const title = document.createElement('h4');
+      title.className = 'hero-newsletter-form-title';
+      title.textContent = 'Subscribe for free';
+      const intro = document.createElement('p');
+      intro.className = 'hero-newsletter-form-intro';
+      intro.textContent = 'Confirm your email after signing up.';
+      introduction.textContent = '';
+      introduction.append(title, intro);
+    }
+
+    function explainEmailConfirmation() {
+      const content = embed.querySelector('.ml-form-successContent');
+      if (!content) return false;
+      const title = document.createElement('h4');
+      title.textContent = 'Check your inbox';
+      const instructions = document.createElement('p');
+      instructions.textContent = 'To confirm a new subscription, open the confirmation email and click the link to finish signing up for The HERO Brief. If you do not see it, check your spam folder. Already receiving The HERO Brief? You do not need to subscribe again.';
+      content.classList.add('hero-newsletter-confirmation');
+      content.setAttribute('role', 'status');
+      content.setAttribute('aria-live', 'polite');
+      content.setAttribute('aria-atomic', 'true');
+      content.textContent = '';
+      content.append(title, instructions);
+      return true;
+    }
+
+    function updateProviderSuccess() {
+      // This runs only after a successful provider response. MailerLite still
+      // decides when to display its success body and sends the opt-in email.
+      if (explainEmailConfirmation()) return;
+      const observer = new MutationObserver(() => {
+        if (explainEmailConfirmation()) observer.disconnect();
+      });
+      observer.observe(embed, { childList: true, subtree: true });
+    }
+
     const signupHelp = document.createElement('p');
     signupHelp.className = 'hero-newsletter-signup-help';
     signupHelp.id = email.id + '-signup-help';
@@ -179,6 +232,7 @@
         // Provider acceptance may include an existing subscriber. It never
         // establishes email confirmation or a new, confirmed subscription.
         if (response?.success === true && accepted) accepted();
+        if (response?.success === true) updateProviderSuccess();
         if (!response?.success && !response?.fieldsToConfirm?.length && !fields.some(item => item.group.classList.contains('ml-error') || item.input.getAttribute('aria-invalid') === 'true')) {
           showServerError('Your signup could not be completed. Please try again, or open signup in a new tab.');
         }

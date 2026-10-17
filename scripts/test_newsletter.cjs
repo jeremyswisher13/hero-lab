@@ -81,7 +81,7 @@ class Element {
   querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   closest(selector) { for (let node = this; node; node = node.parentElement) if (node.matches(selector)) return node; return null; }
   focus() { this.ownerDocument.activeElement = this; }
-  addEventListener(type, callback) { (this.listeners[type] ||= []).push(callback); }
+  addEventListener(type, callback, capture = false) { (this.listeners[type] ||= []).push({ callback, capture }); }
   dispatch(type) {
     const event = {
       type,
@@ -90,7 +90,8 @@ class Element {
       preventDefault() { this.defaultPrevented = true; },
       stopImmediatePropagation() { this.stopped = true; }
     };
-    for (const callback of this.listeners[type] || []) {
+    const listeners = this.listeners[type] || [];
+    for (const { callback } of [...listeners.filter(listener => listener.capture), ...listeners.filter(listener => !listener.capture)]) {
       callback(event);
       if (event.stopped) break;
     }
@@ -98,7 +99,9 @@ class Element {
   }
 }
 
-function boot({ value = '', nativeValid = false, checked = false, online = true, ready = true } = {}) {
+// Provider selectors and structure were checked against the public tn5fb0
+// embed on October 17, 2026, without submitting an email address.
+function boot({ value = '', nativeValid = false, checked = false, online = true, ready = true, delayed = false, delayedSuccess = false, emailId = '', existingLabel = false } = {}) {
   const document = { createElement: tag => new Element(tag, document) };
   const root = document.createElement('div');
   document.querySelector = selector => root.querySelector(selector);
@@ -106,15 +109,33 @@ function boot({ value = '', nativeValid = false, checked = false, online = true,
   embed.className = 'ml-embedded';
   embed.setAttribute('data-form', 'tn5fb0');
   root.append(embed);
+  const formBody = document.createElement('div');
+  formBody.className = 'ml-form-embedBody row-form';
+  const introduction = document.createElement('div');
+  introduction.className = 'ml-form-embedContent';
+  const providerTitle = document.createElement('h4');
+  providerTitle.textContent = 'The HERO Brief';
+  introduction.append(providerTitle);
+  const providerIntro = document.createElement('p');
+  providerIntro.textContent = 'A short monthly look at athlete sleep, recovery, and performance from HERO Lab. Delivered on the second Tuesday of each month.';
+  introduction.append(providerIntro);
   const form = document.createElement('form');
   form.className = 'ml-block-form';
   form.action = 'https://dashboard.mailerlite.com/jsonp/2676652/forms/200888505463735643/subscribe';
-  embed.append(form);
+  formBody.append(introduction, form);
   const emailGroup = document.createElement('div');
   emailGroup.className = 'ml-field-group';
   const email = document.createElement('input');
   email.setAttribute('type', 'email');
+  email.setAttribute('aria-label', 'email');
   email.setAttribute('aria-describedby', 'provider-email-hint');
+  if (emailId) email.id = emailId;
+  if (existingLabel) {
+    const label = document.createElement('label');
+    label.setAttribute('for', emailId);
+    label.textContent = 'Email';
+    emailGroup.append(label);
+  }
   email.value = value;
   email.validity = { valid: nativeValid };
   emailGroup.append(email);
@@ -125,6 +146,22 @@ function boot({ value = '', nativeValid = false, checked = false, online = true,
   consent.checked = checked;
   consentGroup.append(consent);
   form.append(emailGroup, consentGroup);
+  const successBody = document.createElement('div');
+  successBody.className = 'ml-form-successBody row-success';
+  successBody.setAttribute('style', 'display: none');
+  const successContent = document.createElement('div');
+  successContent.className = 'ml-form-successContent';
+  const successTitle = document.createElement('h4');
+  successTitle.textContent = 'Check your inbox';
+  const successIntro = document.createElement('p');
+  successIntro.textContent = "We've sent a confirmation email.";
+  successContent.append(successTitle, successIntro);
+  successBody.append(successContent);
+  function injectProvider() {
+    if (!formBody.parentElement) embed.append(formBody);
+    if (!delayedSuccess && !successBody.parentElement) embed.append(successBody);
+  }
+  if (!delayed) injectProvider();
   const events = new Map();
   const timers = new Map();
   const observers = [];
@@ -140,26 +177,65 @@ function boot({ value = '', nativeValid = false, checked = false, online = true,
   };
   class MutationObserver {
     constructor(callback) { this.callback = callback; observers.push(this); }
-    observe(target) { this.target = target; }
-    disconnect() {}
+    observe(target) { this.target = target; this.connected = true; }
+    disconnect() { this.connected = false; }
   }
   vm.runInNewContext(source, { document, window, MutationObserver, URL });
   let providerSubmissions = 0;
   form.addEventListener('submit', () => { providerSubmissions++; });
   return {
-    document, window, form, email, consent, emailGroup, consentGroup,
-    emailError: emailGroup.querySelector('.ml-field-error-message'),
-    consentError: consentGroup.querySelector('.ml-field-error-message'),
-    summary: form.querySelector('.hero-newsletter-error-summary'),
-    serverError: form.querySelector('.ml-server-error'),
-    help: form.querySelector('.hero-newsletter-signup-help'),
+    document, window, form, email, consent, emailGroup, consentGroup, introduction, successBody, successContent,
+    get emailError() { return emailGroup.querySelector('.ml-field-error-message'); },
+    get consentError() { return consentGroup.querySelector('.ml-field-error-message'); },
+    get summary() { return form.querySelector('.hero-newsletter-error-summary'); },
+    get serverError() { return form.querySelector('.ml-server-error'); },
+    get help() { return form.querySelector('.hero-newsletter-signup-help'); },
     get providerSubmissions() { return providerSubmissions; },
     submit() { return form.dispatch('submit'); },
     providerEvent(name, request, response, url = form.action) { events.get(name + '.heroNewsletter')?.({}, request, { url }, response); },
     expireTimers() { for (const callback of [...timers.values()]) callback(); },
-    observeMutations() { for (const observer of observers) observer.callback(); }
+    observeMutations() { for (const observer of [...observers]) if (observer.connected) observer.callback(); },
+    injectProvider() { injectProvider(); this.observeMutations(); },
+    injectSuccess() { embed.append(successBody); this.observeMutations(); }
   };
 }
+
+test('provider copy is compact and the email has a persistent associated visible label', () => {
+  const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true });
+  const label = page.emailGroup.querySelector('label');
+  assert.equal(label.textContent, 'Email address');
+  assert.equal(label.getAttribute('for'), page.email.id);
+  assert.equal(label.className, 'hero-newsletter-email-label');
+  assert.equal(label.hidden, false);
+  assert.equal(page.email.getAttribute('aria-label'), null);
+  assert.equal(page.introduction.querySelector('.hero-newsletter-form-title').textContent, 'Subscribe for free');
+  assert.equal(page.introduction.querySelector('.hero-newsletter-form-intro').textContent, 'Confirm your email after signing up.');
+  assert.doesNotMatch(page.introduction.textContent, /A short monthly look/);
+  page.email.dispatch('input');
+  assert.equal(label.textContent, 'Email address');
+  assert.equal(page.providerSubmissions, 0);
+});
+
+test('a provider input id and existing associated label are preserved without duplication', () => {
+  const page = boot({ emailId: 'provider-email-123', existingLabel: true });
+  const labels = page.emailGroup.querySelectorAll('label');
+  assert.equal(page.email.id, 'provider-email-123');
+  assert.equal(labels.length, 1);
+  assert.equal(labels[0].getAttribute('for'), 'provider-email-123');
+  assert.equal(labels[0].textContent, 'Email address');
+});
+
+test('asynchronously injected provider form receives the same compact copy and label once', () => {
+  const page = boot({ delayed: true });
+  assert.equal(page.emailGroup.querySelector('label'), null);
+  page.injectProvider();
+  page.observeMutations();
+  assert.equal(page.emailGroup.querySelectorAll('label').length, 1);
+  assert.equal(page.form.querySelectorAll('.hero-newsletter-required-note').length, 1);
+  assert.equal(page.introduction.querySelector('.hero-newsletter-form-title').textContent, 'Subscribe for free');
+  assert.equal(page.submit().defaultPrevented, true);
+  assert.equal(page.providerSubmissions, 0);
+});
 
 test('empty email and missing permission receive text, semantics and first-field focus', () => {
   const page = boot();
@@ -282,15 +358,72 @@ test('unrelated provider requests do not lock this form', () => {
   assert.equal(page.form.getAttribute('aria-busy'), null);
 });
 
-test('provider success leaves confirmation behavior to MailerLite without inventing enrollment', () => {
+test('provider success explains the inbox confirmation step without inventing enrollment or controlling display', () => {
   const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true });
+  assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
+  assert.equal(page.successBody.getAttribute('style'), 'display: none');
+  page.submit();
+  const request = {};
+  page.providerEvent('ajaxSend', request);
+  assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
+  // The provider, not HERO's enhancement, displays its success body.
+  page.successBody.setAttribute('style', 'display: block');
+  page.providerEvent('ajaxSuccess', request, { success: true });
+  assert.equal(page.form.getAttribute('aria-busy'), null);
+  assert.equal(page.serverError.textContent, '');
+  assert.equal(page.successBody.getAttribute('style'), 'display: block');
+  assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), true);
+  assert.equal(page.successContent.getAttribute('role'), 'status');
+  assert.equal(page.successContent.getAttribute('aria-live'), 'polite');
+  assert.equal(page.successContent.querySelector('h4').textContent, 'Check your inbox');
+  assert.match(page.successContent.querySelector('p').textContent, /^To confirm a new subscription,/);
+  assert.match(page.successContent.querySelector('p').textContent, /confirmation email and click the link to finish signing up/);
+  assert.match(page.successContent.textContent, /check your spam folder/);
+  assert.match(page.successContent.textContent, /Already receiving The HERO Brief\? You do not need to subscribe again\./);
+  assert.doesNotMatch(page.successContent.textContent, /you are subscribed|you are enrolled|active|we(?:'ve| have) sent/i);
+});
+
+test('failed, unconfirmed, and unrelated provider responses do not replace success content', () => {
+  for (const response of [{ success: false }, { fieldsToConfirm: ['email'] }, { success: 'true' }]) {
+    const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true });
+    const original = page.successContent.textContent;
+    page.submit();
+    const request = {};
+    page.providerEvent('ajaxSend', request);
+    page.providerEvent('ajaxSuccess', {}, { success: true });
+    assert.equal(page.successContent.textContent, original);
+    page.providerEvent('ajaxSuccess', request, response);
+    assert.equal(page.successContent.textContent, original);
+    assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
+    assert.equal(page.successBody.getAttribute('style'), 'display: none');
+  }
+});
+
+test('transport failure does not show inbox confirmation success', () => {
+  const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true });
+  const original = page.successContent.textContent;
+  page.submit();
+  const request = {};
+  page.providerEvent('ajaxSend', request);
+  page.providerEvent('ajaxError', request);
+  assert.equal(page.successContent.textContent, original);
+  assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
+  assert.match(page.serverError.textContent, /could not confirm your signup/);
+});
+
+test('success content injected after provider acceptance receives confirmation instructions once', () => {
+  const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true, delayedSuccess: true });
   page.submit();
   const request = {};
   page.providerEvent('ajaxSend', request);
   page.providerEvent('ajaxSuccess', request, { success: true });
-  assert.equal(page.form.getAttribute('aria-busy'), null);
-  assert.equal(page.serverError.textContent, '');
-  assert.doesNotMatch(page.form.textContent, /you are subscribed|you are enrolled/i);
+  assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
+  page.injectSuccess();
+  page.observeMutations();
+  assert.equal(page.successContent.querySelectorAll('h4').length, 1);
+  assert.equal(page.successContent.querySelectorAll('p').length, 1);
+  assert.match(page.successContent.textContent, /click the link to finish signing up/);
+  assert.equal(page.successBody.getAttribute('style'), 'display: none');
 });
 
 test('provider rejection without field text gets an honest help message, preserving provider text when present', () => {

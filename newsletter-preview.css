@@ -64,6 +64,9 @@ h1,h2,h3{color:var(--navy);line-height:1.15;letter-spacing:-.035em}
 .subscribe-section{margin-bottom:64px;padding-block:34px;display:flex;gap:40px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .subscribe-section .eyebrow{margin-bottom:10px}
 .subscribe-section h2{font-size:27px;max-width:640px;margin-bottom:12px}
+.archive-instagram{margin-top:-30px;margin-bottom:48px}
+.archive-instagram p{max-width:680px;margin:0;color:var(--muted);font-size:15px}
+.archive-instagram a{display:inline-block;min-height:44px;padding-block:8px;font-weight:700}
 .subscribe-section p:last-child{font-size:15px;color:var(--muted);margin:0}
 .subscribe-section .button{flex-shrink:0}
 .site-footer{background:#e5eff1;border-top:1px solid var(--line);padding-block:30px;color:var(--muted);font-size:13px}

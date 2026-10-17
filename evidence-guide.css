@@ -38,4 +38,10 @@
 .evidence-newsletter-link { display:inline-flex; align-items:center; min-height:44px; max-width:100%; color:var(--color-primary-dark); font-weight:700; text-decoration:underline; text-underline-offset:4px; overflow-wrap:anywhere; }
 .evidence-newsletter-link:hover { text-decoration-thickness:2px; }
 .evidence-newsletter-link:focus-visible { outline:3px solid var(--color-primary-dark); outline-offset:4px; }
+.evidence-newsletter-compact { margin:24px 0 32px; padding:22px 24px; gap:16px 24px; }
+.evidence-newsletter-compact .evidence-newsletter-text { flex-basis:26rem; }
+.evidence-newsletter-compact h2 { font-size:1.2rem; margin-bottom:8px; }
+.evidence-newsletter-compact p { font-size:.9375rem; line-height:1.6; }
+.evidence-newsletter-compact .evidence-newsletter-link { justify-content:center; padding:10px 16px; border-radius:8px; background:#125e6b; color:#fff; font-size:.9375rem; text-decoration:none; }
+.evidence-newsletter-compact .evidence-newsletter-link:hover { background:#092631; }
 @media (max-width:600px) { .evidence-newsletter { padding:24px; gap:12px; } }

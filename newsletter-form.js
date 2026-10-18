@@ -27,17 +27,19 @@
       // Use MailerLite's native hidden segmentation input. Cached embeds may
       // omit the newly configured field, so ensure exactly one documented input.
       // Set it before serialization, never by a separate subscription request.
-      const inputs = Array.from(form.querySelectorAll('input[type="hidden"]')).filter(input => input.getAttribute('name') === 'fields[hero_signup_source]');
-      let input = inputs[0];
-      if (!input) {
-        input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', 'fields[hero_signup_source]');
-        form.append(input);
+      const analytics = window.HERO_NEWSLETTER_ANALYTICS;
+      for (const [name, method] of [['hero_signup_source', 'source'], ['hero_signup_placement', 'placement']]) {
+        const inputs = Array.from(form.querySelectorAll('input[type="hidden"]')).filter(input => input.getAttribute('name') === 'fields[' + name + ']');
+        let input = inputs[0];
+        if (!input) {
+          input = document.createElement('input');
+          input.setAttribute('type', 'hidden');
+          input.setAttribute('name', 'fields[' + name + ']');
+          form.append(input);
+        }
+        inputs.slice(1).forEach(duplicate => duplicate.remove());
+        input.value = analytics?.[method]?.() || 'not_recorded';
       }
-      inputs.slice(1).forEach(duplicate => duplicate.remove());
-      const source = window.HERO_NEWSLETTER_ANALYTICS?.source() || 'not_recorded';
-      input.value = source;
     }
     window.addEventListener('hero-newsletter-analytics-change', syncSignupSource);
     syncSignupSource();

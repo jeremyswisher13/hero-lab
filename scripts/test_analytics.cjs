@@ -12,6 +12,8 @@ const source = fs.readFileSync(path.join(root, 'analytics.js'), 'utf8');
 const newsletterSource = fs.readFileSync(path.join(root, 'newsletter-form.js'), 'utf8');
 const configSource = fs.readFileSync(path.join(root, 'analytics-config.js'), 'utf8');
 const KEY = 'hero-analytics-consent-v1';
+const SOURCE_KEY = 'hero-signup-source-v1';
+const SOURCE_LIFETIME = 30 * 60 * 1000;
 const ID = 'G-OFFLINE123';
 const CAMPAIGN_KEYS = ['campaign_id', 'campaign_name', 'campaign_source', 'campaign_medium', 'campaign_term', 'campaign_content'];
 const granted = () => JSON.stringify({ choice: 'granted', expires: Date.now() + 86400000 });
@@ -217,22 +219,32 @@ class Document extends EventTarget {
 }
 
 function boot(options = {}) {
-  const FixtureDate = options.now === undefined ? Date : class extends Date {
-    constructor(...args) { super(...(args.length ? args : [options.now])); }
-    static now() { return options.now; }
+  const clock = options.clock || (options.now === undefined ? null : {now: options.now});
+  const FixtureDate = clock === null ? Date : class extends Date {
+    constructor(...args) { super(...(args.length ? args : [clock.now])); }
+    static now() { return clock.now; }
   };
   const document = new Document(options);
   const preference = document.createElement('button');
   preference.setAttribute('data-analytics-preferences', '');
   document.body.appendChild(preference);
-  const stored = new Map(options.stored === undefined ? [] : [[KEY, options.stored]]);
+  const stored = options.localStore || new Map(options.stored === undefined ? [] : [[KEY, options.stored]]);
+  const sessionStore = options.sessionStore || new Map();
   const storageReads = [];
   const storageWrites = [];
   const queryReads = [];
+  const sessionReads = [];
+  const sessionWrites = [];
+  const sessionRemovals = [];
   const storage = {
     getItem(key) { storageReads.push(key); if (options.storageFailure) throw new Error('Storage blocked'); return stored.get(key) ?? null; },
     setItem(key, value) { storageWrites.push([key, value]); if (options.storageFailure) throw new Error('Storage blocked'); stored.set(key, value); },
     removeItem(key) { if (options.storageFailure) throw new Error('Storage blocked'); stored.delete(key); }
+  };
+  const sessionStorage = {
+    getItem(key) { sessionReads.push(key); if (options.sessionFailure) throw new Error('Session storage blocked'); return sessionStore.get(key) ?? null; },
+    setItem(key, value) { sessionWrites.push([key, value]); if (options.sessionFailure) throw new Error('Session storage blocked'); sessionStore.set(key, value); },
+    removeItem(key) { sessionRemovals.push(key); if (options.sessionFailure) throw new Error('Session storage blocked'); sessionStore.delete(key); }
   };
   const timers = [];
   const providerEvents = new Map();
@@ -243,6 +255,7 @@ function boot(options = {}) {
     location: { protocol: 'https:', hostname: 'herolabsportsmedicine.com', pathname: '/', search: '', reload() { window.reloads = (window.reloads || 0) + 1; }, ...options.location },
     navigator: { onLine: true, ...options.navigator },
     localStorage: storage,
+    sessionStorage,
     document,
     fetch() { throw new Error('HERO must not make direct analytics requests'); },
     setTimeout(fn) { timers.push(fn); return timers.length; },
@@ -313,7 +326,7 @@ function boot(options = {}) {
     disconnect() { this.disconnected = true; }
   }
   const context = vm.createContext({
-    window, document, navigator: window.navigator, localStorage: storage,
+    window, document, navigator: window.navigator, localStorage: storage, sessionStorage,
     URL, URLSearchParams, Date: FixtureDate, Number, Math, Set, Map, Object, Array, MutationObserver,
     setTimeout: window.setTimeout, clearTimeout: window.clearTimeout,
     Event: class { constructor(type, init) { this.type = type; Object.assign(this, init); } },
@@ -346,7 +359,9 @@ function boot(options = {}) {
   };
   return {
     window, document, preference, stored, storageReads, storageWrites, queryReads, videos, calls, events, click, load,
+    sessionStore, sessionReads, sessionWrites, sessionRemovals,
     form, email, permission, sourceInput,
+    get placementInput() { return form?.querySelectorAll('input[type="hidden"]').find(input => input.getAttribute('name') === 'fields[hero_signup_placement]'); },
     injectForm: () => { embed.append(form); observers.filter(item => item.target === embed && !item.disconnected).forEach(item => item.callback()); },
     submit: () => { const event = {type: 'submit', bubbles: false}; form.dispatchEvent(event); return event; },
     providerEvent: (name, request, response, url = form.action) => providerEvents.get(name + '.heroNewsletter')?.({}, request, {url}, response),
@@ -485,7 +500,7 @@ test('query parsing waits for consent and all newsletter privacy guards still su
   assert.deepEqual(f.queryReads, []);
   f.preference.click();
   f.allow();
-  assert.deepEqual(f.queryReads, [], 'query is not read while Google is loading');
+  assert.deepEqual(f.queryReads, ['search'], 'consented context is captured independently of Google readiness');
   f.load();
   assert.deepEqual(f.queryReads, ['search']);
   for (const guard of [
@@ -529,7 +544,7 @@ test('newsletter HTML loads shared consent assets in order and exposes preferenc
   assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
   assert.ok(html.indexOf('src="analytics-config.js?') < html.indexOf('src="analytics.js?'));
   assert.match(html, /src="analytics-config\.js\?[^\"]+" defer/);
-  assert.match(html, /src="analytics\.js\?v=20261013-signup-measurement" defer/);
+  assert.match(html, /src="analytics\.js\?v=20261018-signup-sources" defer/);
   assert.doesNotMatch(html, /data-analytics=(?:"|')/);
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /<script[^>]+analytics/);
@@ -643,7 +658,8 @@ test('production HTTPS host/page allowlists block local, preview, admin, private
   assert.equal(scripts(boot({ stored: granted(), location: { hostname: 'www.herolabsportsmedicine.com' } })).length, 1);
   for (const pathname of ['/', '/index.html', '/magnesium-formulation-study.html', '/magnesium.html', '/cold-water-immersion.html',
     '/concussion.html', '/wearables.html', '/travel-circadian.html', '/cwi-amssm-2025.html', '/mgt-amssm-2026.html',
-    '/concussion-amssm-2026.html', '/press.html', '/faq.html', '/newsletter.html']) {
+    '/concussion-amssm-2026.html', '/press.html', '/faq.html', '/newsletter.html',
+    '/newsletter-archive.html', '/hero-brief-2026-10-13.html']) {
     assert.equal(scripts(boot({ stored: granted(), location: { pathname } })).length, 1, pathname);
   }
 });
@@ -934,7 +950,8 @@ test('five approved signup tuples map to fixed campaigns and optional source lab
     }
     assert.deepEqual(f.queryReads, ['search'], 'only one consented query read on the signup page');
     assert.equal(f.storageWrites.length, 1);
-    assert.equal(f.storageWrites[0][0], KEY, 'no source persistence');
+    assert.equal(f.storageWrites[0][0], KEY, 'local storage contains only consent');
+    assert.deepEqual(f.sessionWrites.map(([key, value]) => [key, JSON.parse(value).source]), [[SOURCE_KEY, label]]);
   }
 });
 
@@ -963,7 +980,275 @@ test('signup recruitment tuples reject missing, duplicate, encoded duplicate, mi
   assert.equal(unreadable.sourceInput.value, 'not_recorded');
   const otherPage = accept(boot({location: {search: good}}));
   assert.equal(otherPage.window.HERO_NEWSLETTER_ANALYTICS, undefined);
-  assert.ok(contexts(otherPage).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')));
+  assert.ok(contexts(otherPage).every(params => params.campaign_id === 'hero_brief_signup'));
+  assert.equal(JSON.parse(otherPage.sessionStore.get(SOURCE_KEY)).source, 'instagram_story');
+});
+
+function journeyState() {
+  const clock = {now: Date.parse('2026-10-18T12:00:00Z')};
+  const consentExpires = clock.now + 86400000;
+  return {clock, localStore: new Map([[KEY, JSON.stringify({choice: 'granted', expires: consentExpires})]]),
+    sessionStore: new Map(), consentExpires};
+}
+function savedSource(state, source = 'instagram_story') {
+  return JSON.stringify({source, expires: state.clock.now + SOURCE_LIFETIME, consentExpires: state.consentExpires});
+}
+
+test('approved recruitment is captured on every public landing page without waiting for Google', () => {
+  const paths = ['/', '/index.html', '/magnesium-formulation-study.html', '/magnesium.html', '/cold-water-immersion.html',
+    '/concussion.html', '/wearables.html', '/travel-circadian.html', '/cwi-amssm-2025.html', '/mgt-amssm-2026.html',
+    '/concussion-amssm-2026.html', '/press.html', '/faq.html', '/newsletter.html', '/newsletter-archive.html',
+    '/hero-brief-2026-10-13.html'];
+  for (const pathname of paths) {
+    const state = journeyState();
+    const f = boot({...state, location: {pathname, search: signupQuery('event', 'qr', 'talk')}});
+    assert.equal(f.events().length, 0, pathname);
+    assert.equal(scripts(f).length, 1, pathname);
+    assert.deepEqual(JSON.parse(state.sessionStore.get(SOURCE_KEY)), {
+      source: 'event_talk', expires: state.clock.now + SOURCE_LIFETIME, consentExpires: state.consentExpires
+    }, pathname);
+  }
+});
+
+test('a tagged visit survives research and archive detours into a late provider form with independent placement', () => {
+  for (const formFirst of [false, true]) {
+    const state = journeyState();
+    state.localStore.clear();
+    const landing = boot({...state, location: {search: signupQuery() + '&email=private-reader%40example.com&token=private-token'}});
+    assert.equal(state.sessionStore.size, 0);
+    assert.deepEqual(landing.queryReads, []);
+    landing.allow();
+    assert.equal(landing.events().length, 0, 'capture does not depend on Google load');
+    const original = state.sessionStore.get(SOURCE_KEY);
+    state.clock.now += 5 * 60 * 1000;
+    const research = boot({...state, location: {pathname: '/wearables.html'}});
+    state.clock.now += 5 * 60 * 1000;
+    const archive = boot({...state, location: {pathname: '/newsletter-archive.html'}});
+    assert.equal(state.sessionStore.get(SOURCE_KEY), original);
+    assert.deepEqual([...research.sessionWrites, ...archive.sessionWrites], [], 'internal pages do not extend attribution');
+    const signup = signupBoot({...state, formFirst, delayedForm: true, location: {search: '?hero_signup_placement=archive_body'}});
+    signup.injectForm();
+    assert.equal(signup.sourceInput.value, 'instagram_story');
+    assert.equal(signup.placementInput.value, 'archive_body');
+    signup.load();
+    const request = beginRequest(signup);
+    signup.providerEvent('ajaxSuccess', request, {success: true});
+    assert.deepEqual(signupEvents(signup).map(call => call[1]), ['hero_newsletter_submit', 'hero_newsletter_accepted']);
+    assert.ok(contexts(signup).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')),
+      'saved source and current placement do not manufacture a current GA campaign');
+    const serialized = JSON.stringify([landing.sessionWrites, research.sessionWrites, archive.sessionWrites, signup.sessionWrites, signup.calls()]);
+    for (const secret of ['private-reader', 'private-token', 'utm_', 'hero_signup_placement', 'archive_body']) assert.ok(!serialized.includes(secret), secret);
+  }
+});
+
+test('source expiry is fixed at the tagged landing, never extended by navigation, reads or repeated permission', () => {
+  const state = journeyState();
+  const landing = boot({...state, location: {search: signupQuery()}});
+  const original = state.sessionStore.get(SOURCE_KEY);
+  state.clock.now += 20 * 60 * 1000;
+  const signup = signupBoot({...state, location: {search: ''}});
+  assert.equal(signup.window.HERO_NEWSLETTER_ANALYTICS.source(), 'instagram_story');
+  assert.equal(state.sessionStore.get(SOURCE_KEY), original);
+  state.clock.now += 10 * 60 * 1000;
+  assert.equal(signup.window.HERO_NEWSLETTER_ANALYTICS.source(), 'not_recorded');
+  assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+  beginRequest(signup);
+  assert.equal(signup.sourceInput.value, 'not_recorded', 'the actual request uses the expired result');
+  const late = signupBoot({...state, location: {search: signupQuery()}});
+  late.decline();
+  state.clock.now += SOURCE_LIFETIME;
+  late.allow();
+  assert.equal(late.window.HERO_NEWSLETTER_ANALYTICS.source(), 'not_recorded', 'late consent cannot extend the original landing');
+  assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+  assert.equal(landing.events().length, 0);
+});
+
+test('an explicit campaign replaces or clears prior source while untagged queries preserve it', () => {
+  const rejected = ['?utm_source=instagram', '?utm_content=story', '?UTM_SOURCE=instagram',
+    signupQuery() + '&utm_source=instagram', signupQuery().replace('utm_content=story', 'utm_content=unknown'),
+    '?utm_campaign=unknown', newsletterQuery(), '?unknown=%ZZ'];
+  for (const search of rejected) {
+    const state = journeyState();
+    state.sessionStore.set(SOURCE_KEY, savedSource(state));
+    const f = signupBoot({...state, location: {search: search + '&hero_signup_placement=home_nav'}});
+    assert.equal(f.sourceInput.value, 'not_recorded', search);
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false, search);
+    if (search === newsletterQuery()) {
+      f.load();
+      assert.ok(contexts(f).every(params => params.campaign_id === 'hero_brief_2026_10'));
+    }
+  }
+  const state = journeyState();
+  state.sessionStore.set(SOURCE_KEY, savedSource(state));
+  const replacement = signupBoot({...state, location: {search: signupQuery('event', 'qr', 'print')}});
+  assert.equal(replacement.sourceInput.value, 'event_print');
+  assert.equal(JSON.parse(state.sessionStore.get(SOURCE_KEY)).source, 'event_print');
+  const internal = signupBoot({...state, location: {search: '?hero_signup_placement=home_hero&unrelated=private-token'}});
+  assert.equal(internal.sourceInput.value, 'event_print');
+  assert.equal(internal.placementInput.value, 'home_hero');
+});
+
+test('session storage accepts only fixed source records for the current consent epoch and fails closed', () => {
+  const badRecords = [
+    '{bad json', 'null', '[]', '{}',
+    {source: 'reader@example.com'}, {source: 'instagram_story', expires: 'later'},
+    {source: 'instagram_story', expires: 0}, {source: 'instagram_story', consentExpires: 0},
+    {source: 'instagram_story', token: 'private-token'}
+  ];
+  for (const bad of badRecords) {
+    const state = journeyState();
+    const base = JSON.parse(savedSource(state));
+    state.sessionStore.set(SOURCE_KEY, typeof bad === 'string' ? bad : JSON.stringify({...base, ...bad}));
+    const f = signupBoot({...state, location: {search: ''}});
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+    assert.deepEqual(f.sessionWrites, []);
+  }
+  for (const failure of [{sessionFailure: true}, {storageFailure: true}, {storageFailure: true, sessionFailure: true}]) {
+    const f = signupBoot(failure);
+    f.allow();
+    assert.equal(f.sourceInput.value, 'instagram_story', 'current approved tuple works without persistence');
+    assert.equal(f.sessionStore.size, 0);
+    const next = signupBoot({...failure, stored: f.stored.get(KEY), location: {search: ''}});
+    assert.equal(next.sourceInput.value, 'not_recorded');
+  }
+});
+
+test('withdrawal, privacy guards and consent expiry clear source and prevent stale recovery after regrant', () => {
+  for (const guard of [{navigator: {globalPrivacyControl: true}}, {navigator: {doNotTrack: '1'}},
+    {navigator: {msDoNotTrack: 'yes'}}, {frame: true}, {prerendering: true}]) {
+    const state = journeyState();
+    state.sessionStore.set(SOURCE_KEY, savedSource(state));
+    const f = signupBoot({...state, ...guard});
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+    assert.deepEqual(f.queryReads, []);
+  }
+  for (const otherTab of [false, true]) {
+    const state = journeyState();
+    const oldSource = savedSource(state);
+    state.sessionStore.set(SOURCE_KEY, oldSource);
+    const f = signupBoot({...state, location: {search: ''}});
+    assert.equal(f.sourceInput.value, 'instagram_story');
+    if (otherTab) {
+      state.localStore.set(KEY, JSON.stringify({choice: 'denied', expires: state.clock.now + 86400001}));
+      f.window.dispatchEvent({type: 'storage', key: KEY, bubbles: false});
+    } else f.decline();
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+    f.allow();
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    state.sessionStore.set(SOURCE_KEY, oldSource); // A dormant tab missed the withdrawal event.
+    const dormant = signupBoot({...state, location: {search: ''}});
+    assert.equal(dormant.sourceInput.value, 'not_recorded');
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false, 'old consent epoch cannot be reused');
+  }
+  for (const runtimeGuard of ['globalPrivacyControl', 'doNotTrack']) {
+    const state = journeyState();
+    state.sessionStore.set(SOURCE_KEY, savedSource(state));
+    const f = signupBoot({...state, location: {search: ''}});
+    f.window.navigator[runtimeGuard] = runtimeGuard === 'doNotTrack' ? '1' : true;
+    beginRequest(f);
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+  }
+  const state = journeyState();
+  state.sessionStore.set(SOURCE_KEY, savedSource(state));
+  const f = signupBoot({...state, location: {search: ''}});
+  state.clock.now = state.consentExpires;
+  beginRequest(f);
+  assert.equal(f.sourceInput.value, 'not_recorded');
+  assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+});
+
+test('BFCache restoration reconciles source changes without replaying the old tagged landing', () => {
+  for (const originalSearch of ['', signupQuery()]) {
+    const state = journeyState();
+    boot({...state, location: {search: signupQuery()}});
+    const signup = signupBoot({...state, location: {search: originalSearch}});
+    const originalExpiry = JSON.parse(state.sessionStore.get(SOURCE_KEY)).expires;
+    assert.equal(signup.sourceInput.value, 'instagram_story');
+    const originalReads = signup.queryReads.length;
+    signup.window.dispatchEvent({type: 'pageshow', persisted: false, bubbles: false});
+    assert.equal(signup.queryReads.length, originalReads, 'normal initial pageshow does not reparse the query');
+    boot({...state, location: {pathname: '/wearables.html', search: '?utm_source=unknown'}});
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false);
+    signup.window.dispatchEvent({type: 'pageshow', persisted: true, bubbles: false});
+    assert.equal(signup.sourceInput.value, 'not_recorded');
+    beginRequest(signup);
+    assert.equal(signup.sourceInput.value, 'not_recorded', 'Back cannot restore cleared source before provider serialization');
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false, 'the original approved URL is not captured again');
+    state.clock.now += 5 * 60 * 1000;
+    boot({...state, location: {pathname: '/magnesium.html', search: signupQuery('event', 'qr', 'print')}});
+    const replacement = state.sessionStore.get(SOURCE_KEY);
+    signup.window.dispatchEvent({type: 'pageshow', persisted: true, bubbles: false});
+    assert.equal(signup.sourceInput.value, 'event_print', 'the latest session evidence replaces cached memory');
+    assert.equal(state.sessionStore.get(SOURCE_KEY), replacement, 'restoration does not extend expiry');
+    assert.ok(JSON.parse(replacement).expires > originalExpiry);
+  }
+});
+
+test('BFCache restoration rereads consent, guards and expiry before exposing either private form label', () => {
+  for (const change of ['denied', 'expired', 'epoch', 'gpc', 'sourceExpired']) {
+    const state = journeyState();
+    boot({...state, location: {search: signupQuery()}});
+    const signup = signupBoot({...state, location: {search: '?hero_signup_placement=home_nav'}});
+    signup.load();
+    const request = beginRequest(signup);
+    if (change === 'denied') state.localStore.set(KEY, JSON.stringify({choice: 'denied', expires: state.consentExpires}));
+    if (change === 'expired') state.clock.now = state.consentExpires;
+    if (change === 'epoch') state.localStore.set(KEY, JSON.stringify({choice: 'granted', expires: state.consentExpires + 1}));
+    if (change === 'gpc') signup.window.navigator.globalPrivacyControl = true;
+    if (change === 'sourceExpired') state.clock.now += SOURCE_LIFETIME;
+    signup.window.dispatchEvent({type: 'pageshow', persisted: true, bubbles: false});
+    assert.equal(signup.sourceInput.value, 'not_recorded', change);
+    assert.equal(state.sessionStore.has(SOURCE_KEY), false, change);
+    assert.equal(signup.placementInput.value, ['denied', 'expired', 'gpc'].includes(change) ? 'not_recorded' : 'home_nav', change);
+    signup.providerEvent('ajaxSuccess', request, {success: true});
+    assert.deepEqual(signupEvents(signup).map(call => call[1]), ['hero_newsletter_submit'], 'a restored page does not accept an old request callback');
+  }
+  const state = journeyState();
+  state.localStore.clear();
+  const oldUnconsented = signupBoot({...state, location: {search: signupQuery()}});
+  const later = boot({...state, location: {pathname: '/wearables.html', search: signupQuery('event', 'qr', 'talk')}});
+  later.allow();
+  const laterSource = state.sessionStore.get(SOURCE_KEY);
+  oldUnconsented.window.dispatchEvent({type: 'pageshow', persisted: true, bubbles: false});
+  assert.equal(oldUnconsented.sourceInput.value, 'event_talk', 'restoring an unread old URL does not recapture it');
+  assert.equal(state.sessionStore.get(SOURCE_KEY), laterSource);
+});
+
+test('internal placements remain independent of source evidence, session storage and GA campaigns', () => {
+  const placements = ['home_hero', 'home_nav', 'home_section', 'home_footer',
+    'wearables_nav', 'wearables_inline', 'wearables_footer', 'magnesium_nav', 'magnesium_inline', 'magnesium_footer',
+    'cwi_nav', 'cwi_inline', 'cwi_footer', 'concussion_nav', 'concussion_inline', 'concussion_footer',
+    'travel_nav', 'travel_inline', 'travel_footer', 'archive_nav', 'archive_body', 'archive_footer',
+    'issue_nav', 'issue_body', 'issue_footer'];
+  for (const placement of placements) {
+    const f = accept(signupBoot({location: {search: '?hero_signup_placement=' + placement}}));
+    assert.equal(f.sourceInput.value, 'not_recorded');
+    assert.equal(f.placementInput.value, placement);
+    assert.equal(f.sessionStore.size, 0);
+    assert.ok(contexts(f).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')));
+    assert.ok(!JSON.stringify(f.calls()).includes(placement));
+  }
+  for (const query of ['', '?hero_signup_placement=unknown', '?hero_signup_placement=Home_nav',
+    '?hero_signup_placement=home_nav+', '?hero_signup_placement=reader%40example.com',
+    '?hero_signup_placement=home_nav&hero_signup_placement=home_nav',
+    '?hero_signup_placement=home_nav&%68ero_signup_placement=home_nav']) {
+    const f = accept(signupBoot({location: {search: query + (query ? '&' : '?') + signupQuery().slice(1)}}));
+    assert.equal(f.sourceInput.value, 'instagram_story');
+    assert.equal(f.placementInput.value, 'not_recorded');
+    assert.ok(contexts(f).every(params => params.campaign_id === 'hero_brief_signup'));
+    assert.ok(f.sessionWrites.every(([, value]) => !value.includes('hero_signup_placement')));
+  }
+  const undecided = signupBoot({location: {search: '?hero_signup_placement=home_nav'}});
+  assert.equal(undecided.placementInput.value, 'not_recorded');
+  assert.deepEqual(undecided.queryReads, []);
+  undecided.allow();
+  assert.equal(undecided.placementInput.value, 'home_nav');
+  undecided.decline();
+  assert.equal(undecided.placementInput.value, 'not_recorded');
 });
 
 test('denial and privacy guards leave optional signup source unrecorded and do not read the query', () => {
@@ -1079,10 +1364,10 @@ test('withdrawal resets source before serialization and prevents pending accepta
 });
 
 test('source metadata adds the native hidden input to cached embeds and sanitizes it before every serialization', () => {
+  const sourceInputs = f => f.form.querySelectorAll('input[type="hidden"]').filter(input => input.getAttribute('name') === 'fields[hero_signup_source]');
   const missing = accept(signupBoot({sourceField: false}));
-  assert.equal(missing.form.querySelectorAll('input[type="hidden"]').length, 1);
-  assert.equal(missing.form.querySelector('input[type="hidden"]').getAttribute('name'), 'fields[hero_signup_source]');
-  assert.equal(missing.form.querySelector('input[type="hidden"]').value, 'instagram_story');
+  assert.equal(sourceInputs(missing).length, 1);
+  assert.equal(sourceInputs(missing)[0].value, 'instagram_story');
   const request = beginRequest(missing);
   missing.providerEvent('ajaxSuccess', request, {success: true});
   assert.equal(signupEvents(missing).length, 2);
@@ -1097,7 +1382,7 @@ test('source metadata adds the native hidden input to cached embeds and sanitize
   duplicate.value = 'private-duplicate';
   f.form.append(duplicate);
   f.submit();
-  assert.equal(f.form.querySelectorAll('input[type="hidden"]').length, 1);
+  assert.equal(sourceInputs(f).length, 1);
 });
 
 test('a provider form injected after consent receives the fixed source and keeps one enhancement', () => {

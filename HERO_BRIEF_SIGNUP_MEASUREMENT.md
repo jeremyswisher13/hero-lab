@@ -108,8 +108,7 @@ retained on the unconfirmed record and after email confirmation activated it.
 The initial owner QA record was then unsubscribed. A subsequent callback check
 using the then-production form enhancer observed the real provider request
 start and successful acceptance, verifying that form's synchronous AJAX
-sequence. That QA record was Unconfirmed after those baseline checks; its
-October 21 cleanup status is recorded below.
+sequence. That same QA record is now Unconfirmed and outside active sends.
 Exclude all owner QA records and activity from growth reports. Recheck field
 retention and request callbacks after changing the form or provider settings.
 Do not change the double opt-in configuration.
@@ -157,7 +156,8 @@ subscriber conversion. First-time subscriber persistence before and after
 confirmation and a first-time new subscriber's welcome delivery were not
 separately tested.
 
-All three owner QA records are now Unsubscribed after the approved cleanup.
+All three owner QA records used in the October 21 confirmation tests are now
+Unsubscribed after the approved cleanup.
 The owner's primary subscriber record was unchanged, and the browser's
 original analytics-off preference was restored. Exclude all QA records and
 their activity from growth reporting.

@@ -99,15 +99,15 @@ class Element {
   }
 }
 
-// Provider selectors and structure were checked against the public tn5fb0
-// embed on October 17, 2026, without submitting an email address.
+// The fixture models provider selectors used by the production enhancer.
+// Verify candidate mWHwWK markup and callbacks before release.
 function boot({ value = '', nativeValid = false, checked = false, online = true, ready = true, delayed = false, delayedSuccess = false, emailId = '', existingLabel = false } = {}) {
   const document = { createElement: tag => new Element(tag, document) };
   const root = document.createElement('div');
   document.querySelector = selector => root.querySelector(selector);
   const embed = document.createElement('div');
   embed.className = 'ml-embedded';
-  embed.setAttribute('data-form', 'tn5fb0');
+  embed.setAttribute('data-form', 'mWHwWK');
   root.append(embed);
   const formBody = document.createElement('div');
   formBody.className = 'ml-form-embedBody row-form';
@@ -121,7 +121,7 @@ function boot({ value = '', nativeValid = false, checked = false, online = true,
   introduction.append(providerIntro);
   const form = document.createElement('form');
   form.className = 'ml-block-form';
-  form.action = 'https://dashboard.mailerlite.com/jsonp/2676652/forms/200888505463735643/subscribe';
+  form.action = 'https://dashboard.mailerlite.com/jsonp/2676652/forms/201948685938984749/subscribe';
   formBody.append(introduction, form);
   const emailGroup = document.createElement('div');
   emailGroup.className = 'ml-field-group';

@@ -2,7 +2,7 @@
 
 Use only these complete URLs for public recruitment. The four UTM values must
 be exact and unique. The fixed labels describe a consented signup journey, not verified first-touch
-attribution. Updated October 18, 2026.
+attribution. Updated October 21, 2026.
 
 | Placement | Fixed MailerLite source | Approved URL |
 | --- | --- | --- |
@@ -29,10 +29,21 @@ Do not add email addresses, subscriber identifiers, or personal data to links.
 
 ## MailerLite field
 
-The original embedded form is `tn5fb0`, form ID `200888505463735643`, in account
-`2676652`. Its native TEXT custom field is `hero_signup_source`. Configure it as
-a hidden segmentation field with default `not_recorded`. MailerLite's generated
-HTML uses this input contract:
+The October 21, 2026 signup form is `mWHwWK`, form ID
+`201948685938984749`, in account `2676652`, connected to the same newsletter
+group. The website integration targets this form. Owner-controlled preproduction
+checks passed for real plain-text and HTML confirmation emails and activation.
+The existing welcome workflow is Active with a direct trigger for this form;
+the newsletter group is not its trigger. Repeat entry is disabled. Live website
+AJAX callback verification and source and placement retention before and after
+confirmation remain pending. Do not treat offline test results as evidence of
+email delivery or provider field persistence.
+
+The October 18 baseline used `tn5fb0`, form ID `200888505463735643`, in account
+`2676652`. Keep that form and its historical QA evidence available during the
+cutover. The native TEXT custom field is `hero_signup_source`. Configure it as
+a hidden segmentation field with default `not_recorded`. The generated HTML
+must use this input contract:
 
 ```html
 <input type="hidden" name="fields[hero_signup_source]" value="not_recorded">
@@ -92,12 +103,46 @@ new-subscriber counts.
 The October 13, 2026 owner-approved provider QA verified that `event_talk` was
 retained on the unconfirmed record and after email confirmation activated it.
 The initial owner QA record was then unsubscribed. A subsequent callback check
-using the final production form enhancer observed the real provider request
-start and successful acceptance, verifying the current form's synchronous AJAX
+using the then-production form enhancer observed the real provider request
+start and successful acceptance, verifying that form's synchronous AJAX
 sequence. That same QA record is now Unconfirmed and outside active sends.
 Exclude all owner QA records and activity from growth reports. Recheck field
 retention and request callbacks after changing the form or provider settings.
 Do not change the double opt-in configuration.
+
+## October 21 form and workflow verification
+
+Two independent fresh owner-controlled signups tested the new form before
+website release. Genuine received MIME messages were decoded and inspected:
+
+| Test path | text/plain characters | text/plain URLs | text/html characters | text/html URLs | Unresolved markers | Em dashes |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Plain-text confirmation link | 361 | 1 | 32,578 | 11 | 0 in both parts | 0 in both parts |
+| HTML confirmation button | 361 | 1 | 32,576 | 11 | 0 in both parts | 0 in both parts |
+
+The plain-text link activated its matching new-form contact at 14:39:48 UTC on
+October 21, 2026. The HTML button independently activated a different matching
+new-form contact at 14:40:18 UTC. Both joined the intended existing newsletter
+group. Generated new-form markup was checked for `form.ml-block-form`, the
+required permission checkbox row, and the native hidden source input.
+
+The original welcome workflow, `201064442021021173`, is Active and retains
+its existing email step, `201064494348109693`. Its form-completion trigger now
+targets form `201948685938984749` directly, with repeat entry disabled. No
+workflow copy, subscriber backfill, or manual subscriber addition was used.
+Started, Completed, and Sent remained at 12 each, with 0 in progress, when the
+updated trigger was verified. This verifies no welcome send was started by the
+trigger update; it does not verify a future new subscriber's welcome delivery.
+
+Both fresh QA records are now Unsubscribed. The reused historical QA record
+remains Unconfirmed and had no eligible unsubscribe action. Exclude all QA
+records and their activity from growth reporting.
+
+Real website AJAX callback checks and source and placement retention before
+and after confirmation remain pending after the website cutover. Raw received
+messages and confirmation evidence remain in private local records; no test
+addresses, subscriber identifiers, or confirmation tokens belong in this
+repository.
 
 ## Reporting limits
 

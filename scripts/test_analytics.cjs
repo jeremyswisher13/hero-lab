@@ -290,10 +290,10 @@ function boot(options = {}) {
   if (options.newsletter) {
     embed = document.createElement('div');
     embed.className = 'ml-embedded';
-    embed.setAttribute('data-form', 'tn5fb0');
+    embed.setAttribute('data-form', 'mWHwWK');
     form = document.createElement('form');
     form.className = 'ml-block-form';
-    form.action = 'https://dashboard.mailerlite.com/jsonp/2676652/forms/200888505463735643/subscribe';
+    form.action = 'https://dashboard.mailerlite.com/jsonp/2676652/forms/201948685938984749/subscribe';
     const emailGroup = document.createElement('div');
     emailGroup.className = 'ml-field-group';
     email = document.createElement('input');

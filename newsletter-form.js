@@ -4,7 +4,7 @@
 (() => {
   'use strict';
 
-  const embed = document.querySelector('.ml-embedded[data-form="tn5fb0"]');
+  const embed = document.querySelector('.ml-embedded[data-form="mWHwWK"]');
   if (!embed) return;
 
   function enhanceForm() {

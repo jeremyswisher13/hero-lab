@@ -35,9 +35,12 @@ group. The website integration targets this form. Owner-controlled preproduction
 checks passed for real plain-text and HTML confirmation emails and activation.
 The existing welcome workflow is Active with a direct trigger for this form;
 the newsletter group is not its trigger. Repeat entry is disabled. Live website
-AJAX callback verification and source and placement retention before and after
-confirmation remain pending. Do not treat offline test results as evidence of
-email delivery or provider field persistence.
+provider acceptance, confirmation delivery and activation, the enhanced success
+message, and source and placement retention on an already-active QA repeat
+submission passed. First-time subscriber field persistence before and after
+confirmation and future welcome delivery were not separately tested. Do not
+treat offline test results as evidence of email delivery or provider field
+persistence.
 
 The October 18 baseline used `tn5fb0`, form ID `200888505463735643`, in account
 `2676652`. Keep that form and its historical QA evidence available during the
@@ -105,7 +108,8 @@ retained on the unconfirmed record and after email confirmation activated it.
 The initial owner QA record was then unsubscribed. A subsequent callback check
 using the then-production form enhancer observed the real provider request
 start and successful acceptance, verifying that form's synchronous AJAX
-sequence. That same QA record is now Unconfirmed and outside active sends.
+sequence. That QA record was Unconfirmed after those baseline checks; its
+October 21 cleanup status is recorded below.
 Exclude all owner QA records and activity from growth reports. Recheck field
 retention and request callbacks after changing the form or provider settings.
 Do not change the double opt-in configuration.
@@ -113,12 +117,14 @@ Do not change the double opt-in configuration.
 ## October 21 form and workflow verification
 
 Two independent fresh owner-controlled signups tested the new form before
-website release. Genuine received MIME messages were decoded and inspected:
+website release. A later live website check used the historical owner QA
+record. Genuine received MIME messages were decoded and inspected:
 
 | Test path | text/plain characters | text/plain URLs | text/html characters | text/html URLs | Unresolved markers | Em dashes |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Plain-text confirmation link | 361 | 1 | 32,578 | 11 | 0 in both parts | 0 in both parts |
 | HTML confirmation button | 361 | 1 | 32,576 | 11 | 0 in both parts | 0 in both parts |
+| Live website plain-text confirmation link | 361 | 1 | 32,578 | 11 | 0 in both parts | 0 in both parts |
 
 The plain-text link activated its matching new-form contact at 14:39:48 UTC on
 October 21, 2026. The HTML button independently activated a different matching
@@ -134,15 +140,31 @@ Started, Completed, and Sent remained at 12 each, with 0 in progress, when the
 updated trigger was verified. This verifies no welcome send was started by the
 trigger update; it does not verify a future new subscriber's welcome delivery.
 
-Both fresh QA records are now Unsubscribed. The reused historical QA record
-remains Unconfirmed and had no eligible unsubscribe action. Exclude all QA
-records and their activity from growth reporting.
+The live website signup received provider acceptance and displayed the
+enhancer's "Check your inbox" success message and confirmation instructions.
+Its native confirmation email arrived at 15:03:14 UTC on October 21, 2026.
+The delivered plain-text URL confirmed the reused owner QA record at
+15:05:25 UTC. That record had already received its welcome email historically.
+After confirmation and a repeat submission, it still had only that one
+historical welcome send. The workflow remained at 12 Completed, 12 Sent, and
+0 in progress, with no re-entry or backfill observed.
 
-Real website AJAX callback checks and source and placement retention before
-and after confirmation remain pending after the website cutover. Raw received
-messages and confirmation evidence remain in private local records; no test
-addresses, subscriber identifiers, or confirmation tokens belong in this
-repository.
+An initial visit renewed analytics permission and reset acquisition context.
+A fresh tagged visit with permission already set retained source `event_talk`
+and placement `travel_inline` on the already-active QA record's repeat
+submission. This verifies repeat-submission metadata retention, not a new
+subscriber conversion. First-time subscriber persistence before and after
+confirmation and a first-time new subscriber's welcome delivery were not
+separately tested.
+
+All three owner QA records are now Unsubscribed after the approved cleanup.
+The owner's primary subscriber record was unchanged, and the browser's
+original analytics-off preference was restored. Exclude all QA records and
+their activity from growth reporting.
+
+Raw received messages and confirmation evidence remain in private local
+records; no test addresses, subscriber identifiers, or confirmation tokens
+belong in this repository.
 
 ## Reporting limits
 

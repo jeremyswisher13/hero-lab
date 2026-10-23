@@ -4,6 +4,8 @@
 .newsletter-eyebrow { color:#9be1e4; font-size:.875rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin-bottom:16px; }
 .newsletter-section h2 { color:#fff; font-size:clamp(2rem,4vw,3rem); line-height:1.13; letter-spacing:-.04em; margin-bottom:18px; }
 .newsletter-section p:not(.newsletter-eyebrow) { color:#d3e5e9; font-size:1.0625rem; max-width:650px; }
+.premium-home .newsletter-section { border-top:1px solid #31545e; padding-block:48px; }
+.premium-home .newsletter-section h2 { font-size:clamp(1.75rem,3vw,2.5rem); }
 .newsletter-action { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
 .newsletter-action .btn { background:#9be1e4; color:#092631; border:1px solid #9be1e4; white-space:normal; text-align:center; }
 .newsletter-action .btn:hover { background:#c9f2f3; }

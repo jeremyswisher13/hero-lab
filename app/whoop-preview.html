@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="HERO Lab's optional WHOOP integration preview for developer review, including consent, data handling and iPhone screenshots.">
+  <title>WHOOP integration preview | HERO Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .preview-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .preview-shots figure { margin: 0; }
+    .preview-shots img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 20px; background: #fff; }
+    .preview-shots figcaption { margin-top: .7rem; color: var(--muted); font-size: .9rem; }
+    @media (max-width: 560px) { .preview-shots { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header><a class="brand" href="index.html">HERO</a><nav aria-label="Main navigation"><a href="index.html">App</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a></nav></header>
+  <main id="main">
+    <p class="eyebrow">Developer review preview</p>
+    <h1>Optional WHOOP connection.</h1>
+    <p class="lead">HERO Lab helps people plan their week and review recovery information. This preview shows the optional WHOOP connection in iOS version 1.0.0, build 8.</p>
+    <div class="draft"><p>This is a review preview, not an announcement of WHOOP approval or general availability. The WHOOP sandbox is limited to 10 members. We are requesting Build access for up to 100 members. App release remains manual.</p></div>
+    <div class="grid">
+      <section class="card"><h2>Your consent</h2><p>A signed-in user chooses Connect WHOOP and authorizes access through WHOOP's OAuth screen. HERO requests read access to cycles, recovery, sleep and workouts, plus offline access to refresh the connection. It does not request profile or body scopes.</p></section>
+      <section class="card"><h2>Your data</h2><p>Connection credentials are encrypted on HERO's server. Only tapping Import fetches seven days of summaries, held in client memory for the session. Measurements are not stored in HERO's database, sent to AI services or used for newsletters.</p></section>
+    </div>
+    <h2>Connection screens</h2>
+    <p>These build 8 screenshots show connection controls and the return to HERO after authorization. They contain no health measurements or account details.</p>
+    <div class="preview-shots">
+      <figure><img src="images/whoop-connection.png" alt="HERO Lab WHOOP panel with connection saved status and Import recent WHOOP data button." width="708" height="1562"><figcaption>Saved connection and user-initiated import.</figcaption></figure>
+      <figure><img src="images/whoop-authorization.png" alt="HERO Lab WHOOP panel after authorization with a verified connection message, refresh, renew and disconnect controls." width="708" height="1562"><figcaption>Authorization return and connection controls.</figcaption></figure>
+    </div>
+    <p>Read the <a href="privacy.html">privacy notice</a> for retention and deletion details, or visit <a href="support.html">support</a> for help.</p>
+  </main>
+  <footer><p>HERO app. <a href="support.html">Support</a> · <a href="privacy.html">Privacy</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Return to the HERO app after opening your email confirmation link, or find help with an email link.">
+  <title>Return to HERO | Email link</title>
+  <script>
+    (() => {
+      let hasError = false;
+      try {
+        const errorKeys = new Set(['error', 'error_code', 'error_description']);
+        const parts = [window.location.search.slice(1), window.location.hash.slice(1).replace(/^\?/, '')];
+        hasError = parts.some(part => Array.from(new URLSearchParams(part).keys())
+          .some(key => errorKeys.has(key.toLowerCase())));
+      } catch {
+        hasError = true;
+      }
+      // Discard every query and fragment before loading page resources. No
+      // redirect values are displayed, stored, logged, or sent anywhere.
+      try {
+        window.history.replaceState(null, '', window.location.pathname);
+      } catch {
+        // History restrictions must not prevent the return instructions.
+      }
+      document.documentElement.dataset.emailLink = hasError ? 'error' : 'opened';
+      if (hasError) document.title = 'Email link help | HERO app';
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .confirmation { padding-top: clamp(2.5rem, 7vw, 5rem); padding-bottom: clamp(3rem, 8vw, 6rem); }
+    .confirmation h1 { max-width: 12ch; }
+    .confirmation .lead { max-width: 48ch; margin-bottom: 1.8rem; }
+    .confirmation-card { max-width: 640px; padding: clamp(1.3rem, 4vw, 2rem); }
+    .confirmation-card h2 { font-size: 1.2rem; }
+    .return-steps { padding-left: 1.25rem; margin: 0 0 1.5rem; }
+    .return-steps li { padding-left: .35rem; margin: .8rem 0; }
+    .open-app { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 48px; padding: .65rem 1.25rem; border-radius: 7px; background: var(--teal); color: white; font-weight: 700; text-decoration: none; }
+    .open-app:hover { background: var(--ink); text-decoration: none; }
+    .confirmation .meta { margin-top: 1rem; max-width: 52ch; }
+    .confirmation-help { margin-top: 1.8rem; }
+    .confirmation-error { display: none; }
+    html[data-email-link="error"] .confirmation-return { display: none; }
+    html[data-email-link="error"] .confirmation-error { display: block; }
+    @media (max-width: 420px) { .open-app { display: flex; width: 100%; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header><a class="brand" href="index.html">HERO</a><nav aria-label="Main navigation"><a href="index.html">App</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a></nav></header>
+  <main id="main" class="confirmation">
+    <p class="eyebrow">Your HERO account</p>
+    <div class="confirmation-return">
+      <h1>Return to HERO.</h1>
+      <p class="lead">Email confirmation link opened. Return to HERO and sign in with your email and password.</p>
+    </div>
+    <div class="confirmation-error">
+      <h1>This email link needs another look.</h1>
+      <p class="lead">The link could not be used. It may have expired or already been opened. Return to HERO and try signing in. If that does not work, contact support.</p>
+    </div>
+    <section class="card confirmation-card" aria-labelledby="next-step">
+      <h2 id="next-step">Continue in the app</h2>
+      <ol class="return-steps">
+        <li>Open the installed HERO app.</li>
+        <li>Go to <strong>Your account</strong> and sign in with the email and password you used to create your account.</li>
+      </ol>
+      <a class="open-app" href="herolab://account">Open HERO <span aria-hidden="true">↗</span></a>
+      <p class="meta">Opening HERO does not sign you in automatically. If the button does not open the app, return to HERO from your device's home screen.</p>
+      <noscript><p class="meta">This page cannot check the email link result while JavaScript is disabled. Try signing in to HERO, or contact support if you need help.</p></noscript>
+    </section>
+    <p class="confirmation-help">Need a hand? <a href="support.html">Get help with your HERO account</a>.</p>
+    <p class="meta">For your privacy, do not share your email link, password or sign-in code with support.</p>
+  </main>
+  <footer><p>HERO app. <a href="support.html">Support</a> · <a href="privacy.html">Privacy</a></p></footer>
+</body>
+</html>

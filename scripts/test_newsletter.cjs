@@ -209,7 +209,7 @@ test('provider copy is compact and the email has a persistent associated visible
   assert.equal(label.hidden, false);
   assert.equal(page.email.getAttribute('aria-label'), null);
   assert.equal(page.introduction.querySelector('.hero-newsletter-form-title').textContent, 'Subscribe for free');
-  assert.equal(page.introduction.querySelector('.hero-newsletter-form-intro').textContent, 'Confirm your email after signing up.');
+  assert.equal(page.introduction.querySelector('.hero-newsletter-form-intro').textContent, 'No email confirmation needed.');
   assert.doesNotMatch(page.introduction.textContent, /A short monthly look/);
   page.email.dispatch('input');
   assert.equal(label.textContent, 'Email address');
@@ -341,11 +341,12 @@ test('in-flight submission guard survives a timeout and clears after provider er
   assert.equal(page.submit().defaultPrevented, true);
   assert.equal(page.providerSubmissions, 1);
   page.expireTimers();
-  assert.match(page.serverError.textContent, /could not confirm your signup yet/);
+  assert.match(page.serverError.textContent, /signup is taking longer than expected/);
+  assert.doesNotMatch(page.serverError.textContent, /inbox|confirmation email/i);
   assert.equal(page.form.getAttribute('aria-busy'), null);
   assert.equal(page.submit().defaultPrevented, true);
   page.providerEvent('ajaxError', request);
-  assert.match(page.serverError.textContent, /check your connection and inbox/);
+  assert.match(page.serverError.textContent, /check your connection and try again/);
   assert.equal(page.submit().defaultPrevented, false);
   assert.equal(page.providerSubmissions, 2);
 });
@@ -358,7 +359,7 @@ test('unrelated provider requests do not lock this form', () => {
   assert.equal(page.form.getAttribute('aria-busy'), null);
 });
 
-test('provider success explains the inbox confirmation step without inventing enrollment or controlling display', () => {
+test('single opt-in success acknowledges the request without inventing subscriber status or controlling display', () => {
   const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true });
   assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
   assert.equal(page.successBody.getAttribute('style'), 'display: none');
@@ -375,12 +376,12 @@ test('provider success explains the inbox confirmation step without inventing en
   assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), true);
   assert.equal(page.successContent.getAttribute('role'), 'status');
   assert.equal(page.successContent.getAttribute('aria-live'), 'polite');
-  assert.equal(page.successContent.querySelector('h4').textContent, 'Check your inbox');
-  assert.match(page.successContent.querySelector('p').textContent, /^To confirm a new subscription,/);
-  assert.match(page.successContent.querySelector('p').textContent, /confirmation email and click the link to finish signing up/);
-  assert.match(page.successContent.textContent, /check your spam folder/);
+  assert.equal(page.successContent.querySelector('h4').textContent, 'Thanks for signing up');
+  assert.match(page.successContent.querySelector('p').textContent, /^Your signup request was received\./);
+  assert.match(page.successContent.querySelector('p').textContent, /No email confirmation is needed for new subscriptions\./);
+  assert.match(page.successContent.textContent, /arrives monthly, on the second Tuesday/);
   assert.match(page.successContent.textContent, /Already receiving The HERO Brief\? You do not need to subscribe again\./);
-  assert.doesNotMatch(page.successContent.textContent, /you are subscribed|you are enrolled|active|we(?:'ve| have) sent/i);
+  assert.doesNotMatch(page.successContent.textContent, /you(?:'re| are) subscribed|you(?:'re| are) enrolled|active|we(?:'ve| have) sent|click the link|check your inbox|spam folder/i);
 });
 
 test('failed, unconfirmed, and unrelated provider responses do not replace success content', () => {
@@ -399,7 +400,7 @@ test('failed, unconfirmed, and unrelated provider responses do not replace succe
   }
 });
 
-test('transport failure does not show inbox confirmation success', () => {
+test('transport failure does not show single opt-in success', () => {
   const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true });
   const original = page.successContent.textContent;
   page.submit();
@@ -408,10 +409,10 @@ test('transport failure does not show inbox confirmation success', () => {
   page.providerEvent('ajaxError', request);
   assert.equal(page.successContent.textContent, original);
   assert.equal(page.successContent.classList.contains('hero-newsletter-confirmation'), false);
-  assert.match(page.serverError.textContent, /could not confirm your signup/);
+  assert.match(page.serverError.textContent, /could not complete your signup/);
 });
 
-test('success content injected after provider acceptance receives confirmation instructions once', () => {
+test('success content injected after provider acceptance receives single opt-in instructions once', () => {
   const page = boot({ value: 'owner@example.com', nativeValid: true, checked: true, delayedSuccess: true });
   page.submit();
   const request = {};
@@ -422,7 +423,8 @@ test('success content injected after provider acceptance receives confirmation i
   page.observeMutations();
   assert.equal(page.successContent.querySelectorAll('h4').length, 1);
   assert.equal(page.successContent.querySelectorAll('p').length, 1);
-  assert.match(page.successContent.textContent, /click the link to finish signing up/);
+  assert.match(page.successContent.textContent, /Your signup request was received\./);
+  assert.match(page.successContent.textContent, /No email confirmation is needed for new subscriptions\./);
   assert.equal(page.successBody.getAttribute('style'), 'display: none');
 });
 

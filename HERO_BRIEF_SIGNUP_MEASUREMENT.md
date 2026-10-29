@@ -2,7 +2,7 @@
 
 Use only these complete URLs for public recruitment. The four UTM values must
 be exact and unique. The fixed labels describe a consented signup journey, not verified first-touch
-attribution. Updated October 21, 2026.
+attribution. Updated October 29, 2026.
 
 | Placement | Fixed MailerLite source | Approved URL |
 | --- | --- | --- |
@@ -27,7 +27,31 @@ labels still describe only the current page's exact approved tuple; they are
 not reconstructed from a saved source.
 Do not add email addresses, subscriber identifiers, or personal data to links.
 
-## MailerLite field
+## Current signup mode, October 29, 2026
+
+The owner approved single opt-in for new subscriptions through the current
+website form, `mWHwWK` / `201948685938984749`. Double opt-in is now disabled
+for that form only. Permission remains required. Existing unconfirmed contacts
+were not bulk activated, resubmitted, imported, or sent a reminder by this change.
+The older form and historical confirmation evidence remain unchanged.
+
+The website and native fallback success copy acknowledge the signup request.
+A successful provider response can include an existing address and does not
+prove a new active subscriber or verified email ownership. The website still
+leaves subscription requests, spam checks and subscriber status to MailerLite.
+The existing welcome workflow is retained, with repeat entry disabled.
+
+Report new single-opt-in Active contacts as active subscribers, not email
+confirmations. Preserve historical double-opt-in confirmation counts and
+existing pending contacts separately. Do not combine both modes into one
+email-confirmation conversion rate. The historical instruction below not to
+change double opt-in was superseded by the owner's October 29 approval.
+
+Offline checks do not verify a first-time subscriber's Active status, source
+retention, or welcome-email delivery. Those require a separate owner-controlled
+live test. Do not resubmit an existing unconfirmed reader for testing.
+
+## MailerLite field and historical verification
 
 The October 21, 2026 signup form is `mWHwWK`, form ID
 `201948685938984749`, in account `2676652`, connected to the same newsletter
@@ -179,8 +203,9 @@ belong in this repository.
   the reader switches to another tab, if consent and privacy guards still apply.
   Withdrawal, DNT, GPC, and the existing privacy guards suppress collection.
   Requests can still go to MailerLite when website analytics is off.
-- No confirmed-subscription GA event exists. Use MailerLite's confirmed
-  subscriber reporting for confirmation counts. Consented, once-per-page GA
+- No confirmed-subscription GA event exists. Use MailerLite's subscriber
+  status reporting, separating historical email confirmations from new
+  single-opt-in Active contacts. Consented, once-per-page GA
   events and all-provider subscriber counts have different coverage and cannot
   be divided to produce an exact signup-to-confirmation conversion rate.
 - Requests and responses, email addresses, form values, raw query strings,

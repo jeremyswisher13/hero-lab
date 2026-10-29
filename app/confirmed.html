@@ -41,6 +41,7 @@
     .return-steps li { padding-left: .35rem; margin: .8rem 0; }
     .open-app { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 48px; padding: .65rem 1.25rem; border-radius: 7px; background: var(--teal); color: white; font-weight: 700; text-decoration: none; }
     .open-app:hover { background: var(--ink); text-decoration: none; }
+    .return-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
     .confirmation .meta { margin-top: 1rem; max-width: 52ch; }
     .confirmation-help { margin-top: 1.8rem; }
     .confirmation-error { display: none; }
@@ -63,13 +64,16 @@
       <p class="lead">The link could not be used. It may have expired or already been opened. Return to HERO and try signing in. If that does not work, contact support.</p>
     </div>
     <section class="card confirmation-card" aria-labelledby="next-step">
-      <h2 id="next-step">Continue in the app</h2>
+      <h2 id="next-step">Choose where to continue</h2>
       <ol class="return-steps">
-        <li>Open the installed HERO app.</li>
+        <li>Open HERO in your browser or the installed iPhone app.</li>
         <li>Go to <strong>Your account</strong> and sign in with the email and password you used to create your account.</li>
       </ol>
-      <a class="open-app" href="herolab://account">Open HERO <span aria-hidden="true">↗</span></a>
-      <p class="meta">Opening HERO does not sign you in automatically. If the button does not open the app, return to HERO from your device's home screen.</p>
+      <div class="return-actions">
+        <a class="open-app" href="https://app.herolabsportsmedicine.com/account">Sign in on the web <span aria-hidden="true">↗</span></a>
+        <a class="open-app" href="herolab://account">Open iPhone app <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="meta">Opening HERO does not sign you in automatically. If the iPhone button does not open the app, use the web button or open HERO from your device's home screen.</p>
       <noscript><p class="meta">This page cannot check the email link result while JavaScript is disabled. Try signing in to HERO, or contact support if you need help.</p></noscript>
     </section>
     <p class="confirmation-help">Need a hand? <a href="support.html">Get help with your HERO account</a>.</p>

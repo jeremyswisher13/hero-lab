@@ -1,5 +1,5 @@
 /* Accessible validation for the public MailerLite embed.
- * Valid submissions continue through MailerLite's own double opt-in flow.
+ * Valid submissions continue through MailerLite's own single opt-in flow.
  */
 (() => {
   'use strict';
@@ -21,7 +21,7 @@
     let awaitingSubmission = false;
     let requestTimer;
     let observedProvider;
-    const pendingMessage = 'We could not confirm your signup yet. Please check your inbox for a confirmation email and wait before trying again.';
+    const pendingMessage = 'Your signup is taking longer than expected. Please wait before trying again.';
 
     function syncSignupSource() {
       // Use MailerLite's native hidden segmentation input. Cached embeds may
@@ -113,18 +113,18 @@
       title.textContent = 'Subscribe for free';
       const intro = document.createElement('p');
       intro.className = 'hero-newsletter-form-intro';
-      intro.textContent = 'Confirm your email after signing up.';
+      intro.textContent = 'No email confirmation needed.';
       introduction.textContent = '';
       introduction.append(title, intro);
     }
 
-    function explainEmailConfirmation() {
+    function explainSignupResult() {
       const content = embed.querySelector('.ml-form-successContent');
       if (!content) return false;
       const title = document.createElement('h4');
-      title.textContent = 'Check your inbox';
+      title.textContent = 'Thanks for signing up';
       const instructions = document.createElement('p');
-      instructions.textContent = 'To confirm a new subscription, open the confirmation email and click the link to finish signing up for The HERO Brief. If you do not see it, check your spam folder. Already receiving The HERO Brief? You do not need to subscribe again.';
+      instructions.textContent = 'Your signup request was received. No email confirmation is needed for new subscriptions. The HERO Brief arrives monthly, on the second Tuesday. Already receiving The HERO Brief? You do not need to subscribe again.';
       content.classList.add('hero-newsletter-confirmation');
       content.setAttribute('role', 'status');
       content.setAttribute('aria-live', 'polite');
@@ -136,10 +136,10 @@
 
     function updateProviderSuccess() {
       // This runs only after a successful provider response. MailerLite still
-      // decides when to display its success body and sends the opt-in email.
-      if (explainEmailConfirmation()) return;
+      // decides when to display its success body and manages subscriber status.
+      if (explainSignupResult()) return;
       const observer = new MutationObserver(() => {
-        if (explainEmailConfirmation()) observer.disconnect();
+        if (explainSignupResult()) observer.disconnect();
       });
       observer.observe(embed, { childList: true, subtree: true });
     }
@@ -212,7 +212,7 @@
         }
       }
       // Observe the provider's public AJAX events. Its request, callback, loading
-      // state, and double opt-in success flow remain owned by MailerLite.
+      // state, and subscriber status remain owned by MailerLite.
       provider(document).on('ajaxSend.heroNewsletter', (event, request, settings) => {
         if (!isSubscription(settings) || pendingRequest) return;
         const eligible = awaitingSubmission;
@@ -232,7 +232,7 @@
         finishRequest(request);
         clearServerError();
         // Provider acceptance may include an existing subscriber. It never
-        // establishes email confirmation or a new, confirmed subscription.
+        // establishes email ownership or a newly active subscription.
         if (response?.success === true && accepted) accepted();
         if (response?.success === true) updateProviderSuccess();
         if (!response?.success && !response?.fieldsToConfirm?.length && !fields.some(item => item.group.classList.contains('ml-error') || item.input.getAttribute('aria-invalid') === 'true')) {
@@ -242,7 +242,7 @@
         if (!isSubscription(settings) || pendingRequest !== request) return;
         finishRequest(request);
         const message = serverError.textContent.trim();
-        showServerError(message && message !== pendingMessage ? message : 'We could not confirm your signup. Please check your connection and inbox before trying again.');
+        showServerError(message && message !== pendingMessage ? message : 'We could not complete your signup. Please check your connection and try again.');
       }).on('ajaxComplete.heroNewsletter', (event, request, settings) => {
         if (isSubscription(settings)) finishRequest(request);
       });

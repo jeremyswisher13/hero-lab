@@ -2,7 +2,7 @@
 
 Use only these complete URLs for public recruitment. The four UTM values must
 be exact and unique. The fixed labels describe a consented signup journey, not verified first-touch
-attribution. Updated October 29, 2026.
+attribution. Updated October 30, 2026.
 
 | Placement | Fixed MailerLite source | Approved URL |
 | --- | --- | --- |
@@ -101,6 +101,8 @@ normal provider submission. With analytics permission, an exact, unique
   followed by `_nav`, `_inline`, or `_footer`.
 - Archive: `archive_nav`, `archive_body`, `archive_footer`.
 - Sent issue: `issue_nav`, `issue_body`, `issue_footer`.
+- Publication pages: `sleep_extension`, `athlete_travel`, or `collegiate_sleep`,
+  followed by `_nav`, `_inline`, or `_footer`.
 
 Only these fixed values qualify. Missing, duplicate, malformed, unknown and
 privacy-suppressed placements are `not_recorded`. Placement is scoped to the
@@ -110,6 +112,47 @@ using its signup link can have source `instagram_story` and placement
 `travel_inline`. An untagged visitor using that link still has source
 `not_recorded` and placement `travel_inline`. Do not classify the latter as
 acquired through a known outside channel.
+
+The two signup-stage GA events now include `signup_placement`, using the
+approved value captured when the matching provider request begins. Both stages
+use that same value. It is `not_recorded` when the link supplies no approved
+placement. This label does not change GA campaign fields, save a new acquisition
+source, or read a form field. It is separate from the native MailerLite field.
+Page-view and GA configuration payloads do not include this placement.
+
+## Website link events
+
+`hero_newsletter_cta` records a consented signup-link click with a fixed
+`action_id` and, for invitation placements above, `signup_placement`. Existing
+links to this site's HTTPS `/newsletter.html` qualify when they contain one
+exact approved `hero_signup_placement`. Other query values and the clicked URL
+are discarded. Off-site destinations, duplicate placement keys, unsupported
+labels and malformed encodings do not qualify. Link parsing waits until
+analytics is active and the consent and privacy checks pass.
+
+For explicit markup, use `data-analytics="newsletter-cta"` and
+`data-analytics-id="home_hero"`, replacing the ID with an approved placement.
+The newsletter page's same-page return link can use `newsletter_repeat` as its
+ID. That action has no placement parameter because it does not identify the
+invitation that brought the reader to the signup page. Explicit and inferred
+versions of the same placement share deduplication.
+
+`hero_publication_click` records a selected original-publication link with a
+fixed `publication_id`. Use `data-analytics="publication-source"` with one of
+these `data-analytics-id` values:
+
+- `sleep-extension-2026`
+- `athlete-travel-2026`
+- `collegiate-athlete-sleep-2024`
+
+The publication event reports no destination, link text, DOI, or arbitrary ID.
+Both click events count each approved action once per page visit, including
+middle-clicks. They do not replay preconsent or pre-load actions and do not
+establish that a reader subscribed, opened the destination, or read the paper.
+No external analytics account settings or GA custom dimensions are configured
+by this code change. Register the fixed event parameters in GA reporting only
+if that is needed for a chosen report; these offline checks cannot verify
+collection or report availability.
 
 ## Provider verification and promotion links
 

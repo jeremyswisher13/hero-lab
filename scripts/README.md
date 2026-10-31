@@ -32,9 +32,10 @@ python3 scripts/build_styles.py --check
 ```
 
 Commit the generated CSS files and the updated HTML cache keys. Do not edit
-`home-bundle.css`, `study-bundle.css`, `magnesium-bundle.css`, or
-`wearables-bundle.css` directly. Other pages use the original stylesheets.
-The existing styles workflow checks all four committed bundles.
+`home-bundle.css`, `study-bundle.css`, `magnesium-bundle.css`,
+`wearables-bundle.css`, or `publication-bundle.css` directly. Other pages use
+the original stylesheets.
+The existing styles workflow checks all committed bundles.
 
 `magnesium-evidence.css` and `wearables-evidence.css` preserve the page styles
 previously embedded inline. Each evidence bundle keeps the original order:
@@ -71,3 +72,5 @@ Commit the generated `*-optimized.webp` files and
 source and output hashes, dimensions, and byte sizes. The check requires only
 Python 3 and verifies the committed assets without re-encoding them. New
 image filenames keep cached original copies from masking the update.
+
+The three standalone publication summaries share `publication-bundle.css`. Its source order is fonts, base styles, premium styles, publication styles, research navigation, evidence footer, and analytics consent. The bundle builder updates all three HTML cache keys together.

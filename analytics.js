@@ -18,6 +18,9 @@
     '/concussion.html': ['concussion', 'Concussion evidence'],
     '/wearables.html': ['wearables', 'Wearable technology evidence'],
     '/travel-circadian.html': ['travel-circadian', 'Athlete travel and circadian evidence'],
+    '/sleep-extension-2026.html': ['sleep-extension-2026', 'Sleep extension in collegiate athletes'],
+    '/athlete-travel-2026.html': ['athlete-travel-2026', 'Optimizing athlete travel for performance'],
+    '/collegiate-athlete-sleep-2024.html': ['collegiate-athlete-sleep-2024', 'Baseline sleep in collegiate athletes'],
     '/cwi-amssm-2025.html': ['cwi-amssm-2025', 'Cold water immersion AMSSM 2025'],
     '/mgt-amssm-2026.html': ['mgt-amssm-2026', 'MgT athlete trial results'],
     '/concussion-amssm-2026.html': ['concussion-amssm-2026', 'Early resistance exercise in concussion'],
@@ -52,7 +55,10 @@
     'concussion_nav', 'concussion_inline', 'concussion_footer',
     'travel_nav', 'travel_inline', 'travel_footer',
     'archive_nav', 'archive_body', 'archive_footer',
-    'issue_nav', 'issue_body', 'issue_footer'
+    'issue_nav', 'issue_body', 'issue_footer',
+    'sleep_extension_nav', 'sleep_extension_inline', 'sleep_extension_footer',
+    'athlete_travel_nav', 'athlete_travel_inline', 'athlete_travel_footer',
+    'collegiate_sleep_nav', 'collegiate_sleep_inline', 'collegiate_sleep_footer'
   ];
   var clicks = {
     'study-cta': {
@@ -76,8 +82,19 @@
     download: {
       'study-film-web': 'Website film download click',
       'study-film-vertical': 'Vertical film download click'
+    },
+    'newsletter-cta': {
+      newsletter_repeat: 'Newsletter page signup link'
+    },
+    'publication-source': {
+      'sleep-extension-2026': 'Sleep extension publication source',
+      'athlete-travel-2026': 'Athlete travel publication source',
+      'collegiate-athlete-sleep-2024': 'Collegiate athlete sleep publication source'
     }
   };
+  signupPlacements.forEach(function (placement) {
+    clicks['newsletter-cta'][placement] = 'Newsletter signup link: ' + placement;
+  });
   var films = {
     'study-film-web': 'Website study film',
     'study-film-vertical': 'Vertical study film'
@@ -321,7 +338,7 @@
   panel.className = 'hero-analytics-panel';
   panel.setAttribute('aria-labelledby', 'hero-analytics-title');
   panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
-    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, approved newsletter campaigns, newsletter signup requests, study-link clicks, and video engagement. We also record approved signup channels and website signup placements in your private MailerLite record when you subscribe. An approved channel can follow your visit in this browser tab for up to 30 minutes. Email addresses, message contents, and research records stay out of Google Analytics.</p>' +
+    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, approved newsletter campaigns, signup-link clicks and request stages, publication and study-link clicks, and video engagement. Signup events can include a fixed website placement label. We also record approved signup channels and website signup placements in your private MailerLite record when you subscribe. An approved channel can follow your visit in this browser tab for up to 30 minutes. Email addresses, message contents, and research records stay out of Google Analytics.</p>' +
     '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
     '<button type="button" id="hero-analytics-decline">Decline</button><a href="/privacy.html">Analytics privacy</a></div>';
   panel.hidden = !!choice;
@@ -361,7 +378,7 @@
   // Only approved campaign tuples are read from page queries after consent.
   // Payloads use fixed labels, never link destinations, dynamic titles,
   // referrers or form values. Google also collects standard session information.
-  function send(path, title, event) {
+  function send(path, title, event, signupPlacement) {
     // A consented signup can finish while its reader switches to their inbox.
     // Only that request's acceptance callback may finish in a hidden tab.
     if (!active || !consented() || !permitted() ||
@@ -378,6 +395,14 @@
         if (name === 'hero_film_progress') params.percent_watched = Number(parts[2]);
       } else if (parts[0] === 'newsletter') {
         name = parts[1] === 'submit' ? 'hero_newsletter_submit' : 'hero_newsletter_accepted';
+        params.signup_placement = signupPlacements.indexOf(signupPlacement) !== -1 ? signupPlacement : 'not_recorded';
+      } else if (parts[0] === 'newsletter-cta') {
+        name = 'hero_newsletter_cta';
+        params.action_id = parts[1];
+        if (signupPlacements.indexOf(parts[1]) !== -1) params.signup_placement = parts[1];
+      } else if (parts[0] === 'publication-source') {
+        name = 'hero_publication_click';
+        params.publication_id = parts[1];
       } else {
         name = {'study-cta':'hero_study_cta', inquiry:'hero_inquiry_click', download:'hero_film_download'}[parts[0]];
         params.action_id = parts[1];
@@ -396,12 +421,14 @@
         if (!active || !consented() || !permitted() || document.visibilityState === 'hidden') return null;
         var generation = consentGeneration;
         var finished = false;
-        send('newsletter:submit', page[1], true);
+        // Keep both stages tied to the same approved placement at request start.
+        var placement = currentContext().placement;
+        send('newsletter:submit', page[1], true, placement);
         return function () {
           if (finished) return;
           finished = true;
           if (generation !== consentGeneration) return;
-          send('newsletter:accepted', page[1], true);
+          send('newsletter:accepted', page[1], true, placement);
         };
       }
     });
@@ -414,14 +441,37 @@
   }
   document.addEventListener('visibilitychange', pageview);
 
+  function linkedSignupPlacement(target) {
+    // Existing links already carry fixed placement labels. Read only after
+    // consent, validate our signup destination, and discard every other value.
+    if (target.tagName !== 'A') return '';
+    try {
+      var href = target.getAttribute('href');
+      if (!href || href.length > 8192) return '';
+      var url = new URL(href, 'https://herolabsportsmedicine.com' + pagePath);
+      if (url.protocol !== 'https:' || hosts.indexOf(url.hostname) === -1 ||
+          url.port || url.username || url.password || url.pathname !== '/newsletter.html') return '';
+      decodeURIComponent(url.search.replace(/\+/g, ' '));
+      var values = url.searchParams.getAll('hero_signup_placement');
+      if (values.length !== 1) return '';
+      var index = signupPlacements.indexOf(values[0]);
+      return index === -1 ? '' : signupPlacements[index];
+    } catch (_) { return ''; }
+  }
+
   function click(event) {
+    if (!active || !consented() || !permitted() || document.visibilityState === 'hidden') return;
     if (event.isTrusted === false || (event.type === 'auxclick' && event.button !== 1)) return;
     var node = event.target;
     if (!node || typeof node.closest !== 'function') return;
-    var target = node.closest('[data-analytics][data-analytics-id]');
+    var target = node.closest('[data-analytics][data-analytics-id],a[href]');
     if (!target || !/^(A|BUTTON)$/.test(target.tagName) || target.disabled) return;
     var kind = target.getAttribute('data-analytics');
     var id = target.getAttribute('data-analytics-id');
+    if (!kind && !id) {
+      id = linkedSignupPlacement(target);
+      kind = 'newsletter-cta';
+    }
     if (!has(clicks, kind) || !has(clicks[kind], id)) return;
     send(kind + ':' + id + ':' + page[0], clicks[kind][id] + ' | ' + page[1], true);
   }

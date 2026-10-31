@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://herolabsportsmedicine.com/</loc>
@@ -10,11 +10,11 @@
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/magnesium.html</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-17</lastmod>
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/cold-water-immersion.html</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-17</lastmod>
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/concussion.html</loc>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/travel-circadian.html</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/mgt-amssm-2026.html</loc>
@@ -50,14 +50,26 @@
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/newsletter.html</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/newsletter-archive.html</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-30</lastmod>
   </url>
   <url>
     <loc>https://herolabsportsmedicine.com/hero-brief-2026-10-13.html</loc>
     <lastmod>2026-10-14</lastmod>
+  </url>
+  <url>
+    <loc>https://herolabsportsmedicine.com/sleep-extension-2026.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://herolabsportsmedicine.com/athlete-travel-2026.html</loc>
+    <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://herolabsportsmedicine.com/collegiate-athlete-sleep-2024.html</loc>
+    <lastmod>2026-10-30</lastmod>
   </url>
 </urlset>

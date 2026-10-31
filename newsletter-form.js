@@ -108,14 +108,11 @@
     // content brief without replacing any of its form or consent controls.
     const introduction = embed.querySelector('.ml-form-embedContent');
     if (introduction) {
-      const title = document.createElement('h4');
+      const title = document.createElement('h2');
       title.className = 'hero-newsletter-form-title';
       title.textContent = 'Subscribe for free';
-      const intro = document.createElement('p');
-      intro.className = 'hero-newsletter-form-intro';
-      intro.textContent = 'No email confirmation needed.';
       introduction.textContent = '';
-      introduction.append(title, intro);
+      introduction.append(title);
     }
 
     function explainSignupResult() {
@@ -147,12 +144,21 @@
     const signupHelp = document.createElement('p');
     signupHelp.className = 'hero-newsletter-signup-help';
     signupHelp.id = email.id + '-signup-help';
+    signupHelp.hidden = true;
     const helpLink = document.createElement('a');
     helpLink.href = 'mailto:jswisher@mednet.ucla.edu';
     helpLink.textContent = 'Email HERO Lab for signup help';
     signupHelp.append(helpLink);
     form.append(signupHelp);
-    email.setAttribute('aria-describedby', email.getAttribute('aria-describedby') + ' ' + signupHelp.id);
+
+    function updateSignupHelp() {
+      const visible = fields.some(item => item.input.getAttribute('aria-invalid') === 'true') || Boolean(serverError.textContent.trim());
+      signupHelp.hidden = !visible;
+      const descriptions = new Set(email.getAttribute('aria-describedby').split(/\s+/));
+      if (visible) descriptions.add(signupHelp.id);
+      else descriptions.delete(signupHelp.id);
+      email.setAttribute('aria-describedby', Array.from(descriptions).join(' '));
+    }
 
     // Retain the existing provider-compatible format restriction. It is not
     // the definition of valid email syntax, and does not establish deliverability.
@@ -174,6 +180,7 @@
       if (item.error.textContent !== message) item.error.textContent = message;
       item.input.setAttribute('aria-invalid', String(Boolean(message)));
       item.group.classList.toggle('ml-error', Boolean(message));
+      updateSignupHelp();
     }
     function updateSummary() {
       const count = fields.filter(item => item.input.getAttribute('aria-invalid') === 'true').length;
@@ -184,10 +191,12 @@
     function clearServerError() {
       if (serverError.textContent) serverError.textContent = '';
       serverError.classList.add('d-none');
+      updateSignupHelp();
     }
     function showServerError(message, focus = true) {
       if (serverError.textContent !== message) serverError.textContent = message;
       serverError.classList.remove('d-none');
+      updateSignupHelp();
       if (focus) serverError.focus();
     }
     function finishRequest(request) {
@@ -314,6 +323,7 @@
         providerRejection = true;
       });
       if (providerRejection && attempted) {
+        updateSignupHelp();
         updateSummary();
         fields.find(item => item.input.getAttribute('aria-invalid') === 'true')?.input.focus();
       }

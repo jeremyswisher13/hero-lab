@@ -3371,6 +3371,69 @@ video { max-width:100%; }
   .premium-home *, .premium-home *::before, .premium-home *::after { animation:none!important; transition:none!important; }
 }
 
+/* Research discovery and newsletter priorities, October 2026. */
+.nav-links .nav-newsletter-link {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:10px 14px; border:1px solid #a5cfd4;
+  border-radius:5px; background:#e5f3f4; color:#103e49;
+  font-size:.8125rem; font-weight:700;
+}
+.nav-links .nav-newsletter-link:hover { background:#c9e9ec; color:#092631; }
+.nav-links .nav-newsletter-link::after { display:none; }
+.premium-home .nav-links .nav-study-link {
+  background:transparent; color:#304f59; border:1px solid #c7d8dc;
+}
+.premium-home .nav-links .nav-study-link:hover { background:#edf5f6; }
+.research-overview { background:#fff; }
+.research-overview-heading { display:flex; gap:32px; align-items:flex-end; justify-content:space-between; }
+.research-overview-heading>div { max-width:760px; }
+.research-overview-heading>div>p:last-child { margin-top:18px; font-size:1.0625rem; color:#52666d; }
+.research-overview-heading>.text-link { flex-shrink:0; max-width:230px; }
+.research-paper-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.research-paper-card { display:flex; flex-direction:column; padding:28px; border:1px solid #c7d8dc; border-top:3px solid #2b6470; border-radius:4px; background:#f7faf9; }
+.research-paper-card .paper-journal { color:#245764; font-size:.875rem; font-weight:700; line-height:1.5; margin-bottom:8px; }
+.research-paper-card .paper-method { font-size:.8125rem; line-height:1.5; color:#52666d; margin-bottom:22px; }
+.research-paper-card h3 { font-size:1.4rem; letter-spacing:-.025em; line-height:1.3; margin:0 0 18px; }
+.research-paper-card h3 a { color:#143b46; text-decoration:none; }
+.research-paper-card h3 a:hover { text-decoration:underline; text-underline-offset:3px; }
+.research-paper-card>p:not([class]) { font-size:.9375rem; line-height:1.7; color:#405860; margin-bottom:24px; }
+.research-paper-card>.text-link { margin-top:auto; min-height:44px; display:inline-flex; align-items:center; font-size:.875rem; gap:8px; }
+.research-program-links { display:flex; flex-wrap:wrap; align-items:center; gap:12px 28px; padding-top:24px; margin-top:28px; border-top:1px solid #d5e0e1; }
+.research-program-links>span { color:#304f59; font-size:.875rem; font-weight:700; }
+.research-program-links a { min-height:44px; display:inline-flex; align-items:center; font-size:.875rem; color:#1d5b69; text-decoration:underline; text-underline-offset:4px; }
+.formulation-portfolio-summary { max-width:800px; padding:0 0 20px; }
+.formulation-portfolio-summary h3 { color:#143b46; margin-bottom:16px; }
+.formulation-portfolio-summary p { margin-bottom:18px; }
+.formulation-portfolio-summary a { display:inline-block; padding:10px 0; }
+.premium-home .disclosure-status { font-size:.75rem; color:#465e68; }
+.evidence-overview { background:#f5f7f8; }
+.evidence-guide-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.evidence-guide-grid>a { display:flex; flex-direction:column; gap:14px; background:#fff; padding:24px; border:1px solid #c7d8dc; border-radius:4px; text-decoration:none; }
+.evidence-guide-grid>a:hover { border-color:#2b6470; }
+.evidence-guide-grid h3 { color:#143b46; font-size:1.2rem; }
+.evidence-guide-grid p { color:#405860; font-size:.9375rem; }
+.evidence-guide-grid span { margin-top:auto; padding-top:8px; color:#1d5b69; text-decoration:underline; text-underline-offset:4px; font-size:.875rem; font-weight:600; }
+@media(max-width:1000px) {
+  .research-overview-heading { align-items:flex-start; flex-direction:column; gap:20px; }
+  .research-overview-heading>.text-link { max-width:none; }
+  .research-paper-card { padding:22px; }
+  .research-paper-card h3 { font-size:1.2rem; }
+}
+@media(max-width:800px) {
+  .research-paper-grid { grid-template-columns:1fr; gap:20px; }
+  .research-paper-card h3 { font-size:1.5rem; }
+  .research-paper-card .paper-method { margin-bottom:16px; }
+  .research-program-links { align-items:flex-start; gap:8px; flex-direction:column; }
+  .evidence-guide-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:540px) {
+  .evidence-guide-grid { grid-template-columns:1fr; }
+}
+
+/* The newsletter remains prominent across the shared research navigation. */
+.nav-links .nav-study-link { background:transparent; color:#304f59; border:1px solid #c7d8dc; }
+.nav-links .nav-study-link:hover,.nav-links .nav-study-link:focus-visible { background:#edf5f6; color:#143b46; }
+
 /* Source: evidence-guide.css */
 /* Focused evidence summaries, extending the existing HERO Lab theme. */
 .evidence-section > .container { max-width: 88ch; }

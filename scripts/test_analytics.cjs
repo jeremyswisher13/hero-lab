@@ -544,8 +544,8 @@ test('newsletter HTML loads shared consent assets in order and exposes preferenc
   assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
   assert.ok(html.indexOf('src="analytics-config.js?') < html.indexOf('src="analytics.js?'));
   assert.match(html, /src="analytics-config\.js\?[^\"]+" defer/);
-  assert.match(html, /src="analytics\.js\?v=20261018-signup-sources" defer/);
-  assert.doesNotMatch(html, /data-analytics=(?:"|')/);
+  assert.match(html, /src="analytics\.js\?v=[^\"]+" defer/);
+  assert.doesNotMatch(html, /<(?:input|textarea|select|form)\b[^>]+data-analytics=(?:"|')/);
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /<script[^>]+analytics/);
   assert.match(privacy, /hero_brief_2026_10/);
@@ -998,7 +998,8 @@ test('approved recruitment is captured on every public landing page without wait
   const paths = ['/', '/index.html', '/magnesium-formulation-study.html', '/magnesium.html', '/cold-water-immersion.html',
     '/concussion.html', '/wearables.html', '/travel-circadian.html', '/cwi-amssm-2025.html', '/mgt-amssm-2026.html',
     '/concussion-amssm-2026.html', '/press.html', '/faq.html', '/newsletter.html', '/newsletter-archive.html',
-    '/hero-brief-2026-10-13.html'];
+    '/hero-brief-2026-10-13.html', '/sleep-extension-2026.html', '/athlete-travel-2026.html',
+    '/collegiate-athlete-sleep-2024.html'];
   for (const pathname of paths) {
     const state = journeyState();
     const f = boot({...state, location: {pathname, search: signupQuery('event', 'qr', 'talk')}});
@@ -1037,7 +1038,8 @@ test('a tagged visit survives research and archive detours into a late provider 
     assert.ok(contexts(signup).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')),
       'saved source and current placement do not manufacture a current GA campaign');
     const serialized = JSON.stringify([landing.sessionWrites, research.sessionWrites, archive.sessionWrites, signup.sessionWrites, signup.calls()]);
-    for (const secret of ['private-reader', 'private-token', 'utm_', 'hero_signup_placement', 'archive_body']) assert.ok(!serialized.includes(secret), secret);
+    for (const secret of ['private-reader', 'private-token', 'utm_', 'hero_signup_placement']) assert.ok(!serialized.includes(secret), secret);
+    assert.ok(signupEvents(signup).every(call => call[2].signup_placement === 'archive_body'));
   }
 });
 
@@ -1223,7 +1225,10 @@ test('internal placements remain independent of source evidence, session storage
     'wearables_nav', 'wearables_inline', 'wearables_footer', 'magnesium_nav', 'magnesium_inline', 'magnesium_footer',
     'cwi_nav', 'cwi_inline', 'cwi_footer', 'concussion_nav', 'concussion_inline', 'concussion_footer',
     'travel_nav', 'travel_inline', 'travel_footer', 'archive_nav', 'archive_body', 'archive_footer',
-    'issue_nav', 'issue_body', 'issue_footer'];
+    'issue_nav', 'issue_body', 'issue_footer',
+    'sleep_extension_nav', 'sleep_extension_inline', 'sleep_extension_footer',
+    'athlete_travel_nav', 'athlete_travel_inline', 'athlete_travel_footer',
+    'collegiate_sleep_nav', 'collegiate_sleep_inline', 'collegiate_sleep_footer'];
   for (const placement of placements) {
     const f = accept(signupBoot({location: {search: '?hero_signup_placement=' + placement}}));
     assert.equal(f.sourceInput.value, 'not_recorded');
@@ -1231,6 +1236,13 @@ test('internal placements remain independent of source evidence, session storage
     assert.equal(f.sessionStore.size, 0);
     assert.ok(contexts(f).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')));
     assert.ok(!JSON.stringify(f.calls()).includes(placement));
+    f.placementInput.value = 'private-form-value@example.com';
+    const request = beginRequest(f);
+    f.providerEvent('ajaxSuccess', request, {success: true});
+    assert.ok(signupEvents(f).every(call => call[2].signup_placement === placement));
+    assert.ok(!JSON.stringify(f.calls()).includes('private-form-value'));
+    assert.ok(contexts(f).every(params => CAMPAIGN_KEYS.every(key => params[key] === '')));
+    assert.equal(f.sessionStore.size, 0, 'placement does not become saved acquisition source');
   }
   for (const query of ['', '?hero_signup_placement=unknown', '?hero_signup_placement=Home_nav',
     '?hero_signup_placement=home_nav+', '?hero_signup_placement=reader%40example.com',
@@ -1241,6 +1253,9 @@ test('internal placements remain independent of source evidence, session storage
     assert.equal(f.placementInput.value, 'not_recorded');
     assert.ok(contexts(f).every(params => params.campaign_id === 'hero_brief_signup'));
     assert.ok(f.sessionWrites.every(([, value]) => !value.includes('hero_signup_placement')));
+    const request = beginRequest(f);
+    f.providerEvent('ajaxSuccess', request, {success: true});
+    assert.ok(signupEvents(f).every(call => call[2].signup_placement === 'not_recorded'));
   }
   const undecided = signupBoot({location: {search: '?hero_signup_placement=home_nav'}});
   assert.equal(undecided.placementInput.value, 'not_recorded');
@@ -1288,7 +1303,7 @@ test('only the actual valid provider request counts submit, and strict provider 
   const serialized = JSON.stringify([f.calls(), f.storageWrites]);
   for (const secret of ['private-reader', 'private-response', 'dashboard.mailerlite', 'utm_', 'untrusted-provider-default']) assert.ok(!serialized.includes(secret), secret);
   for (const call of signupEvents(f)) assert.deepEqual(Object.keys(call[2]).sort(), [
-    'send_to', 'page_id', 'page_location', 'page_title', 'page_referrer', ...CAMPAIGN_KEYS
+    'send_to', 'page_id', 'page_location', 'page_title', 'page_referrer', 'signup_placement', ...CAMPAIGN_KEYS
   ].sort());
   assert.ok(!f.events().some(call => /confirmed/.test(call[1])));
 });
@@ -1435,4 +1450,142 @@ test('an eligible visible signup may be accepted after switching tabs, without a
   withdrawn.decline();
   withdrawn.providerEvent('ajaxSuccess', revokedRequest, {success: true});
   assert.deepEqual(signupEvents(withdrawn).map(call => call[1]), ['hero_newsletter_submit']);
+});
+
+function signupLink(f, href, extra = {}) {
+  const link = f.document.createElement('a');
+  link.setAttribute('href', href);
+  const nested = f.document.createElement('span');
+  link.append(nested);
+  f.document.body.append(link);
+  link.hrefReads = 0;
+  if (extra.noRead) {
+    const getAttribute = link.getAttribute.bind(link);
+    link.getAttribute = name => {
+      if (name === 'href') {
+        link.hrefReads += 1;
+        throw new Error('Signup link read before analytics was active');
+      }
+      return getAttribute(name);
+    };
+  }
+  nested.dispatchEvent({type: extra.type || 'click', isTrusted: extra.isTrusted !== false,
+    button: extra.button || 0, bubbles: true});
+  return link;
+}
+
+test('newsletter CTA and publication source clicks use fixed labels and deduplicate without reading destinations', () => {
+  const f = accept(boot({location: {search: newsletterQuery() + '&email=private-reader%40example.com'}}));
+  f.click('newsletter-cta', 'home_hero');
+  f.click('newsletter-cta', 'home_hero');
+  f.click('newsletter-cta', 'newsletter_repeat');
+  for (const id of ['sleep-extension-2026', 'athlete-travel-2026', 'collegiate-athlete-sleep-2024']) {
+    f.click('publication-source', id, {type: 'auxclick', button: 1});
+    f.click('publication-source', id);
+  }
+  const events = customEvents(f);
+  assert.equal(events.length, 5);
+  assert.deepEqual(events.slice(0, 2).map(call => call[1]), ['hero_newsletter_cta', 'hero_newsletter_cta']);
+  assert.equal(events[0][2].action_id, 'home_hero');
+  assert.equal(events[0][2].signup_placement, 'home_hero');
+  assert.equal(events[1][2].action_id, 'newsletter_repeat');
+  assert.ok(!('signup_placement' in events[1][2]), 'same-page repeat link is not acquisition placement');
+  assert.deepEqual(events.slice(2).map(call => [call[1], call[2].publication_id]), [
+    ['hero_publication_click', 'sleep-extension-2026'],
+    ['hero_publication_click', 'athlete-travel-2026'],
+    ['hero_publication_click', 'collegiate-athlete-sleep-2024']
+  ]);
+  for (const [kind, id, extra] of [
+    ['newsletter-cta', 'email@example.com'], ['newsletter-cta', '__proto__'],
+    ['publication-source', 'https://example.com/private'], ['publication-source', 'constructor'],
+    ['newsletter-cta', 'home_nav', {isTrusted: false}],
+    ['publication-source', 'unknown'], ['newsletter-cta', 'home_nav', {type: 'auxclick', button: 2}]
+  ]) f.click(kind, id, extra);
+  assert.equal(customEvents(f).length, 5);
+  assert.ok(events.every(call => call[2].campaign_id === 'hero_brief_2026_10'));
+  for (const secret of ['private-reader', 'email@example.com', 'example.com/private', 'constructor']) {
+    assert.ok(!JSON.stringify(f.calls()).includes(secret));
+  }
+});
+
+test('existing signup links infer only approved placement labels on the HTTPS public signup destination', () => {
+  for (const href of [
+    'newsletter.html?hero_signup_placement=home_nav#subscribe',
+    '/newsletter.html?hero_signup_placement=home_nav&email=private-reader%40example.com&token=private-token',
+    'https://herolabsportsmedicine.com/newsletter.html?hero_signup_placement=home_nav',
+    'https://www.herolabsportsmedicine.com/newsletter.html?hero_signup_placement=home_nav',
+    'newsletter.html?%68ero_signup_placement=home_nav'
+  ]) {
+    const f = accept(boot());
+    signupLink(f, href);
+    f.click('newsletter-cta', 'home_nav');
+    assert.equal(customEvents(f).length, 1, 'inferred and explicit labels share deduplication');
+    const event = customEvents(f)[0];
+    assert.equal(event[1], 'hero_newsletter_cta');
+    assert.equal(event[2].action_id, 'home_nav');
+    assert.equal(event[2].signup_placement, 'home_nav');
+    assert.equal(f.sessionStore.size, 0);
+    for (const secret of ['hero_signup_placement', 'private-reader', 'private-token', '#subscribe']) {
+      assert.ok(!JSON.stringify(f.calls()).includes(secret));
+    }
+  }
+  for (const href of [
+    'https://example.com/newsletter.html?hero_signup_placement=home_nav',
+    'https://herolabsportsmedicine.com.example.com/newsletter.html?hero_signup_placement=home_nav',
+    'https://reader@example.com/newsletter.html?hero_signup_placement=home_nav',
+    'https://reader@herolabsportsmedicine.com/newsletter.html?hero_signup_placement=home_nav',
+    'http://herolabsportsmedicine.com/newsletter.html?hero_signup_placement=home_nav',
+    'https://herolabsportsmedicine.com:8443/newsletter.html?hero_signup_placement=home_nav',
+    '/workspace/newsletter.html?hero_signup_placement=home_nav',
+    'newsletter.html?hero_signup_placement=home_nav&hero_signup_placement=home_nav',
+    'newsletter.html?hero_signup_placement=home_nav&%68ero_signup_placement=home_nav',
+    'newsletter.html?hero_signup_placement=private-reader%40example.com',
+    'newsletter.html?hero_signup_placement=Home_nav',
+    'newsletter.html?hero_signup_placement=home_nav+',
+    'newsletter.html?hero_signup_placement=home_nav&bad=%ZZ',
+    'newsletter.html?hero_signup_placement=home_nav&bad=' + 'x'.repeat(8192),
+    'newsletter.html#hero_signup_placement=home_nav',
+    'mailto:private-reader@example.com?hero_signup_placement=home_nav'
+  ]) {
+    const f = accept(boot());
+    signupLink(f, href);
+    assert.equal(customEvents(f).length, 0, href);
+  }
+});
+
+test('new click events do not parse links or replay actions before consent, tag readiness, or after privacy suppression', () => {
+  for (const setup of [
+    f => {},
+    f => f.allow(),
+    f => { accept(f); f.decline(); },
+    f => { accept(f); f.window.navigator.globalPrivacyControl = true; },
+    f => { accept(f); f.window.navigator.doNotTrack = '1'; },
+    f => { accept(f); f.document.visibilityState = 'hidden'; },
+    f => { accept(f); f.window.location.pathname = '/workspace/private.html'; }
+  ]) {
+    const f = boot();
+    setup(f);
+    const link = signupLink(f, 'newsletter.html?hero_signup_placement=home_hero', {noRead: true});
+    f.click('newsletter-cta', 'home_hero');
+    f.click('publication-source', 'sleep-extension-2026');
+    assert.equal(customEvents(f).length, 0);
+    assert.equal(link.hrefReads, 0);
+  }
+  const f = boot();
+  signupLink(f, 'newsletter.html?hero_signup_placement=home_hero', {noRead: true});
+  f.click('publication-source', 'sleep-extension-2026');
+  accept(f);
+  assert.equal(customEvents(f).length, 0, 'consent and tag load never replay earlier clicks');
+});
+
+test('new publication pages use fixed public context and preserve approved campaign attribution', () => {
+  for (const id of ['sleep-extension-2026', 'athlete-travel-2026', 'collegiate-athlete-sleep-2024']) {
+    const f = accept(boot({location: {pathname: '/' + id + '.html', search: newsletterQuery() + '&token=private-token'}}));
+    f.click('publication-source', id);
+    assert.equal(pageviews(f).length, 1);
+    assert.equal(customEvents(f).length, 1);
+    assert.ok(f.events().every(call => call[2].page_id === id));
+    assert.ok(contexts(f).every(params => params.campaign_id === 'hero_brief_2026_10'));
+    assert.ok(!JSON.stringify(f.calls()).includes('private-token'));
+  }
 });

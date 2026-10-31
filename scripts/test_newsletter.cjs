@@ -208,9 +208,12 @@ test('provider copy is compact and the email has a persistent associated visible
   assert.equal(label.className, 'hero-newsletter-email-label');
   assert.equal(label.hidden, false);
   assert.equal(page.email.getAttribute('aria-label'), null);
+  assert.equal(page.introduction.querySelector('.hero-newsletter-form-title').tagName, 'H2');
   assert.equal(page.introduction.querySelector('.hero-newsletter-form-title').textContent, 'Subscribe for free');
-  assert.equal(page.introduction.querySelector('.hero-newsletter-form-intro').textContent, 'No email confirmation needed.');
+  assert.equal(page.introduction.querySelector('.hero-newsletter-form-intro'), null);
   assert.doesNotMatch(page.introduction.textContent, /A short monthly look/);
+  assert.equal(page.help.hidden, true);
+  assert.ok(!page.email.getAttribute('aria-describedby').split(' ').includes(page.help.id));
   page.email.dispatch('input');
   assert.equal(label.textContent, 'Email address');
   assert.equal(page.providerSubmissions, 0);
@@ -311,6 +314,8 @@ test('editing an unsupported address and checking consent clears errors without 
   assert.equal(page.email.getAttribute('aria-invalid'), 'false');
   assert.equal(page.consent.getAttribute('aria-invalid'), 'false');
   assert.equal(page.summary.hidden, true);
+  assert.equal(page.help.hidden, true);
+  assert.ok(!page.email.getAttribute('aria-describedby').split(' ').includes(page.help.id));
   assert.equal(page.providerSubmissions, 0);
   assert.equal(page.submit().defaultPrevented, false);
 });
@@ -321,6 +326,7 @@ test('not-ready provider blocks safely and announces a loading message', () => {
   assert.match(page.serverError.textContent, /still loading/);
   assert.equal(page.serverError.classList.contains('d-none'), false);
   assert.equal(page.document.activeElement, page.serverError);
+  assert.equal(page.help.hidden, false);
   assert.equal(page.providerSubmissions, 0);
 });
 
@@ -435,6 +441,7 @@ test('provider rejection without field text gets an honest help message, preserv
   page.observeMutations();
   assert.match(page.emailError.textContent, /signup service could not accept/);
   assert.equal(page.email.value, 'owner@example.com');
+  assert.equal(page.help.hidden, false);
   assert.equal(page.document.activeElement, page.email);
   page.emailError.textContent = 'Provider-specific explanation';
   page.observeMutations();

@@ -3324,6 +3324,69 @@ video { max-width:100%; }
   .premium-home *, .premium-home *::before, .premium-home *::after { animation:none!important; transition:none!important; }
 }
 
+/* Research discovery and newsletter priorities, October 2026. */
+.nav-links .nav-newsletter-link {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; padding:10px 14px; border:1px solid #a5cfd4;
+  border-radius:5px; background:#e5f3f4; color:#103e49;
+  font-size:.8125rem; font-weight:700;
+}
+.nav-links .nav-newsletter-link:hover { background:#c9e9ec; color:#092631; }
+.nav-links .nav-newsletter-link::after { display:none; }
+.premium-home .nav-links .nav-study-link {
+  background:transparent; color:#304f59; border:1px solid #c7d8dc;
+}
+.premium-home .nav-links .nav-study-link:hover { background:#edf5f6; }
+.research-overview { background:#fff; }
+.research-overview-heading { display:flex; gap:32px; align-items:flex-end; justify-content:space-between; }
+.research-overview-heading>div { max-width:760px; }
+.research-overview-heading>div>p:last-child { margin-top:18px; font-size:1.0625rem; color:#52666d; }
+.research-overview-heading>.text-link { flex-shrink:0; max-width:230px; }
+.research-paper-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.research-paper-card { display:flex; flex-direction:column; padding:28px; border:1px solid #c7d8dc; border-top:3px solid #2b6470; border-radius:4px; background:#f7faf9; }
+.research-paper-card .paper-journal { color:#245764; font-size:.875rem; font-weight:700; line-height:1.5; margin-bottom:8px; }
+.research-paper-card .paper-method { font-size:.8125rem; line-height:1.5; color:#52666d; margin-bottom:22px; }
+.research-paper-card h3 { font-size:1.4rem; letter-spacing:-.025em; line-height:1.3; margin:0 0 18px; }
+.research-paper-card h3 a { color:#143b46; text-decoration:none; }
+.research-paper-card h3 a:hover { text-decoration:underline; text-underline-offset:3px; }
+.research-paper-card>p:not([class]) { font-size:.9375rem; line-height:1.7; color:#405860; margin-bottom:24px; }
+.research-paper-card>.text-link { margin-top:auto; min-height:44px; display:inline-flex; align-items:center; font-size:.875rem; gap:8px; }
+.research-program-links { display:flex; flex-wrap:wrap; align-items:center; gap:12px 28px; padding-top:24px; margin-top:28px; border-top:1px solid #d5e0e1; }
+.research-program-links>span { color:#304f59; font-size:.875rem; font-weight:700; }
+.research-program-links a { min-height:44px; display:inline-flex; align-items:center; font-size:.875rem; color:#1d5b69; text-decoration:underline; text-underline-offset:4px; }
+.formulation-portfolio-summary { max-width:800px; padding:0 0 20px; }
+.formulation-portfolio-summary h3 { color:#143b46; margin-bottom:16px; }
+.formulation-portfolio-summary p { margin-bottom:18px; }
+.formulation-portfolio-summary a { display:inline-block; padding:10px 0; }
+.premium-home .disclosure-status { font-size:.75rem; color:#465e68; }
+.evidence-overview { background:#f5f7f8; }
+.evidence-guide-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.evidence-guide-grid>a { display:flex; flex-direction:column; gap:14px; background:#fff; padding:24px; border:1px solid #c7d8dc; border-radius:4px; text-decoration:none; }
+.evidence-guide-grid>a:hover { border-color:#2b6470; }
+.evidence-guide-grid h3 { color:#143b46; font-size:1.2rem; }
+.evidence-guide-grid p { color:#405860; font-size:.9375rem; }
+.evidence-guide-grid span { margin-top:auto; padding-top:8px; color:#1d5b69; text-decoration:underline; text-underline-offset:4px; font-size:.875rem; font-weight:600; }
+@media(max-width:1000px) {
+  .research-overview-heading { align-items:flex-start; flex-direction:column; gap:20px; }
+  .research-overview-heading>.text-link { max-width:none; }
+  .research-paper-card { padding:22px; }
+  .research-paper-card h3 { font-size:1.2rem; }
+}
+@media(max-width:800px) {
+  .research-paper-grid { grid-template-columns:1fr; gap:20px; }
+  .research-paper-card h3 { font-size:1.5rem; }
+  .research-paper-card .paper-method { margin-bottom:16px; }
+  .research-program-links { align-items:flex-start; gap:8px; flex-direction:column; }
+  .evidence-guide-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:540px) {
+  .evidence-guide-grid { grid-template-columns:1fr; }
+}
+
+/* The newsletter remains prominent across the shared research navigation. */
+.nav-links .nav-study-link { background:transparent; color:#304f59; border:1px solid #c7d8dc; }
+.nav-links .nav-study-link:hover,.nav-links .nav-study-link:focus-visible { background:#edf5f6; color:#143b46; }
+
 /* Source: study-film.css */
 /* Shared featured study film. The photo cover is cropped; the film retains its full frame. */
 .study-film-feature {
@@ -3550,28 +3613,40 @@ video { max-width:100%; }
 .newsletter-header-links a { display:inline-flex; align-items:center; min-height:44px; }
 .newsletter-back { color:#c9eff1; font-size:.9375rem; text-decoration:underline; text-underline-offset:4px; }
 .newsletter-main { max-width:1320px; margin:auto; padding:44px 24px 64px; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:48px; align-items:start; }
-.newsletter-signup-layout { grid-column:1 / -1; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); grid-template-areas:"intro form" "details form"; grid-template-rows:auto 1fr; gap:24px 48px; align-items:start; min-width:0; }
+.newsletter-signup-layout { grid-column:1 / -1; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); grid-template-areas:"intro form" "preview form"; grid-template-rows:auto 1fr; gap:24px 48px; align-items:start; min-width:0; }
 .newsletter-intro { grid-area:intro; min-width:0; }
 .newsletter-intro .newsletter-eyebrow { color:#146778; }
 .newsletter-intro h1 { color:#092631; font-size:clamp(2.4rem,4.5vw,3.75rem); letter-spacing:-.055em; line-height:1.06; margin-bottom:18px; }
 .newsletter-intro > p:not(.newsletter-eyebrow) { font-size:1.125rem; line-height:1.6; color:#355565; margin-bottom:18px; }
-.newsletter-details { grid-area:details; min-width:0; }
+.newsletter-details { grid-column:1 / -1; min-width:0; }
 .newsletter-main .newsletter-details h2 { font-size:1.25rem; letter-spacing:-.02em; margin-bottom:12px; }
-.newsletter-benefits { border-top:1px solid #c7dce1; margin:0 0 20px; }
+.newsletter-benefits { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; border-top:1px solid #c7dce1; margin:0 0 20px; }
 .newsletter-benefits li { padding:17px 0; border-bottom:1px solid #c7dce1; color:#355565; font-size:1rem; }
 .newsletter-benefits strong { display:block; color:#103b49; margin-bottom:4px; }
 .newsletter-details .newsletter-small { font-size:.9375rem; color:#355565; margin-bottom:18px; }
-.newsletter-intro a,.newsletter-details a,.newsletter-form-note a,.newsletter-page-footer a { color:#125e6b; text-decoration:underline; text-underline-offset:3px; }
-.newsletter-form-wrap { grid-area:form; min-width:0; }
-.newsletter-frequency { max-width:400px; margin:0 auto 16px; color:#355565; font-size:.9375rem; line-height:1.6; }
+.newsletter-intro a,.newsletter-details a,.newsletter-form-note a,.newsletter-form-disclosure a,.newsletter-page-footer a { color:#125e6b; text-decoration:underline; text-underline-offset:3px; }
+.newsletter-form-wrap { grid-area:form; min-width:0; padding:28px 20px; background:#fff; border:1px solid #c7dce1; border-radius:12px; }
+.newsletter-frequency { max-width:360px; margin:0 auto 12px; color:#355565; font-size:.9375rem; line-height:1.6; }
 .newsletter-form { display:block; width:100%; height:850px; border:0; border-radius:12px; background:#fff; }
-.newsletter-form-note { font-size:.9375rem; color:#355565; margin:16px 8px 0; line-height:1.65; }
+.newsletter-form-note { max-width:360px; font-size:.875rem; color:#355565; margin:12px auto 0; line-height:1.65; }
+.newsletter-form-note a { display:inline-block; padding-block:6px; }
+.newsletter-form-disclosure { max-width:360px; margin:8px auto 0; border-top:1px solid #c7dce1; font-size:.875rem; color:#355565; }
+.newsletter-form-disclosure summary { padding:12px 0; cursor:pointer; font-weight:600; color:#125e6b; }
+.newsletter-form-disclosure summary:focus-visible { outline:3px solid #125e6b; outline-offset:3px; }
+.newsletter-form-disclosure p { margin:0 0 12px; line-height:1.65; }
+.newsletter-issue-preview { grid-area:preview; min-width:0; padding:24px 28px; border-top:3px solid #125e6b; background:#e5f0f2; }
+.newsletter-issue-preview .newsletter-eyebrow { font-size:.75rem; margin-bottom:12px; }
+.newsletter-main .newsletter-issue-preview h2 { font-size:1.75rem; margin-bottom:16px; }
+.newsletter-issue-preview blockquote { margin:0; padding:0; color:#355565; font-size:1rem; line-height:1.7; }
+.newsletter-issue-preview blockquote p { margin:0 0 12px; }
+.newsletter-issue-preview strong { color:#103b49; }
+.newsletter-preview-link { display:inline-flex; align-items:center; gap:10px; min-height:44px; color:#125e6b; text-decoration:underline; text-underline-offset:4px; font-weight:600; }
 .newsletter-page-footer { border-top:1px solid #c7dce1; padding:24px; text-align:center; color:#45616c; font-size:.875rem; }
 .newsletter-page-footer a { margin:0 10px; }
 .newsletter-page a:focus-visible { outline:3px solid #125e6b; outline-offset:5px; }
 .newsletter-page .newsletter-header a:focus-visible,.newsletter-section a:focus-visible { outline:3px solid #c1f4f5; outline-offset:5px; }
-@media(max-width:1000px) { .newsletter-main { grid-template-columns:1fr; max-width:760px; padding-top:32px; gap:8px; } .newsletter-signup-layout { grid-template-columns:1fr; grid-template-areas:"intro" "form" "details"; grid-template-rows:auto; gap:24px; } }
-@media(max-width:640px) { .newsletter-section .container { grid-template-columns:1fr; gap:28px; } .newsletter-section { padding:48px 20px; } .newsletter-main { padding:28px 12px 40px; } .newsletter-intro,.newsletter-details { padding:0 8px; } .newsletter-frequency { padding:0 8px; } .newsletter-form { height:1080px; } .newsletter-header { padding:16px; } .newsletter-back { max-width:115px; text-align:right; } }
+@media(max-width:1000px) { .newsletter-main { grid-template-columns:1fr; max-width:760px; padding-top:32px; gap:32px; } .newsletter-signup-layout { grid-template-columns:1fr; grid-template-areas:"intro" "form" "preview"; grid-template-rows:auto; gap:24px; } .newsletter-benefits { grid-template-columns:1fr; gap:0; } }
+@media(max-width:640px) { .newsletter-section .container { grid-template-columns:1fr; gap:28px; } .newsletter-section { padding:48px 20px; } .newsletter-main { padding:28px 12px 40px; } .newsletter-intro,.newsletter-details { padding:0 8px; } .newsletter-form-wrap { padding:20px 12px; } .newsletter-frequency,.newsletter-form-disclosure,.newsletter-form-note { margin-inline:8px; } .newsletter-issue-preview { padding:22px 20px; } .newsletter-form { height:1080px; } .newsletter-header { padding:16px; } .newsletter-back { max-width:115px; text-align:right; } }
 
 /* Accessible validation added around the public MailerLite form. */
 .newsletter-form-wrap .hero-newsletter-field-error,
@@ -3584,6 +3659,7 @@ video { max-width:100%; }
 .newsletter-form-wrap .hero-newsletter-field-error:empty,
 .newsletter-form-wrap .hero-newsletter-server-error:empty,
 .newsletter-form-wrap .hero-newsletter-server-error.d-none,
+.newsletter-form-wrap .hero-newsletter-signup-help[hidden],
 .newsletter-form-wrap .hero-newsletter-error-summary[hidden] { display:none!important; }
 .newsletter-form-wrap input:focus-visible,
 .newsletter-form-wrap button:focus-visible,
@@ -3593,6 +3669,7 @@ video { max-width:100%; }
 /* Layered important rules override the provider's unlayered important styles,
    including its generated instance-ID selectors. */
 @layer hero-newsletter-accessibility {
+  .newsletter-form-wrap .ml-form-embedWrapper { background:transparent!important; }
   .newsletter-form-wrap .ml-embedded,
   .newsletter-form-wrap .ml-embedded input,
   .newsletter-form-wrap .ml-embedded button,
@@ -3616,6 +3693,24 @@ video { max-width:100%; }
   .newsletter-form-wrap .ml-error .label-description p::first-letter,
   .newsletter-form-wrap .ml-error .label-description a,
   .newsletter-form-wrap .ml-error label:first-child { color:#9c1b20!important; }
+}
+
+/* Keep the archive focused on published issues without changing issue pages. */
+.newsletter-archive-page .archive-hero { padding-block:40px; }
+.newsletter-archive-page .archive-hero h1 { max-width:850px; font-size:clamp(42px,5.2vw,64px); margin-bottom:18px; }
+.newsletter-archive-page .archive-hero .eyebrow { margin-bottom:12px; }
+.newsletter-archive-page .hero-deck { max-width:720px; margin-bottom:0; }
+.newsletter-archive-page .archive-section { padding-block:32px 48px; }
+.newsletter-archive-page .section-heading { margin-bottom:22px; }
+@media(max-width:640px) {
+  .newsletter-archive-page .archive-hero { padding-block:28px; }
+  .newsletter-archive-page .archive-hero h1 { font-size:42px; margin-bottom:14px; }
+  .newsletter-archive-page .hero-deck { font-size:16px; line-height:1.55; }
+  .newsletter-archive-page .archive-section { padding-block:24px 32px; }
+  .newsletter-archive-page .section-heading { margin-bottom:18px; }
+  .newsletter-archive-page .section-heading h2 { font-size:24px; }
+  .newsletter-archive-page .issue-card-content { padding:22px; }
+  .newsletter-archive-page .issue-card h3 { font-size:29px; }
 }
 
 /* Searchable newsletter topics and clear routes into the signup form. */

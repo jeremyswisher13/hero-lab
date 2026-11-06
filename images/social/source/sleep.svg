@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Sleep research</title>
+  <desc id="desc">A broad crescent moon above a series of flowing abstract sleep waves.</desc>
+  <defs>
+    <mask id="crescent"><rect width="1200" height="630" fill="#fff"/><circle cx="653" cy="211" r="144" fill="#000"/></mask>
+    <linearGradient id="moon" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#f5f7f5"/><stop offset="1" stop-color="#9be1e4"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#102e38"/>
+  <circle cx="564" cy="258" r="169" fill="url(#moon)" mask="url(#crescent)"/>
+  <path d="M377 268C371 177 436 98 522 80" fill="none" stroke="#9be1e4" stroke-width="2" opacity=".3"/>
+  <g fill="#d6c798"><circle cx="771" cy="162" r="10"/><circle cx="845" cy="278" r="6"/></g>
+  <path d="M719 246V268M708 257H730" stroke="#f5f7f5" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+  <path d="M259 433C332 433 343 365 420 365S505 461 596 461 687 373 772 373 852 424 943 424" fill="none" stroke="#102e38" stroke-width="31" stroke-linecap="round"/>
+  <path d="M259 433C332 433 343 365 420 365S505 461 596 461 687 373 772 373 852 424 943 424" fill="none" stroke="#9be1e4" stroke-width="13" stroke-linecap="round"/>
+  <path d="M259 480C332 480 343 412 420 412S505 508 596 508 687 420 772 420 852 471 943 471" fill="none" stroke="#9be1e4" stroke-width="3" stroke-linecap="round" opacity=".42"/>
+  <path d="M277 518C342 518 363 465 421 465S514 546 593 546 699 474 772 474 860 516 925 516" fill="none" stroke="#9be1e4" stroke-width="2" stroke-linecap="round" opacity=".17"/>
+</svg>

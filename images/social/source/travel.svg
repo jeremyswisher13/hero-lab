@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Travel and circadian research</title>
+  <desc id="desc">An abstract globe crossed by a sweeping route between two locations.</desc>
+  <defs><clipPath id="globe"><circle cx="600" cy="315" r="207"/></clipPath></defs>
+  <rect width="1200" height="630" fill="#102e38"/>
+  <circle cx="600" cy="315" r="207" fill="#9be1e4" opacity=".1"/>
+  <g clip-path="url(#globe)">
+    <g fill="none" stroke="#9be1e4" stroke-width="2" opacity=".4">
+      <ellipse cx="600" cy="315" rx="115" ry="207"/><path d="M600 108V522M393 315H807"/>
+      <ellipse cx="600" cy="315" rx="207" ry="83"/><ellipse cx="600" cy="315" rx="207" ry="161"/>
+    </g>
+    <g fill="#9be1e4">
+      <path d="M409 201L461 162 526 154 547 180 527 211 486 221 483 251 452 271 432 256 408 264 388 237Z"/>
+      <path d="M475 290L512 288 548 314 570 350 553 385 551 422 525 467 508 441 505 400 480 371 480 340 459 317Z"/>
+      <path d="M608 176L650 157 692 172 735 166 798 205 822 255 780 284 740 264 709 291 689 267 662 280 639 254 603 254 585 228 605 211Z"/>
+      <path d="M609 280L653 279 680 313 671 355 643 393 623 374 613 337 594 316Z"/>
+      <path d="M727 392L770 377 802 411 786 438 744 440 721 421Z"/>
+    </g>
+  </g>
+  <circle cx="600" cy="315" r="207" fill="none" stroke="#f5f7f5" stroke-width="3" opacity=".7"/>
+  <path d="M303 405C360 239 638 145 877 218" fill="none" stroke="#102e38" stroke-width="20" stroke-linecap="round"/>
+  <path d="M303 405C360 239 638 145 877 218" fill="none" stroke="#d6c798" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="303" cy="405" r="13" fill="#f5f7f5"/>
+  <circle cx="877" cy="218" r="13" fill="#d6c798"/>
+  <circle cx="303" cy="405" r="28" fill="none" stroke="#f5f7f5" stroke-width="2" opacity=".35"/>
+  <circle cx="877" cy="218" r="28" fill="none" stroke="#d6c798" stroke-width="2" opacity=".35"/>
+</svg>

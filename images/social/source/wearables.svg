@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Wearable sensor research</title>
+  <desc id="desc">A screenless wrist sensor with an abstract flowing signal, representing wearable research.</desc>
+  <defs><linearGradient id="sensor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5f7f5"/><stop offset="1" stop-color="#9be1e4"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="#102e38"/>
+  <g fill="none" stroke="#9be1e4" stroke-width="2" opacity=".22">
+    <path d="M281 225C344 136 431 98 492 104M724 525C805 500 878 441 909 369"/>
+    <path d="M252 246C318 139 417 78 490 81M731 550C823 524 909 459 945 380" opacity=".6"/>
+  </g>
+  <g transform="translate(600 315) rotate(-16)">
+    <rect x="-81" y="-230" width="162" height="460" rx="49" fill="#9be1e4" opacity=".32"/>
+    <path d="M-57-205V-158M57 158V205" stroke="#9be1e4" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    <rect x="-114" y="-145" width="228" height="290" rx="48" fill="url(#sensor)"/>
+    <rect x="-93" y="-125" width="186" height="250" rx="31" fill="#31626c"/>
+    <g stroke="#9be1e4" stroke-width="4" opacity=".48"><path d="M-64-101v202M-42-105v210M-20-105v210M2-105v210M24-105v210M46-105v210M68-101v202"/></g>
+  </g>
+  <path d="M260 326H366C401 326 412 286 441 286S469 347 493 347 522 234 552 234 582 384 614 384 651 276 680 276 713 326 746 326H940" fill="none" stroke="#102e38" stroke-width="23" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M260 326H366C401 326 412 286 441 286S469 347 493 347 522 234 552 234 582 384 614 384 651 276 680 276 713 326 746 326H940" fill="none" stroke="#9be1e4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="260" cy="326" r="8" fill="#f5f7f5"/><circle cx="940" cy="326" r="8" fill="#f5f7f5"/>
+</svg>

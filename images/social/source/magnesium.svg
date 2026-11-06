@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Magnesium research</title>
+  <desc id="desc">An abstract two-tone capsule surrounded by an open arrangement of study particles.</desc>
+  <defs>
+    <clipPath id="capsule"><rect x="-246" y="-100" width="492" height="200" rx="100"/></clipPath>
+    <linearGradient id="capsule-light" x1="0" y1="0" x2="0.8" y2="1"><stop stop-color="#f5f7f5"/><stop offset="1" stop-color="#9be1e4"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#102e38"/>
+  <g fill="none" stroke="#9be1e4" stroke-width="2">
+    <ellipse cx="595" cy="315" rx="345" ry="180" transform="rotate(-26 595 315)" opacity=".19"/>
+    <path d="M323 426C278 328 344 195 454 146M723 475C830 427 902 324 874 235" opacity=".3"/>
+  </g>
+  <g transform="translate(554 320) rotate(-32)">
+    <g clip-path="url(#capsule)">
+      <rect x="-246" y="-100" width="492" height="200" fill="url(#capsule-light)"/>
+      <rect x="-246" y="-100" width="246" height="200" fill="#9be1e4"/>
+      <path d="M-213-38C-198-67-177-77-144-77H-29" fill="none" stroke="#f5f7f5" stroke-width="9" stroke-linecap="round" opacity=".65"/>
+      <path d="M0-100V100" stroke="#102e38" stroke-width="5"/>
+    </g>
+    <rect x="-246" y="-100" width="492" height="200" rx="100" fill="none" stroke="#f5f7f5" stroke-width="2" opacity=".4"/>
+  </g>
+  <g fill="#9be1e4">
+    <circle cx="802" cy="368" r="26"/><circle cx="853" cy="293" r="15"/><circle cx="756" cy="440" r="13"/>
+    <circle cx="388" cy="160" r="10" opacity=".55"/><circle cx="919" cy="364" r="8" opacity=".6"/>
+  </g>
+  <g fill="#d6c798"><circle cx="865" cy="438" r="20"/><circle cx="722" cy="147" r="12"/></g>
+  <g fill="none" stroke="#f5f7f5" stroke-width="3"><circle cx="906" cy="224" r="21" opacity=".7"/><circle cx="321" cy="281" r="16" opacity=".5"/></g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Concussion research</title>
+  <desc id="desc">A profile silhouette contains an abstract network of connected research nodes.</desc>
+  <defs><linearGradient id="profile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5f7f5"/><stop offset="1" stop-color="#9be1e4"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="#102e38"/>
+  <path d="M449 535V449C404 405 379 353 380 289 381 177 458 100 571 100 680 100 750 165 750 245L793 303C798 312 792 322 782 322H754L750 354 763 365 746 381V407C746 432 728 450 702 450H654V535Z" fill="url(#profile)"/>
+  <path d="M352 356C319 251 354 147 433 95M687 502H712C794 502 831 454 829 392" fill="none" stroke="#9be1e4" stroke-width="2" opacity=".25"/>
+  <g fill="none" stroke="#102e38" stroke-width="5" stroke-linejoin="round" opacity=".72">
+    <path d="M463 222L546 165 640 201 681 288 612 352 511 336 463 222 558 263 640 201M546 165L558 263 612 352M511 336L558 263 681 288"/>
+  </g>
+  <g fill="#102e38">
+    <circle cx="463" cy="222" r="14"/><circle cx="546" cy="165" r="13"/>
+    <circle cx="640" cy="201" r="15"/><circle cx="681" cy="288" r="13"/>
+    <circle cx="612" cy="352" r="15"/><circle cx="511" cy="336" r="12"/>
+  </g>
+  <circle cx="558" cy="263" r="24" fill="#102e38"/>
+  <circle cx="558" cy="263" r="12" fill="#d6c798"/>
+  <path d="M654 450H599" stroke="#102e38" stroke-width="3" opacity=".24"/>
+  <circle cx="884" cy="271" r="11" fill="#d6c798"/>
+  <circle cx="835" cy="170" r="6" fill="#9be1e4" opacity=".6"/>
+</svg>

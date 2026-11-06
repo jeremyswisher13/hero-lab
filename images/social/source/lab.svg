@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Recovery and performance research</title>
+  <desc id="desc">Interwoven flowing bands and circular paths in aqua, ivory, and gold on a deep teal background.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1"><stop stop-color="#102e38"/><stop offset="1" stop-color="#174650"/></linearGradient>
+    <linearGradient id="band" x2="1" y2=".3"><stop stop-color="#9be1e4"/><stop offset="1" stop-color="#f5f7f5"/></linearGradient>
+    <clipPath id="canvas"><rect width="1200" height="630"/></clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <g clip-path="url(#canvas)">
+    <g fill="none" stroke="#9be1e4" stroke-width="1.5" opacity=".18">
+      <circle cx="600" cy="315" r="200"/><circle cx="600" cy="315" r="237"/>
+      <circle cx="600" cy="315" r="274"/><circle cx="600" cy="315" r="311"/>
+      <path d="M110 315h980M600 30v570"/>
+    </g>
+    <path d="M170 370C270 370 285 165 420 165S590 465 735 465s160-205 295-205" fill="none" stroke="url(#band)" stroke-width="66"/>
+    <path d="M170 260C270 260 285 465 420 465S590 165 735 165s160 205 295 205" fill="none" stroke="#3d7c86" stroke-width="38"/>
+    <path d="M170 260C270 260 285 465 420 465S590 165 735 165s160 205 295 205" fill="none" stroke="#9be1e4" stroke-width="2"/>
+    <circle cx="600" cy="78" r="10" fill="#d6c798"/>
+    <circle cx="600" cy="552" r="6" fill="#d6c798"/>
+  </g>
+</svg>

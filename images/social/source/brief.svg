@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The HERO Brief</title>
+  <desc id="desc">Overlapping publication pages with an abstract recovery waveform in the HERO palette.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#102e38"/><stop offset="1" stop-color="#174650"/></linearGradient>
+    <clipPath id="panel"><rect x="452" y="196" width="350" height="175" rx="2"/></clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="none" stroke="#9be1e4" opacity=".15"><circle cx="600" cy="315" r="260"/><circle cx="600" cy="315" r="294"/><path d="M150 315h900"/></g>
+  <rect x="333" y="115" width="390" height="430" rx="5" fill="#3d7c86" transform="rotate(-10 528 330)"/>
+  <rect x="377" y="109" width="410" height="430" rx="5" fill="#9be1e4" transform="rotate(-4 582 324)"/>
+  <rect x="418" y="80" width="418" height="450" rx="5" fill="#f5f7f5"/>
+  <path d="M452 129h245" stroke="#102e38" stroke-width="12"/>
+  <path d="M452 156h130" stroke="#829f9f" stroke-width="5"/>
+  <circle cx="786" cy="138" r="16" fill="#126b79"/>
+  <rect x="452" y="196" width="350" height="175" rx="2" fill="#102e38"/>
+  <g clip-path="url(#panel)" fill="none">
+    <path d="M424 310C477 310 490 229 541 229s78 104 133 104 84-104 154-104" stroke="#9be1e4" stroke-width="24"/>
+    <path d="M425 260c60 0 68 89 123 89s77-107 134-107 91 68 151 68" stroke="#d6c798" stroke-width="3"/>
+  </g>
+  <g stroke="#9aaead" stroke-width="6"><path d="M452 405h140m35 0h175M452 429h140m35 0h175M452 453h140m35 0h175"/></g>
+  <path d="M452 489h350" stroke="#b6c7c2"/>
+</svg>

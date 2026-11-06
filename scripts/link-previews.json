@@ -1,0 +1,173 @@
+[
+  {
+    "path": "index.html",
+    "title": "HERO Lab: Sleep, Recovery & Performance",
+    "image": "images/social/lab-20261106.png",
+    "alt": "Editorial illustration of intertwined waveform arcs for HERO Lab sports medicine research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "faq.html",
+    "title": "Athlete Research: Frequently Asked Questions",
+    "image": "images/social/lab-20261106.png",
+    "alt": "Editorial illustration of intertwined waveform arcs for HERO Lab sports medicine research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "press.html",
+    "title": "HERO Lab: Press & Media",
+    "image": "images/social/lab-20261106.png",
+    "alt": "Editorial illustration of intertwined waveform arcs for HERO Lab sports medicine research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "summit/index.html",
+    "title": "HERO Summit 2028",
+    "image": "images/social/summit-20261106.png",
+    "alt": "Editorial illustration of large 2028 numerals surrounded by contour lines for HERO Summit.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "newsletter.html",
+    "title": "The HERO Brief",
+    "image": "images/social/brief-20261106.png",
+    "alt": "Editorial illustration of publication pages for The HERO Brief.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "newsletter-archive.html",
+    "title": "The HERO Brief Archive",
+    "image": "images/social/brief-20261106.png",
+    "alt": "Editorial illustration of publication pages for The HERO Brief.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "hero-brief-2026-10-13.html",
+    "title": "The HERO Brief: What helps recovery?",
+    "image": "images/social/brief-20261106.png",
+    "alt": "Editorial illustration of publication pages for The HERO Brief.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "magnesium.html",
+    "title": "Magnesium & Sleep: The Research",
+    "image": "images/social/magnesium-20261106.png",
+    "alt": "Editorial illustration of a capsule and geometric particles for magnesium research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "magnesium-formulation-study.html",
+    "title": "Magnesium Glycinate vs. L-Threonate Study",
+    "image": "images/social/magnesium-20261106.png",
+    "alt": "Editorial illustration of a capsule and geometric particles for magnesium research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "mgt-amssm-2026.html",
+    "title": "Magnesium L-Threonate: Trial Status",
+    "image": "images/social/magnesium-20261106.png",
+    "alt": "Editorial illustration of a capsule and geometric particles for magnesium research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "sleep-extension-2026.html",
+    "title": "Sleep Extension in NCAA Athletes",
+    "image": "images/social/sleep-20261106.png",
+    "alt": "Editorial illustration of a crescent moon and a wave for athlete sleep research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "collegiate-athlete-sleep-2024.html",
+    "title": "Sleep in NCAA Division I Athletes",
+    "image": "images/social/sleep-20261106.png",
+    "alt": "Editorial illustration of a crescent moon and a wave for athlete sleep research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "wearables.html",
+    "title": "WHOOP Sleep & HRV: Research Evidence",
+    "image": "images/social/wearables-20261106.png",
+    "alt": "Editorial illustration of a wristband and a wave for wearable technology research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "cold-water-immersion.html",
+    "title": "Cold Water Immersion: Recovery Research",
+    "image": "images/social/cold-water-20261106.png",
+    "alt": "Editorial illustration of water rings and ice for cold water immersion research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "cwi-amssm-2025.html",
+    "title": "Cold Water Immersion: Results & AMSSM Archive",
+    "image": "images/social/cold-water-20261106.png",
+    "alt": "Editorial illustration of water rings and ice for cold water immersion research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "travel-circadian.html",
+    "title": "Athlete Travel & Jet Lag",
+    "image": "images/social/travel-20261106.png",
+    "alt": "Editorial illustration of a globe and a travel route for athlete travel research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "athlete-travel-2026.html",
+    "title": "Optimizing Athlete Travel: A Scientific Blueprint",
+    "image": "images/social/travel-20261106.png",
+    "alt": "Editorial illustration of a globe and a travel route for athlete travel research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "concussion.html",
+    "title": "Concussion Biomarkers: Research & Limits",
+    "image": "images/social/concussion-20261106.png",
+    "alt": "Editorial illustration of a head outline and neural nodes for concussion research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  },
+  {
+    "path": "concussion-amssm-2026.html",
+    "title": "Resistance Exercise After Concussion",
+    "image": "images/social/concussion-20261106.png",
+    "alt": "Editorial illustration of a head outline and neural nodes for concussion research.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/png"
+  }
+]

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Cold water research</title>
+  <desc id="desc">A faceted piece of ice resting above wide concentric water ripples.</desc>
+  <defs><linearGradient id="ice" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5f7f5"/><stop offset="1" stop-color="#9be1e4"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="#102e38"/>
+  <g fill="none" stroke="#9be1e4">
+    <ellipse cx="600" cy="408" rx="351" ry="124" stroke-width="3" opacity=".2"/>
+    <ellipse cx="600" cy="408" rx="284" ry="91" stroke-width="4" opacity=".45"/>
+    <ellipse cx="600" cy="408" rx="208" ry="59" stroke-width="6" opacity=".8"/>
+  </g>
+  <path d="M465 182L623 111 772 213 742 349 583 397 448 301Z" fill="url(#ice)"/>
+  <path d="M465 182L601 228 623 111Z" fill="#f5f7f5"/>
+  <path d="M623 111L772 213 601 228Z" fill="#9be1e4"/>
+  <path d="M601 228L772 213 742 349 583 397Z" fill="#9be1e4" opacity=".8"/>
+  <path d="M465 182L601 228 583 397 448 301Z" fill="#f5f7f5" opacity=".55"/>
+  <path d="M465 182L601 228 772 213M601 228L583 397" fill="none" stroke="#102e38" stroke-width="3" opacity=".22"/>
+  <path d="M490 192L503 282 559 323" fill="none" stroke="#f5f7f5" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+  <path d="M482 433C549 457 653 460 724 437" fill="none" stroke="#f5f7f5" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+  <circle cx="833" cy="297" r="8" fill="#d6c798"/>
+  <path d="M370 258V280M359 269H381" stroke="#9be1e4" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+</svg>

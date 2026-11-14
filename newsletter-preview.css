@@ -46,6 +46,7 @@ h1,h2,h3{color:var(--navy);line-height:1.15;letter-spacing:-.035em}
 .section-heading .eyebrow{margin-bottom:12px}
 .section-heading>p{max-width:345px;margin:0;font-size:15px;color:var(--muted)}
 .issue-card{display:grid;grid-template-columns:144px minmax(0,1fr);background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 7px 20px #09263106}
+.issue-card + .issue-card{margin-top:20px}
 .issue-card-date{background:#e5f0f2;border-right:1px solid var(--line);padding:34px 20px;text-align:center;color:var(--navy);display:flex;align-items:center;flex-direction:column}
 .issue-card-date .eyebrow{font-size:10px;margin-bottom:28px;letter-spacing:.15em}
 .date-month{font-size:13px;font-weight:700;letter-spacing:.13em;line-height:1}

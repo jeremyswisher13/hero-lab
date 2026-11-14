@@ -233,6 +233,17 @@ h1>span {
   color:#c8d9dc
 }
 
+.hero-signup {
+  max-width:420px
+}
+
+.hero-signup p {
+  margin-top:12px;
+  color:#c8d9dc;
+  font-size:13px;
+  line-height:1.6
+}
+
 .button {
   display:inline-flex;
   justify-content:center;
@@ -755,6 +766,10 @@ h1>span {
   }
   .hero .button {
     margin-top:25px
+  }
+  .hero-signup .button {
+    width:100%;
+    gap:16px
   }
   .hero-art {
     min-height:0;

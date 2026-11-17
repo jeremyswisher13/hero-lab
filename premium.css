@@ -157,11 +157,14 @@ video { max-width:100%; }
 .evidence-text-links { display:flex; flex-wrap:wrap; gap:12px 20px; max-width:450px; }
 .evidence-text-links a { color:#175e6d; font-size:.875rem; text-decoration:underline; text-underline-offset:4px; }
 .premium-home .premium-contact { margin-top:48px; background:#eaf2f3; }
+.premium-home .contact-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
 .premium-home .contact-card { padding:28px; background:white; border:1px solid #cfdddf; border-radius:5px; box-shadow:none; }
 .premium-home .contact-card:hover { transform:none; box-shadow:none; }
 .premium-home .contact-card h3 { font-size:1.125rem; }
 .premium-home .contact-card p { font-size:.9375rem; }
 .premium-home .contact-card .btn { padding:12px 14px; font-size:.8125rem; white-space:normal; text-align:center; }
+.premium-home .contact-card .contact-form-details { margin:12px 0 0; font-size:.875rem; }
+.contact-form-details a { color:#175e6d; text-decoration:underline; text-underline-offset:3px; }
 .premium-home .footer { padding-top:56px; }
 .premium-home .footer-content { gap:48px; }
 @media(max-width:1100px) {

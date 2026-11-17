@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (navToggle && navLinks) {
-    const mobileNavQuery = window.matchMedia('(max-width: 768px)');
+    const mobileNavQuery = window.matchMedia('(max-width: 54em)');
     const navRegion = navToggle.closest('nav') || navToggle.parentElement;
     navToggle.setAttribute('aria-controls', navLinks.id);
     setMobileNavOpen(false);

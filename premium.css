@@ -193,7 +193,7 @@ video { max-width:100%; }
   .premium-resource-row>.container,.social-editorial { align-items:flex-start; flex-direction:column; }
   .premium-home .footer-content { grid-template-columns:1fr; }
 }
-@media(max-width:768px) {
+@media(max-width:54em) {
   .premium-home .nav-links { gap:6px; }
   .nav-links .nav-study-link { display:block; margin:10px 0 0; text-align:center; }
 }

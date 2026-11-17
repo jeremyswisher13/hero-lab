@@ -268,6 +268,7 @@ body.header-offset-ready .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   height: var(--navbar-height);
 }
 
@@ -277,6 +278,11 @@ body.header-offset-ready .navbar {
   gap: 10px;
   font-weight: 700;
   font-size: 1.1rem;
+}
+
+.navbar .nav-logo {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .logo-icon {
@@ -301,10 +307,11 @@ body.header-offset-ready .navbar {
   display: flex;
   align-items: center;
   gap: 32px;
+  white-space: nowrap;
 }
 
 /* Keep the shared six-link navigation clear at smaller desktop widths. */
-@media (min-width: 769px) and (max-width: 1100px) {
+@media (max-width: 1100px) {
   .navbar .nav-links {
     gap: 16px;
   }
@@ -2191,8 +2198,9 @@ body.header-offset-ready .navbar {
   }
 }
 
-@media (max-width: 768px) {
-  .nav-links {
+/* Keep the navigation breakpoint aligned with script.js and premium.css. */
+@media (max-width: 54em) {
+  .navbar .nav-links {
     display: none;
     position: absolute;
     top: var(--navbar-height);
@@ -2202,6 +2210,7 @@ body.header-offset-ready .navbar {
     flex-direction: column;
     padding: 24px;
     gap: 20px;
+    white-space: normal;
     border-bottom: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     max-height: calc(100vh - var(--news-banner-height) - var(--navbar-height));
@@ -2238,7 +2247,9 @@ body.header-offset-ready .navbar {
   .nav-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
   }
+}
 
+@media (max-width: 768px) {
   .hero {
     padding: 120px 20px 60px;
     min-height: auto;

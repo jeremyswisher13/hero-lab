@@ -3498,8 +3498,24 @@ body.header-offset-ready .navbar {
 .hero-analytics-details { display: inline-block; margin-top: 8px; color: #145581; text-decoration: underline; }
 .hero-analytics-actions button:hover { background: #dcecf5; }
 .hero-analytics-panel :focus-visible { outline: 3px solid #125e6b; outline-offset: 3px; }
-html:has(> body > .hero-analytics-panel:not([hidden])) { scroll-padding-block-end: var(--hero-analytics-clearance, 0px); }
-body:has(> .hero-analytics-panel:not([hidden])) { padding-block-end: var(--hero-analytics-clearance, 0px); }
+@media (width > 40em) and (height > 32em) {
+  html:has(> body > .hero-analytics-panel:not([hidden])) {
+    --hero-analytics-clearance: calc(var(--hero-analytics-height, 0px) + max(12px, env(safe-area-inset-bottom)) + 8px);
+    scroll-padding-block-end: var(--hero-analytics-clearance);
+  }
+  body:has(> .hero-analytics-panel:not([hidden])) { padding-block-end: var(--hero-analytics-clearance); }
+}
+/* A fixed notice leaves too little room between the notice and the mobile header. */
+@media (max-width: 40em), (max-height: 32em) {
+  html:has(> body > .hero-analytics-panel:not([hidden]), [data-analytics-preferences]:focus) { scroll-behavior: auto; }
+  .hero-analytics-panel {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin: 12px auto;
+  }
+  body:has(> #navbar) > .hero-analytics-panel { margin-block-start: calc(var(--navbar-height) + 12px); }
+}
 .hero-analytics-preferences :focus-visible { outline: 3px solid #f0aa20; outline-offset: 3px; }
 .footer-bottom .hero-analytics-preferences { opacity: 1; color: #fff; display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 12px 0; }
 .hero-analytics-preferences button { color: inherit; font: inherit; background: transparent; border: 0; text-decoration: underline; cursor: pointer; padding: 8px 0; }

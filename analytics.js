@@ -348,18 +348,26 @@
   else document.body.prepend(panel);
 
   function revealFocusedControl(target) {
-    if (panel.hidden || panel.contains(target) || !target.matches(':focus-visible') ||
-        target.closest('#navbar, #newsBanner') || target.tabIndex < 0) return;
+    if (panel.hidden || target.tabIndex < 0 || !target.matches(':focus-visible') ||
+        target.closest('#navbar, #newsBanner, .skip-link')) return;
+    var floating = window.getComputedStyle(panel).position === 'fixed';
+    if (floating && panel.contains(target)) return;
     var control = target.getBoundingClientRect();
-    var notice = panel.getBoundingClientRect();
-    if (control.bottom > notice.top && control.top < notice.bottom &&
-        control.right > notice.left && control.left < notice.right) {
-      window.scrollBy({top: control.bottom - notice.top + 8, behavior: 'instant'});
+    var navbar = document.getElementById('navbar');
+    var top = navbar ? navbar.getBoundingClientRect().bottom + 8 : 8;
+    var bottom = window.innerHeight - 8;
+    if (floating) {
+      var notice = panel.getBoundingClientRect();
+      if (control.right > notice.left && control.left < notice.right) bottom = notice.top - 8;
     }
+    var offset = 0;
+    if (control.top < top || control.height > bottom - top) offset = control.top - top;
+    else if (control.bottom > bottom) offset = control.bottom - bottom;
+    if (offset) window.scrollBy({top: offset, behavior: 'instant'});
   }
-  // Let the browser scroll to keyboard focus first, then clear the notice if needed.
+  // Let the browser scroll first, then keep keyboard focus clear of fixed UI.
   document.addEventListener('focusin', function (event) {
-    if (panel.hidden || panel.contains(event.target)) return;
+    if (panel.hidden) return;
     window.requestAnimationFrame(function () {
       if (document.activeElement === event.target) revealFocusedControl(event.target);
     });
@@ -367,8 +375,7 @@
   // Reserve room below the footer so its last controls can scroll above the notice.
   if (window.ResizeObserver) {
     new window.ResizeObserver(function () {
-      var clearance = panel.hidden ? 0 : window.innerHeight - panel.getBoundingClientRect().top + 8;
-      document.documentElement.style.setProperty('--hero-analytics-clearance', Math.ceil(clearance) + 'px');
+      document.documentElement.style.setProperty('--hero-analytics-height', panel.offsetHeight + 'px');
       revealFocusedControl(document.activeElement);
     }).observe(panel);
   }

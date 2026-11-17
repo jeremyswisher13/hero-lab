@@ -338,18 +338,47 @@
   panel.className = 'hero-analytics-panel';
   panel.setAttribute('aria-labelledby', 'hero-analytics-title');
   panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
-    '<p>With your permission, HERO Lab uses Google Analytics cookies to understand page visits, approved newsletter campaigns, signup-link clicks and request stages, publication and study-link clicks, and video engagement. Signup events can include a fixed website placement label. We also record approved signup channels and website signup placements in your private MailerLite record when you subscribe. An approved channel can follow your visit in this browser tab for up to 30 minutes. Email addresses, message contents, and research records stay out of Google Analytics.</p>' +
+    '<p>HERO Lab uses optional Google Analytics cookies to measure visits and newsletter signup activity.</p>' +
     '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
-    '<button type="button" id="hero-analytics-decline">Decline</button><a href="/privacy.html">Analytics privacy</a></div>';
+    '<button type="button" id="hero-analytics-decline">Decline</button></div>' +
+    '<a class="hero-analytics-details" href="/privacy.html#analytics">Analytics privacy details</a>';
   panel.hidden = !!choice;
-  document.body.appendChild(panel);
+  var skipLink = document.querySelector('body > .skip-link');
+  if (skipLink) skipLink.after(panel);
+  else document.body.prepend(panel);
+
+  function revealFocusedControl(target) {
+    if (panel.hidden || panel.contains(target) || !target.matches(':focus-visible') ||
+        target.closest('#navbar, #newsBanner') || target.tabIndex < 0) return;
+    var control = target.getBoundingClientRect();
+    var notice = panel.getBoundingClientRect();
+    if (control.bottom > notice.top && control.top < notice.bottom &&
+        control.right > notice.left && control.left < notice.right) {
+      window.scrollBy({top: control.bottom - notice.top + 8, behavior: 'instant'});
+    }
+  }
+  // Let the browser scroll to keyboard focus first, then clear the notice if needed.
+  document.addEventListener('focusin', function (event) {
+    if (panel.hidden || panel.contains(event.target)) return;
+    window.requestAnimationFrame(function () {
+      if (document.activeElement === event.target) revealFocusedControl(event.target);
+    });
+  });
+  // Reserve room below the footer so its last controls can scroll above the notice.
+  if (window.ResizeObserver) {
+    new window.ResizeObserver(function () {
+      var clearance = panel.hidden ? 0 : window.innerHeight - panel.getBoundingClientRect().top + 8;
+      document.documentElement.style.setProperty('--hero-analytics-clearance', Math.ceil(clearance) + 'px');
+      revealFocusedControl(document.activeElement);
+    }).observe(panel);
+  }
   document.getElementById('hero-analytics-allow').addEventListener('click', function () { choose('granted'); });
   document.getElementById('hero-analytics-decline').addEventListener('click', function () { choose('denied'); });
   document.querySelectorAll('[data-analytics-preferences]').forEach(function (button) {
     button.hidden = false;
     button.addEventListener('click', function () {
       preferencesOpener = button;
-      document.getElementById('hero-analytics-status').textContent = choice === 'granted' ? 'Analytics is allowed. You can withdraw your permission below.' : 'Analytics is currently off.';
+      document.getElementById('hero-analytics-status').textContent = choice === 'granted' ? 'Analytics is on.' : 'Analytics is off.';
       panel.hidden = false;
       document.getElementById('hero-analytics-decline').focus();
     });

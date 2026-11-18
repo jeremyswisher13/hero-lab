@@ -234,10 +234,27 @@ h1>span {
 }
 
 .hero-signup {
+  margin-top:24px;
   max-width:420px
 }
 
-.hero-signup p {
+.event-details {
+  line-height:1.5
+}
+
+.event-details strong {
+  display:block;
+  color:var(--aqua);
+  font-size:16px;
+  font-weight:600
+}
+
+.event-details span {
+  color:#c8d9dc;
+  font-size:13px
+}
+
+#hero-signup-hint {
   margin-top:12px;
   color:#c8d9dc;
   font-size:13px;
@@ -270,7 +287,7 @@ h1>span {
 }
 
 .hero .button {
-  margin-top:30px
+  margin-top:16px
 }
 
 .hero-art {
@@ -336,41 +353,6 @@ h1>span {
   font-size:.5em;
   letter-spacing:-.1em;
   color:#d6c798
-}
-
-.event-strip {
-  border-top:1px solid #41606a;
-  padding-block:23px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px
-}
-
-.event-strip>p:first-child {
-  display:flex;
-  align-items:center;
-  gap:14px;
-  font-size:13px;
-  font-weight:500;
-  flex-wrap:wrap
-}
-
-.event-marker {
-  width:6px;
-  height:6px;
-  background:var(--aqua);
-  border-radius:50%;
-  flex:none
-}
-
-.event-divider {
-  color:#70939a
-}
-
-.event-note {
-  color:#a8c0c5;
-  font-size:11px
 }
 
 .section-space {
@@ -764,9 +746,6 @@ h1>span {
     max-width:510px;
     margin-top:19px
   }
-  .hero .button {
-    margin-top:25px
-  }
   .hero-signup .button {
     width:100%;
     gap:16px
@@ -804,20 +783,6 @@ h1>span {
     height:290px;
     opacity:.6;
     transform:rotate(-7deg)
-  }
-  .event-strip {
-    align-items:flex-start;
-    flex-direction:column;
-    padding-block:20px;
-    gap:10px
-  }
-  .event-strip>p:first-child {
-    font-size:12px;
-    gap:10px
-  }
-  .event-note {
-    font-size:10px;
-    padding-left:16px
   }
   .section-space {
     padding-block:59px
@@ -942,15 +907,6 @@ h1>span {
     gap:20px;
     padding-inline:18px
   }
-  .event-strip>p:first-child {
-    font-size:11px
-  }
-  .event-divider {
-    display:none
-  }
-  .event-strip>p:first-child {
-    column-gap:9px
-  }
   .experience-item h3 {
     font-size:27px
   }
@@ -974,12 +930,17 @@ h1>span {
   }
 }
 
-.footer-links {
-  margin-left:auto;
+.footer-links,.footer-links .hero-analytics-preferences {
   display:flex;
   align-items:center;
   flex-wrap:wrap;
   gap:20px
+}
+
+.footer-links {
+  margin-left:auto;
+  font-size:11px;
+  font-weight:550
 }
 
 .hero-copy,.signup-area {
@@ -995,7 +956,7 @@ h1>span {
 }
 
 @media(max-width:760px) {
-  .footer-links {
+  .footer-links,.footer-links .hero-analytics-preferences {
     gap:16px
   }
   html {

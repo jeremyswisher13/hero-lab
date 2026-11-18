@@ -16,7 +16,7 @@ The campaign is `hero_brief_signup`. GA receives only the approved fixed
 source, medium, and content from this table, plus fixed public page context.
 The term is empty. Existing approved monthly newsletter campaigns still work.
 Exact recruitment tuples are recognized on the explicitly supported public
-pages, including the newsletter archive and the sent October issue. After
+pages, including the newsletter archive and the October and November web editions. After
 analytics permission, capture occurs without waiting for Google to load. The
 fixed label and expiry metadata can remain in same-tab session storage for up
 to 30 minutes from the tagged visit. Untagged internal navigation preserves
@@ -234,6 +234,18 @@ records; no test addresses, subscriber identifiers, or confirmation tokens
 belong in this repository.
 
 ## Reporting limits
+
+For the weekly Summit check, use the same complete dates in the GA4 property's
+reporting time zone and in the private interest-form responses. Filter GA4 to
+the exact page path `/summit/`. Report `page_view` and
+`hero_summit_form_click` event counts separately. The existing `action_id`
+dimension distinguishes the top button (`hero`) and bottom button (`footer`).
+Each button can count once per consenting page visit. Either button opens the
+same form. Count first-time, consenting interest-list contacts by submission
+date, deduplicating across prior responses and excluding known tests. Report
+these counts alongside one another. Clicks and form responses cover different
+people, so their ratio is not a verified completion rate. Mark dates before
+tracking began or for which GA data is unavailable as unmeasured.
 
 - `hero_newsletter_submit` means a locally valid form submission actually
   started the matching MailerLite AJAX request.

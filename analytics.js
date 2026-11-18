@@ -28,15 +28,23 @@
     '/faq.html': ['faq', 'HERO Lab frequently asked questions'],
     '/newsletter.html': ['newsletter', 'The HERO Brief newsletter'],
     '/newsletter-archive.html': ['newsletter-archive', 'The HERO Brief archive'],
-    '/hero-brief-2026-10-13.html': ['hero-brief-2026-10', 'The HERO Brief October 2026']
+    '/hero-brief-2026-10-13.html': ['hero-brief-2026-10', 'The HERO Brief October 2026'],
+    '/hero-brief-2026-11-10.html': ['hero-brief-2026-11', 'The HERO Brief November 2026'],
+    '/summit/': ['summit', 'HERO Summit 2028']
   };
+  pages['/summit/index.html'] = pages['/summit/'];
+  var summitInterestForm = 'https://docs.google.com/forms/d/e/1FAIpQLScW73wTo-y7QrfkWksfaBFM2bTVXdXcJMDpBX958PjF4515jA/viewform';
   // Accept only these public subjects and MailerLite's exact campaign labels.
   var newsletterCampaigns = {
     'The HERO Brief: What helps recovery?': 'hero_brief_2026_10',
     'The HERO Brief What helps recovery': 'hero_brief_2026_10',
     'The HERO Brief What helps recovery ': 'hero_brief_2026_10',
     'The HERO Brief: More sleep, smarter fueling': 'hero_brief_2026_11',
-    'The HERO Brief More sleep smarter fueling': 'hero_brief_2026_11'
+    'The HERO Brief More sleep smarter fueling': 'hero_brief_2026_11',
+    'The HERO Brief: More sleep, smarter recovery': 'hero_brief_2026_11',
+    'The HERO Brief More sleep smarter recovery': 'hero_brief_2026_11',
+    'The HERO Brief: Travel well this holiday season': 'hero_brief_2026_12',
+    'The HERO Brief Travel well this holiday season': 'hero_brief_2026_12'
   };
   // These constants are the only recruitment values that can leave this page.
   var signupSources = [
@@ -104,7 +112,7 @@
   var pageOpenedAt = Date.now();
   if (!has(pages, initialPath)) return;
   var page = pages[initialPath];
-  var pagePath = page[0] === 'home' ? '/' : initialPath;
+  var pagePath = initialPath.replace(/\/index\.html$/, '/');
   var signupSessionKey = 'hero-signup-source-v1';
   var signupSessionLifetime = 30 * 60 * 1000;
 
@@ -338,7 +346,7 @@
   panel.className = 'hero-analytics-panel';
   panel.setAttribute('aria-labelledby', 'hero-analytics-title');
   panel.innerHTML = '<h2 id="hero-analytics-title">Optional website analytics</h2>' +
-    '<p>HERO Lab uses optional Google Analytics cookies to measure visits and newsletter signup activity.</p>' +
+    '<p>HERO Lab uses optional Google Analytics cookies to measure visits, newsletter signup activity, and clicks to the Summit interest form.</p>' +
     '<p id="hero-analytics-status"></p><div class="hero-analytics-actions"><button type="button" id="hero-analytics-allow">Allow analytics</button>' +
     '<button type="button" id="hero-analytics-decline">Decline</button></div>' +
     '<a class="hero-analytics-details" href="/privacy.html#analytics">Analytics privacy details</a>';
@@ -436,6 +444,9 @@
         name = 'hero_newsletter_cta';
         params.action_id = parts[1];
         if (signupPlacements.indexOf(parts[1]) !== -1) params.signup_placement = parts[1];
+      } else if (parts[0] === 'summit-interest') {
+        name = 'hero_summit_form_click';
+        params.action_id = parts[1];
       } else if (parts[0] === 'publication-source') {
         name = 'hero_publication_click';
         params.publication_id = parts[1];
@@ -502,6 +513,11 @@
     if (!node || typeof node.closest !== 'function') return;
     var target = node.closest('[data-analytics][data-analytics-id],a[href]');
     if (!target || !/^(A|BUTTON)$/.test(target.tagName) || target.disabled) return;
+    if (page[0] === 'summit' && target.tagName === 'A' && target.getAttribute('href') === summitInterestForm) {
+      var placement = target.getAttribute('data-summit-interest');
+      if (placement === 'hero' || placement === 'footer') send('summit-interest:' + placement, page[1], true);
+      return;
+    }
     var kind = target.getAttribute('data-analytics');
     var id = target.getAttribute('data-analytics-id');
     if (!kind && !id) {

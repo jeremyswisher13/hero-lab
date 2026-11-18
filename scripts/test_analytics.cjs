@@ -15,6 +15,8 @@ const KEY = 'hero-analytics-consent-v1';
 const SOURCE_KEY = 'hero-signup-source-v1';
 const SOURCE_LIFETIME = 30 * 60 * 1000;
 const ID = 'G-OFFLINE123';
+const NOVEMBER_SUBJECT = 'The HERO Brief: More sleep, smarter recovery';
+const SUMMIT_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScW73wTo-y7QrfkWksfaBFM2bTVXdXcJMDpBX958PjF4515jA/viewform';
 const CAMPAIGN_KEYS = ['campaign_id', 'campaign_name', 'campaign_source', 'campaign_medium', 'campaign_term', 'campaign_content'];
 const granted = () => JSON.stringify({ choice: 'granted', expires: Date.now() + 86400000 });
 const denied = () => JSON.stringify({ choice: 'denied', expires: Date.now() + 86400000 });
@@ -384,13 +386,17 @@ function newsletterQuery(subject = 'The HERO Brief: What helps recovery?') {
 
 function contexts(f) { return f.calls().filter(call => call[0] === 'config' || call[0] === 'event').map(call => call[2]); }
 
-test('approved October and November newsletter tuples map atomically to fixed GA4 campaign fields', () => {
+test('approved October, November and December newsletter tuples map atomically to fixed GA4 campaign fields', () => {
   for (const [subject, label] of [
     ['The HERO Brief: What helps recovery?', 'hero_brief_2026_10'],
     ['The HERO Brief What helps recovery', 'hero_brief_2026_10'],
     ['The HERO Brief What helps recovery ', 'hero_brief_2026_10'],
     ['The HERO Brief: More sleep, smarter fueling', 'hero_brief_2026_11'],
-    ['The HERO Brief More sleep smarter fueling', 'hero_brief_2026_11']
+    ['The HERO Brief More sleep smarter fueling', 'hero_brief_2026_11'],
+    [NOVEMBER_SUBJECT, 'hero_brief_2026_11'],
+    ['The HERO Brief More sleep smarter recovery', 'hero_brief_2026_11'],
+    ['The HERO Brief: Travel well this holiday season', 'hero_brief_2026_12'],
+    ['The HERO Brief Travel well this holiday season', 'hero_brief_2026_12']
   ]) {
     const f = accept(boot({location: {pathname: '/newsletter.html', search: newsletterQuery(subject)}}));
     f.click('inquiry', 'study-participation');
@@ -469,6 +475,8 @@ test('missing, unknown, partial, case-changed, whitespace, duplicate and malform
     newsletterQuery('The HERO Brief More sleep, smarter fueling'),
     newsletterQuery('The HERO Brief More Sleep Smarter Fueling'),
     newsletterQuery('The HERO Brief More sleep smarter fueling extra'),
+    newsletterQuery(NOVEMBER_SUBJECT + ' reader@example.com'),
+    newsletterQuery('The HERO Brief Travel well this holiday season extra'),
     newsletterQuery('The HERO Brief What helps recovery') + '&utm_campaign=The+HERO+Brief+What+helps+recovery',
     newsletterQuery('The HERO Brief: A future issue'),
     newsletterQuery('hero_brief_2026_10'),
@@ -538,14 +546,22 @@ test('newsletter denial and withdrawal prevent campaign events and form input is
   assert.equal(f.window.reloads, 1);
 });
 
-test('newsletter HTML loads shared consent assets in order and exposes preferences; privacy stays excluded', () => {
-  const html = fs.readFileSync(path.join(root, 'newsletter.html'), 'utf8');
-  assert.match(html, /href="analytics-consent\.css\?[^\"]+"/);
-  assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
-  assert.ok(html.indexOf('src="analytics-config.js?') < html.indexOf('src="analytics.js?'));
-  assert.match(html, /src="analytics-config\.js\?[^\"]+" defer/);
-  assert.match(html, /src="analytics\.js\?v=[^\"]+" defer/);
-  assert.doesNotMatch(html, /<(?:input|textarea|select|form)\b[^>]+data-analytics=(?:"|')/);
+test('newsletter, November issue and Summit HTML load shared consent assets in order and expose preferences', () => {
+  const origin = 'https://herolabsportsmedicine.com';
+  for (const file of ['newsletter.html', 'hero-brief-2026-11-10.html', 'summit/index.html']) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    const page = new URL(file, origin);
+    const css = html.match(/<link[^>]*href="([^"]*analytics-consent\.css\?[^"]+)"/);
+    assert.ok(css, file);
+    assert.equal(new URL(css[1], page).href.split('?')[0], origin + '/analytics-consent.css');
+    assert.match(html, /<button[^>]+data-analytics-preferences[^>]+hidden>Analytics preferences<\/button>/);
+    const scripts = [...html.matchAll(/<script[^>]+src="([^"]*analytics(?:-config)?\.js\?v=[^"]+)"[^>]*>/g)];
+    assert.deepEqual(scripts.map(([, src]) => new URL(src, page).href.split('?')[0]), [
+      origin + '/analytics-config.js', origin + '/analytics.js'
+    ], file);
+    assert.ok(scripts.every(([tag]) => /\sdefer\b/.test(tag)), file);
+    assert.doesNotMatch(html, /<(?:input|textarea|select|form)\b[^>]+data-analytics=(?:"|')/);
+  }
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /<script[^>]+analytics/);
   assert.match(privacy, /hero_brief_2026_10/);
@@ -648,7 +664,7 @@ test('storage errors fail closed initially and still allow an explicit in-memory
 
 test('production HTTPS host/page allowlists block local, preview, admin, private, and unknown pages', () => {
   for (const pathname of ['/workspace/', '/workspace/index.html', '/admin.html', '/preview-premium.html', '/404.html',
-    '/private/token123', '/googlefe5f1d63033d9213.html', '/unlisted.html', '/%69ndex.html', '/privacy.html']) {
+    '/summit/private.html', '/hero-brief-2026-11-11.html', '/private/token123', '/googlefe5f1d63033d9213.html', '/unlisted.html', '/%69ndex.html', '/privacy.html']) {
     assert.equal(scripts(boot({ stored: granted(), location: { pathname } })).length, 0, pathname);
   }
   for (const hostname of ['localhost', '127.0.0.1', '192.168.1.10', 'preview.herolabsportsmedicine.com', 'evil.example']) {
@@ -1452,9 +1468,10 @@ test('an eligible visible signup may be accepted after switching tabs, without a
   assert.deepEqual(signupEvents(withdrawn).map(call => call[1]), ['hero_newsletter_submit']);
 });
 
-function signupLink(f, href, extra = {}) {
+function clickLink(f, href, extra = {}) {
   const link = f.document.createElement('a');
   link.setAttribute('href', href);
+  if (extra.summitPlacement !== undefined) link.setAttribute('data-summit-interest', extra.summitPlacement);
   const nested = f.document.createElement('span');
   link.append(nested);
   f.document.body.append(link);
@@ -1464,7 +1481,7 @@ function signupLink(f, href, extra = {}) {
     link.getAttribute = name => {
       if (name === 'href') {
         link.hrefReads += 1;
-        throw new Error('Signup link read before analytics was active');
+        throw new Error('Link read before analytics was active');
       }
       return getAttribute(name);
     };
@@ -1517,7 +1534,7 @@ test('existing signup links infer only approved placement labels on the HTTPS pu
     'newsletter.html?%68ero_signup_placement=home_nav'
   ]) {
     const f = accept(boot());
-    signupLink(f, href);
+    clickLink(f, href);
     f.click('newsletter-cta', 'home_nav');
     assert.equal(customEvents(f).length, 1, 'inferred and explicit labels share deduplication');
     const event = customEvents(f)[0];
@@ -1548,7 +1565,7 @@ test('existing signup links infer only approved placement labels on the HTTPS pu
     'mailto:private-reader@example.com?hero_signup_placement=home_nav'
   ]) {
     const f = accept(boot());
-    signupLink(f, href);
+    clickLink(f, href);
     assert.equal(customEvents(f).length, 0, href);
   }
 });
@@ -1565,14 +1582,14 @@ test('new click events do not parse links or replay actions before consent, tag 
   ]) {
     const f = boot();
     setup(f);
-    const link = signupLink(f, 'newsletter.html?hero_signup_placement=home_hero', {noRead: true});
+    const link = clickLink(f, 'newsletter.html?hero_signup_placement=home_hero', {noRead: true});
     f.click('newsletter-cta', 'home_hero');
     f.click('publication-source', 'sleep-extension-2026');
     assert.equal(customEvents(f).length, 0);
     assert.equal(link.hrefReads, 0);
   }
   const f = boot();
-  signupLink(f, 'newsletter.html?hero_signup_placement=home_hero', {noRead: true});
+  clickLink(f, 'newsletter.html?hero_signup_placement=home_hero', {noRead: true});
   f.click('publication-source', 'sleep-extension-2026');
   accept(f);
   assert.equal(customEvents(f).length, 0, 'consent and tag load never replay earlier clicks');
@@ -1588,4 +1605,89 @@ test('new publication pages use fixed public context and preserve approved campa
     assert.ok(contexts(f).every(params => params.campaign_id === 'hero_brief_2026_10'));
     assert.ok(!JSON.stringify(f.calls()).includes('private-token'));
   }
+});
+
+test('November issue, archive and Summit organic visits retain canonical page context without email attribution', () => {
+  for (const [pathname, canonicalPath, pageId] of [
+    ['/newsletter-archive.html', '/newsletter-archive.html', 'newsletter-archive'],
+    ['/hero-brief-2026-11-10.html', '/hero-brief-2026-11-10.html', 'hero-brief-2026-11'],
+    ['/summit/', '/summit/', 'summit'],
+    ['/summit/index.html', '/summit/', 'summit']
+  ]) {
+    const search = '?email=private-reader%40example.com&subscriber=private-subscriber';
+    const f = accept(boot({location: {pathname, search}}));
+    assert.equal(pageviews(f).length, 1);
+    assert.equal(pageviews(f)[0][2].page_id, pageId);
+    for (const params of contexts(f)) {
+      assert.equal(params.page_location, 'https://herolabsportsmedicine.com' + canonicalPath);
+      assert.equal(params.page_referrer, '');
+      assert.ok(CAMPAIGN_KEYS.every(key => params[key] === ''));
+    }
+    assert.doesNotMatch(JSON.stringify([f.calls(), f.storageWrites, f.sessionWrites]), /private-reader|private-subscriber/);
+  }
+});
+
+test('the two Summit form links each emit one consented outbound event with fixed page and placement', () => {
+  const f = accept(boot({location: {pathname: '/summit/', search: newsletterQuery(NOVEMBER_SUBJECT) + '&token=private-token'}}));
+  const html = fs.readFileSync(path.join(root, 'summit/index.html'), 'utf8');
+  const anchors = f.document.createElement('div');
+  anchors.innerHTML = (html.match(/<a\b[^>]*>[\s\S]*?<\/a>/gi) || []).join('');
+  f.document.body.append(anchors);
+  const links = anchors.querySelectorAll('a[data-summit-interest]');
+  assert.deepEqual(links.map(link => link.getAttribute('data-summit-interest')), ['hero', 'footer']);
+  const view = pageviews(f)[0][2];
+  assert.equal(view.page_id, 'summit');
+  assert.equal(view.page_location, 'https://herolabsportsmedicine.com/summit/');
+  assert.equal(view.campaign_id, 'hero_brief_2026_11');
+  for (const link of links) {
+    assert.equal(link.getAttribute('href'), SUMMIT_FORM);
+    const target = link.querySelector('span') || link;
+    target.dispatchEvent({type: 'auxclick', isTrusted: true, button: 1, bubbles: true});
+    link.click();
+  }
+  assert.deepEqual(customEvents(f), ['hero', 'footer'].map(action_id =>
+    ['event', 'hero_summit_form_click', {...view, action_id}]));
+  assert.doesNotMatch(JSON.stringify([f.calls(), f.storageWrites, f.sessionWrites]), /docs\.google|viewform|private-token|utm_|smarter recovery/);
+});
+
+test('Summit form clicks require the Summit page, a trusted click, an approved placement and the exact destination', () => {
+  const f = accept(boot({location: {pathname: '/summit/'}}));
+  for (const href of [
+    SUMMIT_FORM + '?email=private-reader%40example.com', SUMMIT_FORM + '#private-fragment',
+    SUMMIT_FORM.replace('docs.google.com', 'docs.google.com.example.com'),
+    SUMMIT_FORM.replace('https:', 'http:'), SUMMIT_FORM.replace('/viewform', '/edit'),
+    SUMMIT_FORM.replace('/d/e/1F', '/d/e/2F')
+  ]) clickLink(f, href, {summitPlacement: 'hero'});
+  for (const summitPlacement of [undefined, 'Hero', 'constructor', 'private-reader@example.com']) {
+    clickLink(f, SUMMIT_FORM, {summitPlacement});
+  }
+  clickLink(f, SUMMIT_FORM, {summitPlacement: 'hero', isTrusted: false});
+  clickLink(f, SUMMIT_FORM, {summitPlacement: 'footer', type: 'auxclick', button: 2});
+  for (const type of ['submit', 'input', 'message']) f.fire(type, {data: 'private-reader@example.com'});
+  assert.deepEqual(customEvents(f), []);
+  const otherPage = accept(boot());
+  clickLink(otherPage, SUMMIT_FORM, {summitPlacement: 'hero'});
+  assert.deepEqual(customEvents(otherPage), []);
+});
+
+test('Summit clicks wait for consent and tag readiness and stop after withdrawal', () => {
+  const f = boot({location: {pathname: '/summit/', search: newsletterQuery(NOVEMBER_SUBJECT)}});
+  const suppressedClick = () => {
+    const link = clickLink(f, SUMMIT_FORM, {summitPlacement: 'hero', noRead: true});
+    assert.equal(link.hrefReads, 0);
+    assert.deepEqual(customEvents(f), []);
+  };
+  suppressedClick();
+  assert.deepEqual(f.queryReads, []);
+  f.decline();
+  suppressedClick();
+  assert.equal(scripts(f).length, 0);
+  f.preference.click();
+  f.allow();
+  suppressedClick();
+  f.load();
+  assert.equal(pageviews(f).length, 1);
+  assert.deepEqual(customEvents(f), [], 'earlier clicks never replay');
+  f.decline();
+  suppressedClick();
 });

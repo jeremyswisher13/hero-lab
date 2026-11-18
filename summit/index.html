@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="HERO Summit 2028 brings together sports medicine and performance professionals. Planned for January 2028 in Los Angeles. Join the interest list for updates.">
   <meta name="theme-color" content="#102e38">
@@ -28,7 +29,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/summit/assets/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/summit/summit.css?v=20261114">
+  <link rel="stylesheet" href="/summit/summit.css?v=44c0fb3a17cd">
+  <link rel="stylesheet" href="/analytics-consent.css?v=3bd3fe42654f">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -74,7 +76,8 @@
           <h2>The science of recovery<br class="desktop-break"> and performance.</h2>
           <p class="hero-description">A sports medicine gathering for clinicians, researchers, coaches, and performance staff. Explore how athletes recover, adapt, and perform, and how research can inform care and training.</p>
           <div class="hero-signup" id="signup">
-            <a class="button button-aqua" href="https://docs.google.com/forms/d/e/1FAIpQLScW73wTo-y7QrfkWksfaBFM2bTVXdXcJMDpBX958PjF4515jA/viewform" target="_blank" rel="noopener noreferrer" aria-describedby="hero-signup-hint">Join the Summit interest list <span aria-hidden="true">↗</span></a>
+            <p class="event-details"><strong>Planned for January 2028 in Los Angeles</strong> <span>Dates and venue to be announced.</span></p>
+            <a class="button button-aqua" href="https://docs.google.com/forms/d/e/1FAIpQLScW73wTo-y7QrfkWksfaBFM2bTVXdXcJMDpBX958PjF4515jA/viewform" target="_blank" rel="noopener noreferrer" data-summit-interest="hero" aria-describedby="hero-signup-hint">Join the Summit interest list <span aria-hidden="true">↗</span></a>
             <p id="hero-signup-hint">Get dates, program news, and registration updates. The form opens in a new tab. No Google account required.</p>
           </div>
         </div>
@@ -99,10 +102,6 @@
           <div class="art-year"><span>20</span><span>28<span class="year-dot">.</span></span></div>
           <div class="art-bottomline"><span>HERO SUMMIT</span><span>LOS ANGELES</span></div>
         </div>
-      </div>
-      <div class="wrap event-strip">
-        <p><span class="event-marker" aria-hidden="true"></span>Planned for January 2028 in Los Angeles</p>
-        <p class="event-note">Dates and venue to be announced.</p>
       </div>
     </section>
 
@@ -156,7 +155,7 @@
             <p class="signup-label"><span aria-hidden="true"></span>HERO SUMMIT 2028</p>
             <h3>Join the interest list</h3>
             <p class="signup-intro">Enter your email and give permission to receive Summit updates.</p>
-            <a class="button button-aqua signup-button" href="https://docs.google.com/forms/d/e/1FAIpQLScW73wTo-y7QrfkWksfaBFM2bTVXdXcJMDpBX958PjF4515jA/viewform" target="_blank" rel="noopener noreferrer" aria-describedby="signup-hint">Join the Summit interest list <span aria-hidden="true">↗</span></a>
+            <a class="button button-aqua signup-button" href="https://docs.google.com/forms/d/e/1FAIpQLScW73wTo-y7QrfkWksfaBFM2bTVXdXcJMDpBX958PjF4515jA/viewform" target="_blank" rel="noopener noreferrer" data-summit-interest="footer" aria-describedby="signup-hint">Join the Summit interest list <span aria-hidden="true">↗</span></a>
             <p id="signup-hint" class="signup-hint">Opens in a new tab. No Google account required.</p>
             <p class="signup-privacy">Summit updates only. Joining this list does not register you for the event. <a href="/privacy.html#summit">Privacy</a></p>
           </div>
@@ -170,9 +169,11 @@
       <p>Human Enhancement &amp; Recovery Optimization</p>
       <nav class="footer-links" aria-label="Footer">
         <a class="footer-link" href="/">Explore HERO Lab <span aria-hidden="true">↗</span></a>
-        <a class="footer-link" href="/privacy.html">Privacy</a>
+        <div class="hero-analytics-preferences"><button type="button" data-analytics-preferences hidden>Analytics preferences</button><a href="/privacy.html">Privacy</a></div>
       </nav>
     </div>
   </footer>
+  <script src="/analytics-config.js?v=20260907-ga4" defer></script>
+  <script src="/analytics.js?v=d8d2bbc7a108" defer></script>
 </body>
 </html>

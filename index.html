@@ -8,7 +8,7 @@
   <meta name="keywords" content="HERO Lab, UCLA sports medicine research, athletic performance research, sleep research athletes, recovery science, WHOOP research, NCAA athlete study, concussion recovery, magnesium L-threonate athletes, cold water immersion study, UCLA UCSF collaboration, wearable technology sports, HRV athletes, sports medicine clinical trials">
   <link rel="canonical" href="https://herolabsportsmedicine.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="home-bundle.css?v=59311657d7e0">
+  <link rel="stylesheet" href="home-bundle.css?v=90fd9389c472">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
@@ -376,22 +376,21 @@
 <body class="homepage-refresh premium-home">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- News Banner -->
-  <div class="news-banner" id="newsBanner">
+  <div class="news-banner" id="newsBanner" data-dismiss-key="herolab-news-banner-dismissed-app-launch">
     <div class="news-banner-inner">
-      <span class="news-banner-tag">Spring 2027</span>
-      <span class="news-banner-text"><strong>Magnesium. Sleep. Performance.</strong> We’re planning a second cohort for our magnesium study.</span>
-      <a href="magnesium-formulation-study.html" class="news-banner-link" data-analytics="study-cta" data-analytics-id="banner-study">Magnesium study &rarr;</a>
+      <span class="news-banner-tag">New HERO app</span>
+      <span class="news-banner-text"><strong>HERO: Recovery &amp; Performance</strong> is free for iPhone and iPad.</span>
+      <a href="https://apps.apple.com/us/app/hero-recovery-performance/id6826496101" class="news-banner-link" aria-label="Get HERO on the App Store">Get it on the App Store <span aria-hidden="true">&nearr;</span></a>
       <button type="button" class="news-banner-close" id="newsBannerClose" aria-label="Dismiss announcement">&times;</button>
     </div>
   </div>
   <script>
     // Reserve the measured banner space before the main content can paint.
-    // Keep the dismissal key synchronized with script.js.
     (() => {
       const banner = document.getElementById('newsBanner');
       let dismissed = false;
       try {
-        dismissed = localStorage.getItem('herolab-news-banner-dismissed-magnesium-fall2026') === 'true';
+        dismissed = localStorage.getItem(banner.dataset.dismissKey) === 'true';
       } catch { /* Keep the announcement visible when storage is unavailable. */ }
       document.body.classList.toggle('has-news-banner', !dismissed);
       if (dismissed) banner.remove();
@@ -441,6 +440,31 @@
       </figure>
     </div>
   </section>
+
+<section class="app-feature" id="hero-app" aria-labelledby="app-feature-title">
+  <div class="container app-feature-grid">
+    <div class="app-feature-copy">
+      <p class="app-feature-name"><img src="images/app/hero-icon.webp" width="44" height="44" alt="" loading="lazy"> HERO: Recovery &amp; Performance</p>
+      <h2 id="app-feature-title">Arrive ready<br>to perform.</h2>
+      <p class="app-feature-description">Flying across time zones? Enter your flights to see when to sleep, get light and train, from the trip out to the flight home.</p>
+      <div class="app-feature-download">
+        <div>
+          <p>Free for iPhone and iPad in the U.S.</p>
+          <a class="app-feature-badge" href="https://apps.apple.com/us/app/hero-recovery-performance/id6826496101"><img src="images/app/app-store-badge.svg" width="150" height="50" alt="Download HERO on the App Store"></a>
+          <a class="app-feature-details" href="app/">About the app <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <figure class="app-feature-qr">
+          <img src="images/app/app-store-qr.png" width="94" height="94" alt="QR code for the HERO App Store listing" loading="lazy">
+          <figcaption>Scan with iPhone</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="app-feature-screens">
+      <img class="app-screen-today" src="images/app/today.webp" width="548" height="1192" loading="lazy" decoding="async" alt="HERO Today showing a trip from Los Angeles to New York and a daily check-in.">
+      <img class="app-screen-plan" src="images/app/trip-plan.webp" width="480" height="1044" loading="lazy" decoding="async" alt="HERO’s day-by-day trip plan with travel-day guidance in Los Angeles time.">
+    </div>
+  </div>
+</section>
 
 <section class="premium-resource-row" aria-labelledby="summit-promotion-title">
   <div class="container">
@@ -1101,6 +1125,7 @@
           </div>
           <div class="footer-col">
             <h4>Connect</h4>
+            <a href="app/">HERO app for iPhone and iPad</a>
             <a href="/summit/">HERO Summit 2028</a>
             <a href="newsletter.html?hero_signup_placement=home_footer" data-analytics="newsletter-cta" data-analytics-id="home_footer">The HERO Brief newsletter</a>
             <a href="https://www.instagram.com/herolabsportsmedicine/" target="_blank" rel="noopener">Instagram</a>
@@ -1126,7 +1151,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=ff2e447b1db7" defer></script>
+  <script src="script.js?v=ca8392487b0a" defer></script>
 
 <script src="premium.js?v=20260906-premium" defer></script>
   <script src="analytics-config.js?v=20260907-ga4" defer></script>

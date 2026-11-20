@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
-  const BANNER_KEY = 'herolab-news-banner-dismissed-magnesium-fall2026';
 
   let currentBannerHeight = 0;
   let bannerResizeObserver = null;
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let bannerWasDismissed = false;
   try {
-    bannerWasDismissed = localStorage.getItem(BANNER_KEY) === 'true';
+    bannerWasDismissed = newsBanner && localStorage.getItem(newsBanner.dataset.dismissKey) === 'true';
   } catch {
     // Storage can be unavailable in strict privacy contexts.
   }
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setBannerHeight(0);
 
       try {
-        localStorage.setItem(BANNER_KEY, 'true');
+        localStorage.setItem(newsBanner.dataset.dismissKey, 'true');
       } catch {
         // Dismissal still works for the current visit.
       }

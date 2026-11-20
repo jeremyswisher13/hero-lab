@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 BUNDLES = {
     "home-bundle.css": ("index.html", [
         "fonts.css", "styles.css", "refresh.css", "premium.css",
-        "study-film.css", "analytics-consent.css", "newsletter.css",
+        "study-film.css", "analytics-consent.css", "newsletter.css", "app-feature.css",
     ]),
     "study-bundle.css": ("magnesium-formulation-study.html", [
         "fonts.css", "styles.css", "refresh.css", "study-experience.css",
